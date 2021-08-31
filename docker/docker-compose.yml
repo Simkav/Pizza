@@ -12,11 +12,10 @@ services:
     container_name: ${APP_SERVICE_CONTAINER}
     domainname: ${APP_SERVICE_DOMAIN}
     image: node:14
-    build:
-      args:
-        - ENVIRONMENT=${ENVIRONMENT}
+    environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
     volumes:
-      - ../client/src:/home/node/app
+      - ../client:/home/node/app
     working_dir: /home/node/app
     restart: unless-stopped
     networks:
@@ -26,11 +25,10 @@ services:
     container_name: ${API_SERVICE_CONTAINER}
     domainname: ${API_SERVICE_DOMAIN}
     image: node:14
-    build:
-      args:
-        - ENVIRONMENT=${ENVIRONMENT}
+    environment: 
+      - ENVIRONMENT=${ENVIRONMENT}
     volumes:
-      - ../server/src:/home/node/app
+      - ../server:/home/node/app
     working_dir: /home/node/app
     restart: unless-stopped
     networks:
