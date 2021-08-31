@@ -1,0 +1,51 @@
+version: "3"
+
+networks:
+  shared:
+    external: false
+
+volumes:
+  postgres-data:
+
+services:
+  &app-web-service app-web-service:
+    container_name: ${APP_SERVICE_CONTAINER}
+    domainname: ${APP_SERVICE_DOMAIN}
+    image: node:14
+    build:
+      args:
+        - ENVIRONMENT=${ENVIRONMENT}
+    volumes:
+      - ../client/src:/home/node/app
+    working_dir: /home/node/app
+    restart: unless-stopped
+    networks:
+      - shared
+
+  &api-web-service api-web-service:
+    container_name: ${API_SERVICE_CONTAINER}
+    domainname: ${API_SERVICE_DOMAIN}
+    image: node:14
+    build:
+      args:
+        - ENVIRONMENT=${ENVIRONMENT}
+    volumes:
+      - ../server/src:/home/node/app
+    working_dir: /home/node/app
+    restart: unless-stopped
+    networks:
+      - shared
+
+  &postgress-db-service postgress-db-service:
+    container_name: retter-postgress-db-service
+    domainname: retter-postgress-db-service
+    image: postgres:13-buster
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: unless-stopped
+    networks:
+      - shared
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
