@@ -1,0 +1,152 @@
+.header {
+  height: 90px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 900;
+  background: var(--header-main-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
+  --header-main-color: #f2f2f2;
+  --header-height: 90px;
+
+  --hamburger-menu-grow-animation-time: 1s;
+
+  --arrow-down-grow-animation-time: 0.5s;
+
+  --hover-main-color: rgb(175, 175, 175);
+}
+
+.hamburger_menu_container {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  transition: all var(--hamburger-menu-grow-animation-time) ease;
+}
+
+.hamburger_menu_active {
+  background: var(--hover-main-color);
+  transform: rotateY(180deg);
+}
+
+.hover_element:hover {
+  background: var(--hover-main-color);
+}
+
+.hamburger_bars {
+
+}
+
+.hamburger_cross {
+
+}
+
+.site_logo_container {
+  width: 250px;
+}
+
+.site_logo {
+  margin-left: 50px;
+}
+
+.header_navigation {
+  margin-right: 50px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.header_menu_text {
+  margin: 0px 15px;
+}
+
+.col {
+  height: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow_down {
+  margin: 15px;
+  border: 0px solid var(--header-main-color);
+  border-radius: 50%;
+  transition: all var(--arrow-down-grow-animation-time) ease;
+}
+
+.arrow_down:hover {
+  border: 10px solid var(--hover-main-color);
+  background: var(--hover-main-color);
+}
+
+.arrow_active {
+  border: 15px solid var(--hover-main-color);
+  border-radius: 15px;
+  background: var(--hover-main-color);
+}
+
+.contact_phone_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact_phone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+  background: rgb(255, 255, 255);
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.3);
+}
+
+.contact_phone:hover {
+  margin: 10px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.phone {
+  color: black;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 5px 0px;
+}
+
+.phone:before {
+  content: " ";
+  width: 16px;
+  height: 22px;
+  background-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: 10px;
+  background-repeat: no-repeat;
+}
+
+.standart:before {
+  background-image: url(../../../icons/standart.svg);
+}
+
+.lifecell:before {
+  background-image: url(../../../icons/lifecell.svg);
+}
+
+.kyivstar:before {
+  background-image: url(../../../icons/kyivstar.svg);
+}
+
+.vodafone:before {
+  background-image: url(../../../icons/vodafon.svg);
+}
