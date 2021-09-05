@@ -1,6 +1,5 @@
 import { useState } from "react";
 import cl from "./Header.module.css";
-import logo from "./../../../images/site-logo2.png";
 import PopUpModule from "../PopUpModule/PopUpModule";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -34,10 +33,26 @@ export default function Header() {
   }
 
   const contact_phones_objects = [
-    { prefix: "044", href: "tel:+380442283228", class: cl.standart },
-    { prefix: "093", href: "tel:+380932283228", class: cl.lifecell },
-    { prefix: "097", href: "tel:+380972283228", class: cl.kyivstar },
-    { prefix: "066", href: "tel:+380662283228", class: cl.vodafone },
+    {
+      prefix: "044",
+      href: "tel:+380442283228",
+      imageSrc: "/icons/standart.svg",
+    },
+    {
+      prefix: "093",
+      href: "tel:+380932283228",
+      imageSrc: "/icons/lifecell.svg",
+    },
+    {
+      prefix: "097",
+      href: "tel:+380972283228",
+      imageSrc: "/icons/kyivstar.svg",
+    },
+    {
+      prefix: "066",
+      href: "tel:+380662283228",
+      imageSrc: "/icons/vodafon.svg",
+    },
   ];
 
   return (
@@ -55,7 +70,7 @@ export default function Header() {
       <div className={cl.site_logo_container}>
         <img
           className={cl.site_logo}
-          src={logo}
+          src="/images/site-logo2.png"
           alt="Site logo"
           height="100%"
         />
@@ -75,9 +90,14 @@ export default function Header() {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
                   <a
-                    href={`tel:+38${item.prefix}2283228`}
-                    className={`${cl.phone} ${item.class}`}
+                    src={item.imageSrc}
+                    href={item.href}
+                    className={`${cl.phone}`}
                   >
+                    <img
+                      src={item.imageSrc}
+                      className={cl.phone_operator_icon}
+                    />
                     {`(${item.prefix}) 228-3-228`}
                   </a>
                 </div>
