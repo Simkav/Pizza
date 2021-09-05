@@ -74,21 +74,28 @@
   align-items: center;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .arrow_down {
-  margin: 15px;
+  box-sizing: border-box;
+  margin: 0px 15px;
   border: 0px solid var(--header-main-color);
   border-radius: 50%;
   transition: all var(--arrow-down-grow-animation-time) ease;
 }
 
 .arrow_down:hover {
-  border: 10px solid var(--hover-main-color);
+  border: 5px solid var(--hover-main-color);
   background: var(--hover-main-color);
 }
 
 .arrow_active {
-  border: 15px solid var(--hover-main-color);
-  border-radius: 15px;
+  border: 10px solid var(--hover-main-color);
+  border-radius: 5px;
   background: var(--hover-main-color);
 }
 
