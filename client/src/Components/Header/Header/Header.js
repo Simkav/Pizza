@@ -89,11 +89,7 @@ export default function Header() {
             {contact_phones_objects.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
-                  <a
-                    src={item.imageSrc}
-                    href={item.href}
-                    className={`${cl.phone}`}
-                  >
+                  <a href={item.href} className={`${cl.phone}`}>
                     <img
                       src={item.imageSrc}
                       className={cl.phone_operator_icon}
