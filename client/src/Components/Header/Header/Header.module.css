@@ -1,6 +1,6 @@
 .header {
   height: 90px;
-  width: 100%;
+  min-width: 100%;
   position: fixed;
   top: 0;
   z-index: 900;
@@ -21,7 +21,7 @@
 }
 
 .hamburger_menu_container {
-  width: 100px;
+  min-width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,15 +46,17 @@
 }
 
 .site_logo_container {
-  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .site_logo {
-  margin-left: 50px;
+  max-height: 100%;
+  transition: all 1s ease;
 }
 
 .header_navigation {
-  margin-right: 50px;
   flex: 1 1 auto;
   display: flex;
   flex-direction: row;
@@ -64,20 +66,26 @@
 
 .header_menu_text {
   margin: 0px 15px;
+  min-width: max-content;
 }
 
 .col {
-  height: var(--header-height);
+  flex: 1 1 33%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 0px solid var(--hover-main-color);
+  border-radius: 25px;
 }
 
 .row {
+  flex: 1 1 33%;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 0px solid var(--hover-main-color);
+  border-radius: 25px;
 }
 
 .arrow_down {
@@ -136,4 +144,85 @@
   margin-right: 15px;
   height: 22px;
   width: 22px;
+}
+
+/* Landscape - телефоны */
+@media (max-width: 480px) {
+  .site_logo {
+  }
+}
+
+@media (max-width: 650px) {
+  .header_menu_text {
+    display: none;
+  }
+  .header_navigation {
+    transition: margin 1s ease;
+  }
+  .col {
+    border: 1px solid var(--hover-main-color);
+    transition: all 1s ease;
+    margin: 0 5px;
+    padding: 10px;
+  }
+  .col:hover {
+    background: var(--hover-main-color);
+  }
+  .row {
+    border: 1px solid var(--hover-main-color);
+    transition: all 1s ease;
+    margin: 0 5px;
+    padding: 10px;
+  }
+  .row:hover {
+    background: var(--hover-main-color);
+  }
+  .header {
+    transition: all 1s ease;
+  }
+}
+
+/* От ландшафтного экрана телефона до потретного планшета */
+@media (max-width: 767px) {
+  .site_logo_container {
+    margin: 0 25px;
+    transition: all 1s ease;
+  }
+  .site_logo {
+    height: 50px;
+    transition: all 1s ease;
+  }
+  .header {
+    font-size: 1.3rem;
+    transition: all 1s ease;
+  }
+  .hamburger_menu_container {
+    order: 1;
+  }
+  .header_navigation {
+  }
+}
+
+/* От портретного планшета до ландшафтного экрана и настольных дисплеев */
+@media (min-width: 768px) and (max-width: 979px) {
+  .header {
+    font-size: 1.5rem;
+    transition: all 1s ease;
+  }
+  .site_logo_container {
+    margin: 0px 25px;
+    transition: all 1s ease;
+  }
+}
+
+/* Большой дисплей */
+@media (min-width: 980px) {
+  .header {
+    font-size: 1.5rem;
+    transition: all 1s ease;
+  }
+  .site_logo_container {
+    margin: 0px 50px;
+    transition: all 1s ease;
+  }
 }
