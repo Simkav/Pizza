@@ -148,8 +148,6 @@
 
 /* Landscape - телефоны */
 @media (max-width: 480px) {
-  .site_logo {
-  }
 }
 
 @media (max-width: 650px) {
@@ -157,7 +155,17 @@
     display: none;
   }
   .header_navigation {
-    transition: margin 1s ease;
+    padding-top: 25px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f2f2f2;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    transition: all 1s ease;
+  }
+  .arrow_down {
+    display: none;
   }
   .col {
     border: 1px solid var(--hover-main-color);
@@ -180,6 +188,9 @@
   .header {
     transition: all 1s ease;
   }
+  .arrow_down {
+    border: 0px solid var(--hover-main-color);
+  }
 }
 
 /* От ландшафтного экрана телефона до потретного планшета */
@@ -199,12 +210,13 @@
   .hamburger_menu_container {
     order: 1;
   }
-  .header_navigation {
-  }
 }
 
 /* От портретного планшета до ландшафтного экрана и настольных дисплеев */
-@media (min-width: 768px) and (max-width: 979px) {
+@media (max-width: 768px) {
+  .header_menu_text {
+    display: none;
+  }
   .header {
     font-size: 1.5rem;
     transition: all 1s ease;
