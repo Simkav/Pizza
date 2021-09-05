@@ -89,7 +89,7 @@ export default function Header() {
             {contact_phones_objects.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
-                  <a href={item.href} className={`${cl.phone}`}>
+                  <a href={item.href} className={cl.phone}>
                     <img
                       src={item.imageSrc}
                       className={cl.phone_operator_icon}
@@ -101,11 +101,11 @@ export default function Header() {
             })}
           </PopUpModule>
         </div>
-        <div>
+        <div className={cl.row}>
           <FaUser />
           <span className={cl.header_menu_text}>Войти</span>
         </div>
-        <div>
+        <div className={cl.row}>
           <FaShoppingCart />
           <span className={cl.header_menu_text}>Cart</span>
         </div>
