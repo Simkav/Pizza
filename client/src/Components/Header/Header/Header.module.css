@@ -225,6 +225,9 @@
     margin: 0px 25px;
     transition: all 1s ease;
   }
+  .hamburger_menu_container {
+    order: 1;
+  }
 }
 
 /* Большой дисплей */
