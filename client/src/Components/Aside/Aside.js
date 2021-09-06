@@ -2,6 +2,7 @@ import React from "react";
 import cl from "./Aside.module.css";
 import { useSelector } from "react-redux";
 import { FaQuestion } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Aside() {
   const hamburgerMenuState = useSelector((state) => state);
@@ -32,12 +33,12 @@ export default function Aside() {
         {menu_items_text.map((item) => {
           return (
             <li key={item} className={cl.main_navigation_menu_item}>
-              <a href="/login" className={cl.main_navigation_menu_item_link}>
+              <Link to="/login" className={cl.main_navigation_menu_item_link}>
                 <FaQuestion
                   className={cl.main_navigation_menu_item_text}
                 ></FaQuestion>
                 {item}
-              </a>
+              </Link>
             </li>
           );
         })}
