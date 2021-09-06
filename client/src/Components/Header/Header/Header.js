@@ -10,6 +10,7 @@ import {
   FaUser,
   FaShoppingCart,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [popUp, setPopUp] = useState(false);
@@ -101,10 +102,10 @@ export default function Header() {
             })}
           </PopUpModule>
         </div>
-        <div className={cl.row}>
+        <Link to={"/login"} className={cl.row}>
           <FaUser />
           <span className={cl.header_menu_text}>Войти</span>
-        </div>
+        </Link>
         <div className={cl.row}>
           <FaShoppingCart />
           <span className={cl.header_menu_text}>Cart</span>
