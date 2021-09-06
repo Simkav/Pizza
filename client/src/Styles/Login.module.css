@@ -29,7 +29,7 @@
 }
 
 .signup_container {
-  padding: 70px 35px;
+  padding: 70px 35px 0 35px;
   display: flex;
   flex-direction: column;
 }
