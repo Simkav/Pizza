@@ -15,14 +15,14 @@ export default function Content(props) {
   if (hamburgerMenuState) {
     mainContentContainerClasses.push(cl.content_with_aside);
   }
-  //TODO dont render footer if (props.header_state)
   return (
     <div className={mainContentContainerClasses.join(" ")}>
       {props.children}
-      {
-      !props.header_aside_disabled ? (<footer className={cl.content_footer_container}>
-      <Footer />
-    </footer>) : null}
+      {!props.header_aside_disabled ? (
+        <footer className={cl.content_footer_container}>
+          <Footer />
+        </footer>
+      ) : null}
     </div>
   );
 }
