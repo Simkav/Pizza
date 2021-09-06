@@ -1,12 +1,12 @@
-import React from "react";
+import { useRef } from "react";
 import Content from "../Components/Content/Content";
 import cl from "./../Styles/Login.module.css";
 import { Link } from "react-router-dom";
 
 function Register() {
-  const email = React.useRef(null);
-  const pass = React.useRef(null);
-  const passCheck = React.useRef(null);
+  const email = useRef(null);
+  const pass = useRef(null);
+  const passCheck = useRef(null);
 
   return (
     <Content header_aside_disabled={true}>
@@ -20,7 +20,7 @@ function Register() {
         </Link>
         <div className={cl.login_button_container}>
           <Link to={"/login"} className={cl.login_button}>
-          <span className={cl.login_button_text}>Войти</span>
+            <span className={cl.login_button_text}>Войти</span>
           </Link>
         </div>
       </div>
