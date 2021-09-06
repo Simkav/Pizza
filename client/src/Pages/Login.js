@@ -47,11 +47,11 @@ function Login() {
               </div>
             </div>
             <div className={cl.row}>
-              <div className={cl.field_container_flex}>
+              <div className={`${cl.field_container_flex} ${cl.flex_start}`}>
                 <input className={cl.checkbox} type={"checkbox"} />
                 <span>Запомнить меня</span>
               </div>
-              <div className={cl.field_container_flex}>
+              <div className={`${cl.field_container_flex} ${cl.flex_end}`}>
                 <Link className={cl.forgot_password} to={"/login"}>
                   Забыл пароль
                 </Link>

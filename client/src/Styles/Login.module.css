@@ -61,6 +61,14 @@
   align-items: center;
 }
 
+.flex_start {
+  justify-content: flex-start;
+}
+
+.flex_end {
+  justify-content: flex-end;
+}
+
 .input {
   flex: 1 1 100%;
   box-sizing: border-box;
