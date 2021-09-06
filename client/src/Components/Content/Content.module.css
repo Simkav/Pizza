@@ -3,7 +3,7 @@
     z-index: 1;
     margin-top: 90px;
     margin-left: 0;
-    width: 100%;
+    min-width: 100%;
     height: calc(100% - 90px);
     max-height: 100%;
     display: flex;
@@ -18,11 +18,19 @@
     height: 100%;
 }
 
-.content_asided {
+.content_with_aside {
     margin-top: 90px;
     margin-left: 270px;
     width: calc(100% - 270px);
     height: calc(100% - 90px);
+}
+
+.content_fullscreen {
+    margin-top: 0px;
+    margin-left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    transition: all 1s ease;
 }
 
 .content_footer_container {
