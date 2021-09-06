@@ -1,7 +1,7 @@
 import Header from "./Components/Header/Header/Header";
 import Aside from "./Components/Aside/Aside";
 import Content from "./Components/Content/Content";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -20,6 +20,7 @@ function App() {
         <Route exact path="/register">
           <Register />
         </Route>
+        <Redirect to={"/"} />
       </Switch>
     </BrowserRouter>
   );
