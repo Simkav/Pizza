@@ -8,7 +8,6 @@ function Login() {
   const pass = React.useRef(null);
 
   return (
-    //TODO сделать по человечески, взять за пример структуру с сайта https://www.squadhelp.com/login
     <Content header_aside_disabled={true}>
       <div className={cl.signup_header}>
         <Link to={"/"} className={cl.site_logo_container}>
@@ -33,6 +32,7 @@ function Login() {
                   placeholder={"Email адрес"}
                   id={cl.email}
                   className={cl.input}
+                  ref={email}
                 ></input>
               </div>
             </div>
@@ -43,6 +43,7 @@ function Login() {
                   placeholder={"Пароль"}
                   id={cl.password}
                   className={cl.input}
+                  ref={pass}
                 ></input>
               </div>
             </div>
