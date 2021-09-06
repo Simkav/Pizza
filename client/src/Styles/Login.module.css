@@ -1,4 +1,5 @@
 .signup_header {
+  max-height: 100%;
   min-width: 100%;
   background: #f2f2f2;
   display: flex;
@@ -6,18 +7,38 @@
   justify-content: space-around;
   align-items: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.5s ease;
+}
+
+.site_logo_container {
+  max-width: 100%;
+  transition: all 0.5s ease;
+}
+
+.site_logo {
+  min-width: 75px;
+  width: 100%;
+  transition: all 0.5s ease;
 }
 
 .login_button_container {
+  align-self: stretch;
   display: flex;
+  justify-content: center;
   margin: 0 25px;
+  transition: all 0.5s ease;
 }
 
 .login_button {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   user-select: none;
   color: white;
   text-shadow: 0px 0px 3px rgb(0, 0, 0);
-  padding: 10px 25px;
+  padding: 0 25px;
+  margin: 30px 10px;
   border-radius: 10px;
   border: 1px solid rgb(175, 175, 175);
   text-decoration: none;
@@ -35,9 +56,11 @@
 }
 
 .signup_info {
+  text-align: center;
   color: #f2f2f2;
   text-shadow: 0px 0px 3px rgb(0, 0, 0);
   font-size: 1.4rem;
+  transition: all 0.5s ease;
 }
 
 .row {
@@ -59,6 +82,7 @@
   flex: 0 1 50%;
   justify-content: center;
   align-items: center;
+  transition: all 0.5s ease;
 }
 
 .flex_start {
@@ -84,6 +108,7 @@
 }
 
 .button {
+  font-size: 1.3rem;
   flex: 1 1 100%;
   text-align: center;
   user-select: none;
@@ -97,4 +122,31 @@
 
 .button:hover {
   background: rgb(175, 175, 175);
+}
+
+@media (max-width: 650px) {
+  .signup_header {
+    max-height: 100px;
+    font-size: 1rem;
+    margin: 0 10px;
+    padding: 0px;
+  }
+  .site_logo_container {
+    max-width: 75px;
+  }
+  .login_button_container {
+    margin: 0 10px;
+  }
+  .login_button {
+    padding: 5px 10px;
+  }
+  .signup_info {
+    font-size: 1rem;
+  }
+  .field_container_flex {
+    font-size: 0.7rem;
+  }
+  .button {
+    font-size: 1rem;
+  }
 }
