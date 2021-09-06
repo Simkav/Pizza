@@ -37,6 +37,7 @@
 
 .hover_element:hover {
   background: var(--hover-main-color);
+  color: white;
 }
 
 .hamburger_bars {
@@ -73,19 +74,35 @@
   flex: 1 1 33%;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   justify-content: center;
   align-items: center;
-  border: 0px solid var(--hover-main-color);
-  border-radius: 25px;
+  border: 1px solid var(--hover-main-color);
+  padding: 0 10px;
+  margin: 10px 10px;
+  border-radius: 10px;
+  transition: all 1s ease;
 }
 
 .row {
+  text-decoration: none;
+  color: black;
   flex: 1 1 33%;
   display: flex;
+  align-self: stretch;
   justify-content: center;
   align-items: center;
-  border: 0px solid var(--hover-main-color);
-  border-radius: 25px;
+  border: 1px solid var(--hover-main-color);
+  padding: 0 10px;
+  margin: 10px 10px;
+  border-radius: 10px;
+  transition: all 1s ease;
+}
+
+.col:hover,
+.row:hover {
+  background: var(--hover-main-color);
+  color: white;
 }
 
 .arrow_down {
