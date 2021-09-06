@@ -1,0 +1,92 @@
+.signup_header {
+  min-width: 100%;
+  background: #f2f2f2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+.login_button_container {
+  display: flex;
+  margin: 0 25px;
+}
+
+.login_button {
+  user-select: none;
+  color: white;
+  text-shadow: 0px 0px 3px rgb(0, 0, 0);
+  padding: 10px 25px;
+  border-radius: 10px;
+  border: 1px solid rgb(175, 175, 175);
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+.login_button:hover {
+  background: rgb(175, 175, 175);
+}
+
+.signup_container {
+  padding: 70px 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup_info {
+  color: #f2f2f2;
+  text-shadow: 0px 0px 3px rgb(0, 0, 0);
+  font-size: 1.4rem;
+}
+
+.row {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.field_container {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.field_container_flex {
+  font-size: 1rem;
+  display: flex;
+  flex: 0 1 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+.forgot_password {
+  user-select: none;
+  color: black;
+  text-decoration: none;
+}
+
+.button {
+  flex: 1 1 100%;
+  text-align: center;
+  user-select: none;
+  color: black;
+  padding: 15px 60px;
+  border-radius: 10px;
+  border: 1px solid rgb(175, 175, 175);
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+.button:hover {
+  background: rgb(175, 175, 175);
+}
