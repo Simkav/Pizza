@@ -2,6 +2,9 @@ import Header from "./Components/Header/Header/Header";
 import Aside from "./Components/Aside/Aside";
 import Content from "./Components/Content/Content";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 function App() {
   //TODO make different pages, load different components!!!
@@ -9,15 +12,13 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Header />
-          <Aside />
-          <Content />
+          <Home />
         </Route>
         <Route exact path="/login">
-          <Content header_state={true}/>
+          <Login />
         </Route>
         <Route exact path="/register">
-          <Content header_state={true}/>
+          <Register />
         </Route>
       </Switch>
     </BrowserRouter>
