@@ -5,25 +5,24 @@ import { useSelector } from "react-redux";
 
 export default function Content(props) {
   const hamburgerMenuState = useSelector((state) => state);
-  let mainContentContainerClasses
-  if (props.header_state) {
-    mainContentContainerClasses = [cl.content_container, cl.content_container_without_header];
-  }
-  else {
+  let mainContentContainerClasses;
+  if (props.header_aside_disabled) {
+    mainContentContainerClasses = [cl.content_container, cl.content_fullscreen];
+  } else {
     mainContentContainerClasses = [cl.content_container];
   }
 
-  
-
   if (hamburgerMenuState) {
-    mainContentContainerClasses.push(cl.content_asided);
+    mainContentContainerClasses.push(cl.content_with_aside);
   }
   //TODO dont render footer if (props.header_state)
   return (
     <div className={mainContentContainerClasses.join(" ")}>
-      <footer className={cl.content_footer_container}>
-        <Footer />
-      </footer>
+      {props.children}
+      {
+      !props.header_aside_disabled ? (<footer className={cl.content_footer_container}>
+      <Footer />
+    </footer>) : null}
     </div>
   );
 }
