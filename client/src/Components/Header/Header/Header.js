@@ -11,6 +11,7 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { HeaderContactPhonesList } from "../../../Helpers/HeaderContactPhonesList";
 
 export default function Header() {
   const [popUp, setPopUp] = useState(false);
@@ -32,29 +33,6 @@ export default function Header() {
   if (hamburgerMenuState) {
     hamburgerMenuClasses.push(cl.hamburger_menu_active);
   }
-
-  const contact_phones_objects = [
-    {
-      prefix: "044",
-      href: "tel:+380442283228",
-      imageSrc: "/icons/standart.svg",
-    },
-    {
-      prefix: "093",
-      href: "tel:+380932283228",
-      imageSrc: "/icons/lifecell.svg",
-    },
-    {
-      prefix: "097",
-      href: "tel:+380972283228",
-      imageSrc: "/icons/kyivstar.svg",
-    },
-    {
-      prefix: "066",
-      href: "tel:+380662283228",
-      imageSrc: "/icons/vodafon.svg",
-    },
-  ];
 
   return (
     <header className={cl.header}>
@@ -87,7 +65,7 @@ export default function Header() {
             ></FaChevronDown>
           </div>
           <PopUpModule visible={popUp} setVisible={setPopUp}>
-            {contact_phones_objects.map((item) => {
+            {HeaderContactPhonesList.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
                   <a href={item.href} className={cl.phone}>
