@@ -70,6 +70,7 @@ export default function Header() {
                 <div key={item.prefix} className={cl.contact_phone}>
                   <a href={item.href} className={cl.phone}>
                     <img
+                      alt={item.alt}
                       src={item.imageSrc}
                       className={cl.phone_operator_icon}
                     />

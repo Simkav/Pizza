@@ -21,7 +21,7 @@ export default function Aside() {
             <li key={item.name} className={cl.main_navigation_menu_item}>
               <Link to="/login" className={cl.main_navigation_menu_item_link}>
                 <div className={cl.main_navigation_menu_item_icon}>
-                  <img src={item.image} />
+                  <img src={item.image} alt={item.name} />
                 </div>
                 <div className={cl.main_navigation_menu_item_text_container}>
                   <span className={cl.main_navigation_menu_item_text}>
