@@ -12,13 +12,10 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { HeaderContactPhonesList } from "../../../Helpers/HeaderContactPhonesList";
+import cn from "classnames";
 
 export default function Header() {
   const [popUp, setPopUp] = useState(false);
-  const arrowDownClasses = [cl.arrow_down];
-  if (popUp) {
-    arrowDownClasses.push(cl.arrow_active);
-  }
 
   const dispatch = useDispatch();
   const hamburgerMenuState = useSelector((state) => state);
@@ -28,16 +25,12 @@ export default function Header() {
     dispatch({ type: "SWITCH_MENU", payload: toggle });
   };
 
-  const hamburgerMenuClasses = [cl.hamburger_menu_container, cl.hover_element];
-
-  if (hamburgerMenuState) {
-    hamburgerMenuClasses.push(cl.hamburger_menu_active);
-  }
-
   return (
     <header className={cl.header}>
       <div
-        className={hamburgerMenuClasses.join(" ")}
+        className={cn(cl.hamburger_menu_container, cl.hover_element, {
+          [cl.hamburger_menu_active]: hamburgerMenuState,
+        })}
         onClick={() => hamburgerMenuToggle()}
       >
         {!hamburgerMenuState ? (
@@ -60,7 +53,7 @@ export default function Header() {
             <FaPhone className="fas fa-phone" />
             <span className={cl.header_menu_text}>(044) 228-3-228</span>
             <FaChevronDown
-              className={arrowDownClasses.join(" ")}
+              className={cn(cl.arrow_down, { [cl.arrow_active]: popUp })}
               onClick={() => setPopUp(true)}
             ></FaChevronDown>
           </div>

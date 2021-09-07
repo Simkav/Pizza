@@ -3,18 +3,13 @@ import cl from "./Aside.module.css";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AsideMenuList } from "../../Helpers/AsideMenuItemList";
+import cn from "classnames"
 
 export default function Aside() {
   const hamburgerMenuState = useSelector((state) => state);
 
-  const asideClasses = [cl.aside_container];
-
-  if (hamburgerMenuState) {
-    asideClasses.push(cl.aside_active);
-  }
-
   return (
-    <aside className={asideClasses.join(" ")}>
+    <aside className={cn(cl.aside_container, {[cl.aside_active]: hamburgerMenuState})}>
       <ul className={cl.main_navigation_menu}>
         {AsideMenuList.map((item) => {
           return (
