@@ -1,3 +1,10 @@
+:root {
+  --header-main-color: #f2f2f2;
+  --header-height: 90px;
+  --hamburger-menu-grow-animation-time: 1s;
+  --arrow-down-grow-animation-time: 0.5s;
+  --hover-main-color: rgb(175, 175, 175);
+}
 .header {
   height: 90px;
   min-width: 100%;
@@ -9,15 +16,6 @@
   flex-direction: row;
   justify-content: space-between;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-
-  --header-main-color: #f2f2f2;
-  --header-height: 90px;
-
-  --hamburger-menu-grow-animation-time: 1s;
-
-  --arrow-down-grow-animation-time: 0.5s;
-
-  --hover-main-color: rgb(175, 175, 175);
 }
 
 .hamburger_menu_container {
@@ -38,12 +36,6 @@
 .hover_element:hover {
   background: var(--hover-main-color);
   color: white;
-}
-
-.hamburger_bars {
-}
-
-.hamburger_cross {
 }
 
 .site_logo_container {
