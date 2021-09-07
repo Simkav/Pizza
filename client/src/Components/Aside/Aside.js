@@ -1,8 +1,8 @@
 import React from "react";
 import cl from "./Aside.module.css";
 import { useSelector } from "react-redux";
-import { FaQuestion } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AsideMenuList } from "../../Helpers/AsideMenuItemList";
 
 export default function Aside() {
   const hamburgerMenuState = useSelector((state) => state);
@@ -13,31 +13,21 @@ export default function Aside() {
     asideClasses.push(cl.aside_active);
   }
 
-  const menu_items_text = [
-    "SALE",
-    "Пицца",
-    "Суши и роллы",
-    "Супы",
-    "Паста и лапша",
-    "Гриль и закуски",
-    "Салаты",
-    "Десерты",
-    "Напитки",
-    "Бизнес-ланчи",
-    "Сигареты",
-  ];
-
   return (
     <aside className={asideClasses.join(" ")}>
       <ul className={cl.main_navigation_menu}>
-        {menu_items_text.map((item) => {
+        {AsideMenuList.map((item) => {
           return (
-            <li key={item} className={cl.main_navigation_menu_item}>
+            <li key={item.name} className={cl.main_navigation_menu_item}>
               <Link to="/login" className={cl.main_navigation_menu_item_link}>
-                <FaQuestion
-                  className={cl.main_navigation_menu_item_text}
-                ></FaQuestion>
-                {item}
+                <div className={cl.main_navigation_menu_item_icon}>
+                  <img src={item.image} />
+                </div>
+                <div className={cl.main_navigation_menu_item_text_container}>
+                  <span className={cl.main_navigation_menu_item_text}>
+                    {item.name}
+                  </span>
+                </div>
               </Link>
             </li>
           );
