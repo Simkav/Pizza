@@ -5,11 +5,11 @@ import Header from "../Components/Header/Header/Header";
 
 function Home() {
   return (
-    <div>
+    <>
       <Header />
       <Aside />
       <Content />
-    </div>
+    </>
   );
 }
 
