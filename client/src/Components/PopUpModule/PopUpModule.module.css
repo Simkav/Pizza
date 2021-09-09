@@ -59,6 +59,14 @@
     left: 0;
     top: auto;
     bottom: 50px;
-    width: fit-content;
+    width: 100%;
+    justify-content: baseline;
+    height: calc(100% - 140px);
+  }
+  .popup_children {
+    box-sizing: border-box;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
   }
 }

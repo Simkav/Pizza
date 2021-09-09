@@ -206,6 +206,14 @@
   .arrow_down {
     border: 0px solid var(--hover-main-color);
   }
+  .contact_phone {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 0;
+  }
+  .phone {
+    transform: scale(1.50);
+  }
 }
 
 /* От ландшафтного экрана телефона до потретного планшета */
