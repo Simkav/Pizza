@@ -7,19 +7,16 @@
   justify-content: space-around;
   align-items: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-  transition: all 0.5s ease;
 }
 
 .site_logo_container {
   max-width: 100%;
-  transition: all 0.5s ease;
 }
 
 .site_logo {
   user-select: none;
   min-width: 75px;
   width: 100%;
-  transition: all 0.5s ease;
 }
 
 .login_button_container {
@@ -27,7 +24,6 @@
   display: flex;
   justify-content: center;
   margin: 0 25px;
-  transition: all 0.5s ease;
 }
 
 .login_button {
@@ -44,7 +40,6 @@
   border-radius: 10px;
   border: 1px solid rgb(175, 175, 175);
   text-decoration: none;
-  transition: all 0.5s ease;
 }
 
 .login_button:hover {
@@ -65,7 +60,6 @@
   color: #f2f2f2;
   text-shadow: 0px 0px 3px rgb(0, 0, 0);
   font-size: 1.4rem;
-  transition: all 0.5s ease;
 }
 
 .row {
@@ -91,7 +85,6 @@
   flex: 0 1 50%;
   justify-content: center;
   align-items: center;
-  transition: all 0.5s ease;
 }
 
 .flex_start {
@@ -126,7 +119,7 @@
   border-radius: 10px;
   border: 1px solid rgb(175, 175, 175);
   text-decoration: none;
-  transition: all 0.5s ease;
+  transition: background 0.5s ease;
 }
 
 .button:hover {
