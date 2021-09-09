@@ -39,16 +39,16 @@ export default function Header() {
           <FaTimes className={cl.hamburger_cross} />
         )}
       </div>
-      <div className={cl.site_logo_container}>
+      <Link to={"/"} className={cl.site_logo_container}>
         <img
           className={cl.site_logo}
           src="/images/site-logo2.png"
           alt="Site logo"
           height="100%"
         />
-      </div>
+      </Link>
       <div className={cl.header_navigation}>
-        <div className={cl.col} onClick={() => setPopUp(popUp => !popUp)}>
+        <div className={cl.col} onClick={() => setPopUp((popUp) => !popUp)}>
           <div className={cl.contact_phone_container}>
             <FaPhone className="fas fa-phone" />
             <span className={cl.header_menu_text}>Контакты</span>
