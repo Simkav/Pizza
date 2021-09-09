@@ -104,8 +104,8 @@
   margin: 0px 15px;
   border: 0px solid var(--header-main-color);
   border-radius: 50%;
-  transition: border var(--arrow-down-grow-animation-time) ease, 
-  transform var(--arrow-down-grow-animation-time) ease,;
+  transition: border var(--arrow-down-grow-animation-time) ease,
+    transform var(--arrow-down-grow-animation-time) ease;
 }
 
 .arrow_down:hover {
@@ -114,7 +114,7 @@
 }
 
 .arrow_active {
-  transform:rotateX(180deg);
+  transform: rotateX(180deg);
   border: 5px solid var(--hover-main-color);
   border-radius: 5px;
   background: var(--hover-main-color);
@@ -142,7 +142,7 @@
 .contact_phone:hover {
   z-index: +1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  background:rgb(175, 175, 175);
+  background: rgb(175, 175, 175);
 }
 
 .phone {
@@ -254,5 +254,12 @@
   .site_logo_container {
     margin: 0px 50px;
     transition: all 1s ease;
+  }
+}
+
+/* Не показывать кнопку меню при ширине минимум 1440px */
+@media (min-width: 1440px) {
+  .hamburger_menu_container {
+    display: none;
   }
 }

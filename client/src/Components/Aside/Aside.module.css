@@ -117,3 +117,10 @@
     bottom: 15px;
     color: rgb(122, 122, 122);
 }
+
+/* Всегда показывать меню при минимальной ширине 1440px */
+@media (min-width: 1440px) {
+    .aside_container {
+        --aside-absolute-left-position: 0;
+    }
+}
