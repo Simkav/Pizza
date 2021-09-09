@@ -20,25 +20,10 @@
     height: 100%;
 }
 
-.content_with_aside {
-    margin-top: 90px;
-    margin-left: 270px;
-    max-width: calc(100% - 270px);
-    max-height: calc(100% - 90px);
-}
-
 .content_fullscreen {
     margin-top: 0px;
     margin-left: 0px;
     min-width: 100%;
     min-height: 100%;
     transition: all 1s ease;
-}
-
-.content_footer_container {
-    flex-grow: 1;
-    min-width: 100%;
-    min-height: 300px;
-    height: fit-content;
-    background: #f2f2f2;
 }

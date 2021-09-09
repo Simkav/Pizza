@@ -25,10 +25,3 @@
     font-size: 1rem;
     color: rgb(122, 122, 122);
 }
-
-.footer_with_aside {
-    margin-top: 90px;
-    margin-left: 270px;
-    width: calc(100% - 270px);
-    max-height: calc(100% - 90px);
-}
