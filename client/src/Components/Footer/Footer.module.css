@@ -25,3 +25,9 @@
     font-size: 1rem;
     color: rgb(122, 122, 122);
 }
+
+@media (max-width: 650px) {
+    .footer_container {
+        bottom: 71px;
+    }
+}

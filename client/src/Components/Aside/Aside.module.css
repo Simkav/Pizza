@@ -17,6 +17,7 @@
     --header-height: 90px;
 
     position: absolute;
+    bottom: 0;
     margin-top: var(--header-height);
     left: var(--aside-absolute-left-position);
     z-index: 10;
@@ -122,5 +123,11 @@
 @media (min-width: 1440px) {
     .aside_container {
         --aside-absolute-left-position: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .aside_container {
+        bottom: 71px;
     }
 }
