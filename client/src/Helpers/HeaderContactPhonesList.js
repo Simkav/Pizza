@@ -1,26 +1,28 @@
+const iconsPath = "/icons/PhoneOperators/";
+
 export const HeaderContactPhonesList = [
   {
-    alt: 'Standart phone',
+    alt: "Standart phone",
     prefix: "044",
     href: "tel:+380442283228",
-    imageSrc: "/icons/PhoneOperators/standart.svg",
+    imageSrc: iconsPath + "standart.svg",
   },
   {
-    alt: 'Lifecell',
+    alt: "Lifecell",
     prefix: "093",
     href: "tel:+380932283228",
-    imageSrc: "/icons/PhoneOperators/lifecell.svg",
+    imageSrc: iconsPath + "lifecell.svg",
   },
   {
-    alt: 'Kyivstar',
+    alt: "Kyivstar",
     prefix: "097",
     href: "tel:+380972283228",
-    imageSrc: "/icons/PhoneOperators/kyivstar.svg",
+    imageSrc: iconsPath + "kyivstar.svg",
   },
   {
-    alt: 'Vodafon',
+    alt: "Vodafon",
     prefix: "066",
     href: "tel:+380662283228",
-    imageSrc: "/icons/PhoneOperators/vodafon.svg",
+    imageSrc: iconsPath + "vodafon.svg",
   },
 ];
