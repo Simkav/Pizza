@@ -11,7 +11,7 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { HeaderContactPhonesList } from "../../../Helpers/HeaderContactPhonesList";
+import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
 export default function Header() {
@@ -48,13 +48,12 @@ export default function Header() {
         />
       </div>
       <div className={cl.header_navigation}>
-        <div className={cl.col}>
+        <div className={cl.col} onClick={() => setPopUp(popUp => !popUp)}>
           <div className={cl.contact_phone_container}>
             <FaPhone className="fas fa-phone" />
-            <span className={cl.header_menu_text}>(044) 228-3-228</span>
+            <span className={cl.header_menu_text}>Контакты</span>
             <FaChevronDown
               className={cn(cl.arrow_down, { [cl.arrow_active]: popUp })}
-              onClick={() => setPopUp(true)}
             ></FaChevronDown>
           </div>
           <PopUpModule visible={popUp} setVisible={setPopUp}>
