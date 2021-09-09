@@ -46,9 +46,15 @@
   background: rgb(175, 175, 175);
 }
 
+.signup_form_wrapper {
+  flex: 1 1 100%;
+  align-self: center;
+  max-width: 650px;
+}
+
 .signup_container {
   flex: 1 1 100%;
-  padding: 70px 35px;
+  padding: 70px 35px 0 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
