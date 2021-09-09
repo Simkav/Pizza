@@ -40,6 +40,7 @@
   border-radius: 10px;
   border: 1px solid rgb(175, 175, 175);
   text-decoration: none;
+  transition: background 0.5s ease;
 }
 
 .login_button:hover {
@@ -125,10 +126,11 @@
   border-radius: 10px;
   border: 1px solid rgb(175, 175, 175);
   text-decoration: none;
-  transition: background 0.5s ease;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
 .button:hover {
+  color: white;
   background: rgb(175, 175, 175);
 }
 
