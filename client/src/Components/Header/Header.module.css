@@ -104,16 +104,18 @@
   margin: 0px 15px;
   border: 0px solid var(--header-main-color);
   border-radius: 50%;
-  transition: all var(--arrow-down-grow-animation-time) ease;
+  transition: border var(--arrow-down-grow-animation-time) ease, 
+  transform var(--arrow-down-grow-animation-time) ease,;
 }
 
 .arrow_down:hover {
-  border: 5px solid var(--hover-main-color);
+  border: 2px solid var(--hover-main-color);
   background: var(--hover-main-color);
 }
 
 .arrow_active {
-  border: 10px solid var(--hover-main-color);
+  transform:rotateX(180deg);
+  border: 5px solid var(--hover-main-color);
   border-radius: 5px;
   background: var(--hover-main-color);
 }
@@ -125,6 +127,7 @@
 }
 
 .contact_phone {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -134,12 +137,12 @@
   padding: 5px;
   border-radius: 5px;
   box-shadow: 0 0 0px rgba(0, 0, 0, 0.3);
-  border: 2px solid transparent;
 }
 
 .contact_phone:hover {
-  border-color: black;
+  z-index: +1;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background:rgb(175, 175, 175);
 }
 
 .phone {
