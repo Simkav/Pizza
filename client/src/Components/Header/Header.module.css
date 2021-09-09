@@ -19,6 +19,8 @@
 }
 
 .hamburger_menu_container {
+  width: auto;
+  height: auto;
   min-width: 100px;
   display: flex;
   justify-content: center;
@@ -36,6 +38,8 @@
 .hover_element:hover {
   background: var(--hover-main-color);
   color: white;
+  width: auto;
+  height: auto;
 }
 
 .site_logo_container {
@@ -267,7 +271,12 @@
 
 /* Не показывать кнопку меню при ширине минимум 1440px */
 @media (min-width: 1440px) {
-  .hamburger_menu_container {
-    display: none;
+  .hamburger_menu_container, .hover_element {
+    min-width: 0;
+    width: 0;
+    opacity: 0;
+  }
+  .site_logo_container {
+    margin: 0;
   }
 }
