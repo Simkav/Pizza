@@ -54,7 +54,7 @@
 
 .signup_container {
   flex: 1 1 100%;
-  padding: 70px 35px 0 35px;
+  padding-top: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
