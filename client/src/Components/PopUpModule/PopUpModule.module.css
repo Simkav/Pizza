@@ -33,6 +33,7 @@
   border-style: solid;
   border-width: 0 12.5px 21.7px 12.5px;
   border-color: transparent transparent var(--popup-main-color) transparent;
+  transition: all 0.5s ease;
 }
 
 .popup_children {
@@ -46,4 +47,18 @@
 
 .active {
   display: flex;
+}
+
+@media (max-width: 650px) {
+  .popup:before {
+    transform: rotate(180deg);
+    top: 100%;
+    left: calc((100%/3)/2);
+  }
+  .popup {
+    left: 0;
+    top: auto;
+    bottom: 50px;
+    width: fit-content;
+  }
 }
