@@ -45,11 +45,13 @@
 }
 
 .site_logo {
+  user-select: none;
   max-height: 100%;
   transition: all 1s ease;
 }
 
 .header_navigation {
+  user-select: none;
   flex: 1 1 auto;
   display: flex;
   flex-direction: row;
