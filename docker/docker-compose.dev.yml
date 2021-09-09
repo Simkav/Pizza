@@ -7,7 +7,7 @@ services:
       - "3000:3000"
 
   &api-web-service api-web-service:
-    command: npm run dev
+    command: yarn start:dev
     ports: 
       - "3001:3001"
 

@@ -22,3 +22,7 @@ down: ## Stop all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) down
 restart:  ## Restart all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) restart
+api_log: ## Show log from api container
+	$(docker_bin) logs -t -f -n 1000 pizza-api-web-service
+app_log: ## Show log from app container
+	$(docker_bin) logs -t -f -n 1000 pizza-app-web-service
