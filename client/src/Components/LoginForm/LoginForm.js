@@ -1,17 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import cl from "./../../Styles/Login.module.css";
+import { useFormik } from "formik";
 
 function LoginForm() {
+  const loginFormik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      console.log("Submit values:", values);
+    },
+  });
+  console.log('Visited fields:' , loginFormik.touched)
   return (
-    <div className={cl.signup_form}>
+    <form className={cl.signup_form} onSubmit={loginFormik.handleSubmit}>
       <div className={cl.row}>
         <div className={cl.field_container}>
           <input
             type={"text"}
             placeholder={"Email адрес"}
-            id={cl.email}
             className={cl.input}
+            name={"email"}
+            onChange={loginFormik.handleChange}
+            onBlur={loginFormik.handleBlur}
+            value={loginFormik.values.email}
           ></input>
         </div>
       </div>
@@ -20,8 +34,11 @@ function LoginForm() {
           <input
             type={"password"}
             placeholder={"Пароль"}
-            id={cl.password}
             className={cl.input}
+            name={"password"}
+            onChange={loginFormik.handleChange}
+            onBlur={loginFormik.handleBlur}
+            value={loginFormik.values.password}
           ></input>
         </div>
       </div>
@@ -38,10 +55,12 @@ function LoginForm() {
       </div>
       <div className={cl.row}>
         <div className={cl.field_container}>
-          <div className={cl.button}>Войти</div>
+          <button type={"submit"} className={cl.button}>
+            Войти
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 
