@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 function RegisterForm() {
   const registerFormik = useFormik({
     initialValues: {
-      email: "",
+      phone: "",
       password: "",
       passwordConfirm: "",
     },
@@ -20,13 +20,13 @@ function RegisterForm() {
       <div className={cl.row}>
         <div className={cl.field_container}>
           <input
-            type={"text"}
-            placeholder={"Email адрес"}
+            type={"number"}
+            placeholder={"Номер телефона"}
             className={cn(cl.input)}
-            name={"email"}
+            name={"phone"}
             onChange={registerFormik.handleChange}
             onBlur={registerFormik.handleBlur}
-            value={registerFormik.values.email}
+            value={registerFormik.values.phone}
           ></input>
         </div>
       </div>

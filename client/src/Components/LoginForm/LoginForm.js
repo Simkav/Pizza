@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 function LoginForm() {
   const loginFormik = useFormik({
     initialValues: {
-      email: "",
+      phone: "",
       password: "",
     },
     onSubmit: (values) => {
@@ -19,13 +19,13 @@ function LoginForm() {
       <div className={cl.row}>
         <div className={cl.field_container}>
           <input
-            type={"text"}
-            placeholder={"Email адрес"}
+            type={"number"}
+            placeholder={"Номер телефона"}
             className={cl.input}
-            name={"email"}
+            name={"phone"}
             onChange={loginFormik.handleChange}
             onBlur={loginFormik.handleBlur}
-            value={loginFormik.values.email}
+            value={loginFormik.values.phone}
           ></input>
         </div>
       </div>
