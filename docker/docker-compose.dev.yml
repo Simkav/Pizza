@@ -11,6 +11,6 @@ services:
     ports: 
       - "3001:3001"
 
-  &postgress-db-service postgress-db-service:
+  &postgres-db-service postgres-db-service:
     ports: 
       - "5432:5432"

@@ -29,6 +29,10 @@ services:
     user: "1000"
     environment: 
       - ENVIRONMENT=${ENVIRONMENT}
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
     volumes:
       - ../server:/home/node/app
     working_dir: /home/node/app
@@ -36,9 +40,9 @@ services:
     networks:
       - shared
 
-  &postgress-db-service postgress-db-service:
-    container_name: retter-postgress-db-service
-    domainname: retter-postgress-db-service
+  &postgres-db-service postgres-db-service:
+    container_name: ${POSTGRES_SERVICE_CONTAINER}
+    domainname: ${POSTGRES_SERVICE_DOMAIN}
     image: postgres:13-buster
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
