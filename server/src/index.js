@@ -1,7 +1,7 @@
-const http = require('http')
+require('dotenv').config()
+const server = require('./server')
+const port = process.env.PORT || 3001
 
-const server = http.createServer((req, res) => {
-  res.end('Ok')
+server.listen(port, () => {
+  console.log('app started')
 })
-
-server.listen(3001)
