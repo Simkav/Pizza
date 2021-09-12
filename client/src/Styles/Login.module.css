@@ -70,7 +70,7 @@
 }
 
 .row {
-  margin: 25px 0;
+  margin: 10px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -81,6 +81,7 @@
 }
 
 .field_container {
+  position: relative;
   flex: 1 1 100%;
   display: flex;
   justify-content: center;
@@ -108,6 +109,58 @@
   padding: 15px;
   border: 2px solid black;
   border-radius: 4px;
+  transition: border 0.5s ease;
+}
+
+.input_invalid {
+  border: 2px solid red;
+}
+
+.input_valid {
+  border: 2px solid rgb(0, 168, 0);
+}
+
+.field_container_valid::after {
+  opacity: 100%;
+  position: absolute;
+  right: -25px;
+  color: green;
+  content: '✓';
+}
+
+.row.error_text {
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.input_error_text {
+  justify-self: flex-start;
+  font-size: 0.8rem;
+  color: red;
+}
+
+.label {
+  color: gray;
+  font-size: 0.7rem;
+  position: absolute;
+  top: 5px;
+  left: 17px;
+  user-select: none;
+  background: transparent;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input_empty > .label {
+  font-size: 0.9rem;
+  top: 1em;
+  left: 15px;
+}
+
+.field_container:focus-within > .label {
+  font-size: 0.7rem;
+  top: 5px;
+  left: 17px;
 }
 
 .forgot_password {
@@ -132,6 +185,16 @@
 .button:hover {
   color: white;
   background: rgb(175, 175, 175);
+}
+
+.button_active {
+  color: white;
+  background: green;
+}
+
+.button.button_active:hover {
+  background: rgb(0, 185, 0);
+  border: 1px solid rgb(0, 185, 0);
 }
 
 .active {
