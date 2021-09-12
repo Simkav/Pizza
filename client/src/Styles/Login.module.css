@@ -170,6 +170,9 @@
 }
 
 .button {
+  cursor: not-allowed;
+  pointer-events:none;
+  opacity: 0.5;
   font-size: 1.3rem;
   flex: 1 1 100%;
   text-align: center;
@@ -188,6 +191,9 @@
 }
 
 .button_active {
+  cursor: auto;
+  pointer-events:all;
+  opacity: 1;
   color: white;
   background: green;
 }
