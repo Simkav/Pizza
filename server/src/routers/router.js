@@ -1,10 +1,7 @@
 const express = require('express')
-
+const userRouter = require('./user')
 const Router = express.Router()
 
-Router.all('/test', (req, res, next) => {
-  res.statusCode = 200
-  res.send('ok')
-})
+Router.use('/users', userRouter)
 
 module.exports = Router
