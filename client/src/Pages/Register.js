@@ -6,9 +6,7 @@ function Register() {
   return (
     <>
       <SignUpHeader />
-      <AuthFormContainer>
-        <RegisterForm />
-      </AuthFormContainer>
+      <AuthFormContainer children={<RegisterForm />} />
     </>
   );
 }
