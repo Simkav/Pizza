@@ -1,8 +1,8 @@
 import React from "react";
-import cl from "./../../Styles/Login.module.css";
+import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
-import { signUpSchema } from "../../Validations/SignUpSchema";
+import { signUpSchema } from "../../../Validations/SignUpSchema";
 
 function RegisterForm() {
   const registerFormik = useFormik({

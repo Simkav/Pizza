@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import cl from "./../../Styles/Login.module.css";
+import cl from "./LoginForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
-import { signInSchema } from "../../Validations/SignInSchema";
+import { signInSchema } from "../../../Validations/SignInSchema";
 
 function LoginForm() {
   const loginFormik = useFormik({
@@ -22,7 +22,7 @@ function LoginForm() {
     }
   }
   return (
-    <form className={cl.signup_form} onSubmit={loginFormik.handleSubmit}>
+    <form onSubmit={loginFormik.handleSubmit}>
       <div className={cl.row}>
         <div
           className={cn(
