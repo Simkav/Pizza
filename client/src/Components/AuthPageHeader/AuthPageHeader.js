@@ -1,5 +1,5 @@
 import React from "react";
-import cl from "./../../Styles/Login.module.css";
+import cl from "./AuthPageHeader.module.css";
 import {Link} from 'react-router-dom'
 
 function SignUpHeader(props) {
@@ -14,7 +14,7 @@ function SignUpHeader(props) {
       </Link>
       <div className={cl.login_button_container}>
         <Link to={props.login ? "/register" : "/login"} className={cl.login_button}>
-          <span className={cl.login_button_text}>{props.login ? "Зарегистрироваться" : "Войти"}</span>
+          <span>{props.login ? "Зарегистрироваться" : "Войти"}</span>
         </Link>
       </div>
     </div>
