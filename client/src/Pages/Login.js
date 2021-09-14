@@ -6,7 +6,7 @@ function Login() {
   return (
     <>
       <SignUpHeader login={true} />
-      <AuthFormContainer login={true} children={<LoginForm />} />
+      <AuthFormContainer children={<LoginForm />} />
     </>
   );
 }
