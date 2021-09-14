@@ -3,6 +3,7 @@ import Content from './Components/Content/Content'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import WithHeaderFooterAside from './Components/Hoc/WithHeaderFooterAside'
+// For commit
 function App () {
   return (
     <BrowserRouter>
