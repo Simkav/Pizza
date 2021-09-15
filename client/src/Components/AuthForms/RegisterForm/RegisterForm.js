@@ -1,10 +1,25 @@
-import React from "react";
+import { React } from "react";
 import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
+import RegisterService from "../../../Services/AuthService";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function RegisterForm() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser);
+
+  const currentUserObject = (values) => {
+    return {
+      email: new Date(), //Временное решение!
+      phone: values.phone,
+      password: values.password,
+    };
+  };
+
   const registerFormik = useFormik({
     initialValues: {
       phone: "+38",
@@ -13,6 +28,13 @@ function RegisterForm() {
     },
     onSubmit: (values) => {
       console.log("Submit values:", values);
+      RegisterService(currentUserObject(values)).then((data) => {
+        if (data.status === 200) {
+          history.push("/");
+          dispatch({ type: "AUTHORIZED", payload: true });
+          dispatch({ type: "LOGIN_USER", payload: currentUserObject(values) });
+        }
+      });
     },
     validationSchema: signUpSchema,
   });
