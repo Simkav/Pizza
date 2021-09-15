@@ -25,6 +25,15 @@ function ProfileForm() {
     });
   };
 
+  const cancelUserProfileChanges = () => {
+    setIsEdit(!isEdit)
+    formikValue.phone = currentUser.phone
+    formikValue.password = currentUser.password
+    formikValue.email = currentUser.email
+    formikValue.firstName = currentUser.firstName
+    formikValue.secondName = currentUser.secondName
+  }
+
   console.log(currentUser);
 
   const ProfileFormik = useFormik({
@@ -129,7 +138,7 @@ function ProfileForm() {
             </div>
             <div className={cl.field_container}>
               <button
-                onClick={() => setIsEdit(!isEdit)}
+                onClick={cancelUserProfileChanges}
                 className={cn(cl.button, cl.half)}
               >
                 Отменить
