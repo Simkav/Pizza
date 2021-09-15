@@ -16,7 +16,7 @@
 }
 
 .field_title {
-  text-align: center;
+  text-align: left;
   color: gray;
   flex: 1 1 100%;
   font-size: 0.9rem;
@@ -26,14 +26,14 @@
 .field_input {
   box-sizing: border-box;
   flex: 1 1 100%;
-  align-self: center;
+  align-self: left;
   background: rgba(0, 0, 0, 0.05);
   border: 0px solid rgb(175, 175, 175);
   border-radius: 5px;
   min-height: 30px;
   min-width: 300px;
-  text-align: center;
-  padding: 0;
+  text-align: left;
+  padding: 5px;
   transition: all 0.5s ease;
 }
 
