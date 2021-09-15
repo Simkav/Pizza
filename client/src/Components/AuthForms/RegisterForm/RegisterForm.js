@@ -10,8 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 function RegisterForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser);
-
+  
   const currentUserObject = (values) => {
     return {
       email: new Date(), //Временное решение!
