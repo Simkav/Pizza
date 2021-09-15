@@ -6,7 +6,7 @@ import { AsideMenuList } from "../../Helpers/AsideMenuItemList";
 import cn from "classnames"
 
 export default function Aside() {
-  const hamburgerMenuState = useSelector((state) => state);
+  const hamburgerMenuState = useSelector((state) => state.hamburgerMenu);
 
   return (
     <aside className={cn(cl.aside_container, {[cl.aside_active]: hamburgerMenuState})}>
