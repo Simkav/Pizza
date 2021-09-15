@@ -18,7 +18,8 @@ export default function Header() {
   const [popUp, setPopUp] = useState(false);
 
   const dispatch = useDispatch();
-  const hamburgerMenuState = useSelector((state) => state);
+  const hamburgerMenuState = useSelector((state) => state.hamburgerMenu);
+  const isUserAuth = useSelector((state) => state.currentUser.isAuth)
 
   const hamburgerMenuToggle = () => {
     const toggle = !hamburgerMenuState;
@@ -73,9 +74,9 @@ export default function Header() {
             })}
           </PopUpModule>
         </div>
-        <Link to={"/login"} className={cl.row}>
+        <Link to={isUserAuth ? "/profile" : "/login"} className={cl.row}>
           <FaUser />
-          <span className={cl.header_menu_text}>Войти</span>
+          <span className={cl.header_menu_text}>{isUserAuth ? 'Профиль' : 'Войти'}</span>
         </Link>
         <div className={cl.row}>
           <FaShoppingCart />
