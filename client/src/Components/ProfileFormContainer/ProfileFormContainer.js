@@ -5,7 +5,7 @@ function ProfileFormContainer(props) {
     <div className={cl.profile_container}>
       <div className={cl.profile_form_wrapper}>
         <div className={cl.profile_info}>
-          <h1>Профиль</h1>
+          <h1>Персональная информация</h1>
         </div>
         {props.children}
       </div>
