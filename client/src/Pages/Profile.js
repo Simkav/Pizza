@@ -1,14 +1,13 @@
-import SignUpHeader from "../Components/AuthPageHeader/AuthPageHeader";
+import Content from "../Components/Content/Content";
 import ProfileForm from "../Components/ProfileForm/ProfileForm";
 import ProfileFormContainer from "../Components/ProfileFormContainer/ProfileFormContainer";
 
-function Register() {
+function Profile() {
   return (
     <>
-      <SignUpHeader />
-      <ProfileFormContainer children={<ProfileForm />} />
+      <Content children={<ProfileFormContainer children={<ProfileForm />} />} />
     </>
   );
 }
 
-export default Register;
+export default Profile;
