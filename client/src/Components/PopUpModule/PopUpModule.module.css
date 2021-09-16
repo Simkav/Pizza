@@ -51,9 +51,7 @@
 
 @media (max-width: 650px) {
   .popup:before {
-    transform: rotate(180deg);
-    top: 100%;
-    left: calc((100%/3 - 30px)/2);
+    opacity: 0;
   }
   .popup {
     left: 15px;
