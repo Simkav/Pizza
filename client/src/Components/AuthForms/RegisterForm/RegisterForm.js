@@ -53,8 +53,8 @@ function RegisterForm() {
     <form className={cl.signup_form} onSubmit={RegisterFormik.handleSubmit}>
       {AuthFormsInputItems.map((item) => {
         return (
-          <>
-            <div key={item.name} className={cl.row}>
+          <div key={item.name}>
+            <div className={cl.row}>
               <div
                 className={cn(
                   cl.field_container,
@@ -72,7 +72,6 @@ function RegisterForm() {
                   type={item.type}
                   className={cn(
                     cl.input,
-                    cl.phone,
                     {
                       [cl.input_invalid]:
                         formikTouched[item.name] && formikError[item.name],
@@ -86,15 +85,16 @@ function RegisterForm() {
                   onChange={RegisterFormik.handleChange}
                   onBlur={RegisterFormik.handleBlur}
                   value={formikValue[item.name]}
+                  autoComplete={item.name}
                 />
               </div>
             </div>
-            <div key={item.name} className={cn(cl.row, cl.error_text)}>
+            <div className={cn(cl.row, cl.error_text)}>
               <span className={cl.input_error_text}>
                 {formikTouched[item.name] ? formikError[item.name] : ""}
               </span>
             </div>
-          </>
+          </div>
         );
       })}
       <div className={cl.row}>
