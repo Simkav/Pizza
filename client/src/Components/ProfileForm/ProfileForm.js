@@ -9,7 +9,6 @@ function ProfileForm() {
   const currentUser = useSelector(
     (state) => state.currentUser.currentUserObject
   );
-  console.log(currentUser);
 
   const dispatch = useDispatch();
   const editUserPersonalInfo = (values) => {
@@ -34,8 +33,6 @@ function ProfileForm() {
     formikValue.secondName = currentUser.secondName
   }
 
-  console.log(currentUser);
-
   const ProfileFormik = useFormik({
     initialValues: {
       phone: currentUser === undefined ? "" : currentUser.phone,
@@ -45,15 +42,12 @@ function ProfileForm() {
       secondName: currentUser === undefined ? "" : currentUser.secondName,
     },
     onSubmit: (values) => {
-        console.log(values)
       editUserPersonalInfo(values);
       setIsEdit(!isEdit)
     },
   });
 
   const formikValue = ProfileFormik.values;
-
-  console.log(formikValue)
 
   return (
     <form onSubmit={ProfileFormik.handleSubmit}>
