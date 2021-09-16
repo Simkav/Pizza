@@ -1,22 +1,21 @@
 .footer_container {
-    background: white;
+    height: 50px;
     z-index: 9;
     position: absolute;
     bottom: 0;
     width: 100%;
-    max-height: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 90px;
     margin-left: 0px;
     transition: all 1s ease;
 }
 
 .footer_copyright_container {
-    padding: 15px 0px;
+    background: white;
+    height: 50px;
     width: 95%;
     border-top: 1px solid rgb(201, 201, 201);
     display: flex;
