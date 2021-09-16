@@ -4,6 +4,8 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
 import WithHeaderFooterAside from "./Components/Hoc/WithHeaderFooterAside";
+import PrivateHoc from "./Components/PrivateHoc/PrivateHoc";
+import OnlyNotAuthorizedUserHoc from "./Components/OnlyNotAuthorizedUserHoc.jsx/OnlyNotAuthorizedUserHoc";
 
 
 function App() {
@@ -11,9 +13,9 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={WithHeaderFooterAside(Content)} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/login" component={OnlyNotAuthorizedUserHoc(Login)} />
+        <Route exact path="/register" component={OnlyNotAuthorizedUserHoc(Register)} />
+        <Route exact path="/profile" component={PrivateHoc(Profile)} />
         <Redirect to={"/"} />
       </Switch>
     </BrowserRouter>
