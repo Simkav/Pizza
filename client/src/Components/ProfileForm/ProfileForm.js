@@ -3,6 +3,7 @@ import cl from "./ProfileForm.module.css";
 import cn from "classnames";
 import { useState } from "react";
 import { useFormik } from "formik";
+import { ProfilePersonalInfoItems } from "./../../Helpers/ProfilePersonalInfoItems";
 
 function ProfileForm() {
   const [isEdit, setIsEdit] = useState(false);
@@ -25,13 +26,13 @@ function ProfileForm() {
   };
 
   const cancelUserProfileChanges = () => {
-    setIsEdit(!isEdit)
-    formikValue.phone = currentUser.phone
-    formikValue.password = currentUser.password
-    formikValue.email = currentUser.email
-    formikValue.firstName = currentUser.firstName
-    formikValue.secondName = currentUser.secondName
-  }
+    setIsEdit(!isEdit);
+    formikValue.phone = currentUser.phone;
+    formikValue.password = currentUser.password;
+    formikValue.email = currentUser.email;
+    formikValue.firstName = currentUser.firstName;
+    formikValue.secondName = currentUser.secondName;
+  };
 
   const ProfileFormik = useFormik({
     initialValues: {
@@ -43,7 +44,7 @@ function ProfileForm() {
     },
     onSubmit: (values) => {
       editUserPersonalInfo(values);
-      setIsEdit(!isEdit)
+      setIsEdit(!isEdit);
     },
   });
 
@@ -51,77 +52,26 @@ function ProfileForm() {
 
   return (
     <form onSubmit={ProfileFormik.handleSubmit}>
-      <div className={cl.row}>
-        <div className={cn(cl.field_container, cl.column)}>
-          <div className={cl.field_title}>Телефон</div>
-          <input
-            type={"tel"}
-            name={"phone"}
-            onChange={ProfileFormik.handleChange}
-            onBlur={ProfileFormik.handleBlur}
-            value={formikValue.phone}
-            disabled={isEdit ? false : true}
-            className={cn(cl.field_input, { [cl.field_input_active]: isEdit })}
-          ></input>
-        </div>
-      </div>
-      <div className={cl.row}>
-        <div className={cn(cl.field_container, cl.column)}>
-          <div className={cl.field_title}>Пароль</div>
-          <input
-            type={"password"}
-            name={"password"}
-            onChange={ProfileFormik.handleChange}
-            onBlur={ProfileFormik.handleBlur}
-            value={formikValue.password}
-            autoComplete={"password"}
-            disabled={isEdit ? false : true}
-            className={cn(cl.field_input, { [cl.field_input_active]: isEdit })}
-          ></input>
-        </div>
-      </div>
-      <div className={cl.row}>
-        <div className={cn(cl.field_container, cl.column)}>
-          <div className={cl.field_title}>Email</div>
-          <input
-            type={"email"}
-            name={"email"}
-            onChange={ProfileFormik.handleChange}
-            onBlur={ProfileFormik.handleBlur}
-            value={formikValue.email}
-            disabled={isEdit ? false : true}
-            className={cn(cl.field_input, { [cl.field_input_active]: isEdit })}
-          ></input>
-        </div>
-      </div>
-      <div className={cl.row}>
-        <div className={cn(cl.field_container, cl.column)}>
-          <div className={cl.field_title}>Имя</div>
-          <input
-            type={"text"}
-            name={"firstName"}
-            onChange={ProfileFormik.handleChange}
-            onBlur={ProfileFormik.handleBlur}
-            value={formikValue.firstName}
-            disabled={isEdit ? false : true}
-            className={cn(cl.field_input, { [cl.field_input_active]: isEdit })}
-          ></input>
-        </div>
-      </div>
-      <div className={cl.row}>
-        <div className={cn(cl.field_container, cl.column)}>
-          <div className={cl.field_title}>Фамилия</div>
-          <input
-            type={"text"}
-            name={"secondName"}
-            onChange={ProfileFormik.handleChange}
-            onBlur={ProfileFormik.handleBlur}
-            value={formikValue.secondName}
-            disabled={isEdit ? false : true}
-            className={cn(cl.field_input, { [cl.field_input_active]: isEdit })}
-          ></input>
-        </div>
-      </div>
+      {ProfilePersonalInfoItems.map((item) => {
+        return (
+          <div className={cl.row} key={item.name}>
+            <div className={cn(cl.field_container, cl.column)}>
+              <div className={cl.field_title}>{item.fieldText}</div>
+              <input
+                type={item.type}
+                name={item.name}
+                onChange={ProfileFormik.handleChange}
+                onBlur={ProfileFormik.handleBlur}
+                value={formikValue[item.name]}
+                disabled={isEdit ? false : true}
+                className={cn(cl.field_input, {
+                  [cl.field_input_active]: isEdit,
+                })}
+              ></input>
+            </div>
+          </div>
+        );
+      })}
       <div className={cn(cl.row)}>
         {isEdit ? (
           <>
