@@ -5,7 +5,7 @@ import ProfileFormContainer from "../Components/ProfileFormContainer/ProfileForm
 function Profile() {
   return (
     <>
-      <Content children={<ProfileFormContainer children={<ProfileForm />} />} />
+      <ProfileFormContainer children={<ProfileForm />} />
     </>
   );
 }
