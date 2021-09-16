@@ -5,12 +5,13 @@ import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
 import RegisterService from "../../../Services/AuthService";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
 
 function RegisterForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-  
+
   const currentUserObject = (values) => {
     return {
       email: new Date(), //Временное решение!
@@ -19,7 +20,7 @@ function RegisterForm() {
     };
   };
 
-  const registerFormik = useFormik({
+  const RegisterFormik = useFormik({
     initialValues: {
       phone: "+38",
       password: "",
@@ -37,153 +38,75 @@ function RegisterForm() {
     },
     validationSchema: signUpSchema,
   });
-  if (registerFormik.touched.phone) {
-    if (!registerFormik.values.phone.includes("+38")) {
-      registerFormik.values.phone = "+38";
+
+  const formikValue = RegisterFormik.values;
+  const formikTouched = RegisterFormik.touched;
+  const formikError = RegisterFormik.errors;
+
+  if (formikTouched.phone) {
+    if (!formikValue.phone.includes("+38")) {
+      formikValue.phone = "+38";
     }
   }
+
   return (
-    <form className={cl.signup_form} onSubmit={registerFormik.handleSubmit}>
-      <div className={cl.row}>
-        <div
-          className={cn(
-            cl.field_container,
-            {
-              [cl.input_empty]: !registerFormik.values.phone,
-            },
-            {
-              [cl.field_container_valid]:
-                !registerFormik.errors.phone & registerFormik.touched.phone,
-            }
-          )}
-        >
-          <label className={cl.label}>Номер телефона</label>
-          <input
-            type={"tel"}
-            className={cn(
-              cl.input,
-              cl.phone,
-              {
-                [cl.input_invalid]:
-                  registerFormik.touched.phone && registerFormik.errors.phone,
-              },
-              {
-                [cl.input_valid]:
-                  !registerFormik.errors.phone && registerFormik.touched.phone,
-              }
-            )}
-            name={"phone"}
-            onChange={registerFormik.handleChange}
-            onBlur={registerFormik.handleBlur}
-            value={registerFormik.values.phone}
-          />
-        </div>
-      </div>
-      <div className={cn(cl.row, cl.error_text)}>
-        <span className={cl.input_error_text}>
-          {registerFormik.touched.phone ? registerFormik.errors.phone : ""}
-        </span>
-      </div>
-      <div className={cl.row}>
-        <div
-          className={cn(
-            cl.field_container,
-            {
-              [cl.input_empty]: !registerFormik.values.password,
-            },
-            {
-              [cl.field_container_valid]:
-                !registerFormik.errors.password &
-                registerFormik.touched.password,
-            }
-          )}
-        >
-          <label className={cl.label}>Пароль</label>
-          <input
-            type={"password"}
-            className={cn(
-              cl.input,
-              {
-                [cl.input_invalid]:
-                  registerFormik.touched.password &&
-                  registerFormik.errors.password,
-              },
-              {
-                [cl.input_valid]:
-                  !registerFormik.errors.password &&
-                  registerFormik.touched.password,
-              }
-            )}
-            name={"password"}
-            onChange={registerFormik.handleChange}
-            onBlur={registerFormik.handleBlur}
-            value={registerFormik.values.password}
-            autoComplete={"password"}
-          />
-        </div>
-      </div>
-      <div className={cn(cl.row, cl.error_text)}>
-        <span className={cl.input_error_text}>
-          {registerFormik.touched.password
-            ? registerFormik.errors.password
-            : ""}
-        </span>
-      </div>
-      <div className={cl.row}>
-        <div
-          className={cn(
-            cl.field_container,
-            {
-              [cl.input_empty]: !registerFormik.values.passwordConfirm,
-            },
-            {
-              [cl.field_container_valid]:
-                !registerFormik.errors.passwordConfirm &
-                registerFormik.touched.passwordConfirm,
-            }
-          )}
-        >
-          <label className={cl.label}>Пароль</label>
-          <input
-            type={"password"}
-            className={cn(
-              cl.input,
-              {
-                [cl.input_invalid]:
-                  registerFormik.touched.passwordConfirm &&
-                  registerFormik.errors.passwordConfirm,
-              },
-              {
-                [cl.input_valid]:
-                  !registerFormik.errors.passwordConfirm &&
-                  registerFormik.touched.passwordConfirm,
-              }
-            )}
-            name={"passwordConfirm"}
-            onChange={registerFormik.handleChange}
-            onBlur={registerFormik.handleBlur}
-            value={registerFormik.values.passwordConfirm}
-            autoComplete={"password"}
-          />
-        </div>
-      </div>
-      <div className={cn(cl.row, cl.error_text)}>
-        <span className={cl.input_error_text}>
-          {registerFormik.touched.passwordConfirm
-            ? registerFormik.errors.passwordConfirm
-            : ""}
-        </span>
-      </div>
+    <form className={cl.signup_form} onSubmit={RegisterFormik.handleSubmit}>
+      {AuthFormsInputItems.map((item) => {
+        return (
+          <>
+            <div key={item.name} className={cl.row}>
+              <div
+                className={cn(
+                  cl.field_container,
+                  {
+                    [cl.input_empty]: !formikValue[item.name],
+                  },
+                  {
+                    [cl.field_container_valid]:
+                      !formikError[item.name] & formikTouched[item.name],
+                  }
+                )}
+              >
+                <label className={cl.label}>{item.labelText}</label>
+                <input
+                  type={item.type}
+                  className={cn(
+                    cl.input,
+                    cl.phone,
+                    {
+                      [cl.input_invalid]:
+                        formikTouched[item.name] && formikError[item.name],
+                    },
+                    {
+                      [cl.input_valid]:
+                        !formikError[item.name] && formikTouched[item.name],
+                    }
+                  )}
+                  name={item.name}
+                  onChange={RegisterFormik.handleChange}
+                  onBlur={RegisterFormik.handleBlur}
+                  value={formikValue[item.name]}
+                />
+              </div>
+            </div>
+            <div key={item.name} className={cn(cl.row, cl.error_text)}>
+              <span className={cl.input_error_text}>
+                {formikTouched[item.name] ? formikError[item.name] : ""}
+              </span>
+            </div>
+          </>
+        );
+      })}
       <div className={cl.row}>
         <div className={cl.field_container}>
           <button
             type={"submit"}
             className={cn(cl.button, {
               [cl.button_active]:
-                registerFormik.touched.phone &
-                registerFormik.touched.password &
-                registerFormik.touched.passwordConfirm &
-                registerFormik.isValid,
+                formikTouched.phone &
+                formikTouched.password &
+                formikTouched.passwordConfirm &
+                RegisterFormik.isValid,
             })}
           >
             Зарегистрироваться
