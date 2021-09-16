@@ -15,7 +15,7 @@ import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
 export default function Header() {
-  const [popUp, setPopUp] = useState(false);
+  const [contactsPopUp, setContactsPopUp] = useState(false);
 
   const dispatch = useDispatch();
   const hamburgerMenuState = useSelector((state) => state.hamburgerMenu);
@@ -49,15 +49,15 @@ export default function Header() {
         />
       </Link>
       <div className={cl.header_navigation}>
-        <div className={cl.col} onClick={() => setPopUp((popUp) => !popUp)}>
+        <div className={cl.col} onClick={() => setContactsPopUp((contactsPopUp) => !contactsPopUp)}>
           <div className={cl.contact_phone_container}>
             <FaPhone className="fas fa-phone" />
             <span className={cl.header_menu_text}>Контакты</span>
             <FaChevronDown
-              className={cn(cl.arrow_down, { [cl.arrow_active]: popUp })}
+              className={cn(cl.arrow_down, { [cl.arrow_active]: contactsPopUp })}
             ></FaChevronDown>
           </div>
-          <PopUpModule visible={popUp} setVisible={setPopUp}>
+          <PopUpModule visible={contactsPopUp} setVisible={setContactsPopUp}>
             {HeaderContactPhonesList.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
