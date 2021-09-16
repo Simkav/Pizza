@@ -3,7 +3,9 @@
     z-index: 9;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: calc(100% - 270px);
+    left: 270px;
+    right: 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -28,5 +30,12 @@
 @media (max-width: 650px) {
     .footer_container {
         bottom: 71px;
+    }
+}
+
+@media (max-width: 1440px) {
+    .footer_container {
+        left: 0;
+        width: 100%;
     }
 }
