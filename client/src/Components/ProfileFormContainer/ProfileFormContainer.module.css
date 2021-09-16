@@ -28,4 +28,7 @@
     .profile_info {
       font-size: 1rem;
     }
+    .profile_container {
+      padding: 50px 0px 0px 0px;
+    }
   }
