@@ -61,8 +61,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  transition: all 1s ease,
-  box-shadow 0s ease;
+  transition: all 1s ease, box-shadow 0s ease;
 }
 
 .header_menu_text {
@@ -71,6 +70,8 @@
 }
 
 .col {
+  color: black;
+  text-decoration: none;
   flex: 1 1 33%;
   display: flex;
   flex-direction: column;
@@ -108,18 +109,14 @@
 .arrow_down {
   box-sizing: border-box;
   margin: 0px 15px;
-  border: 0px solid var(--header-main-color);
+  border: 0px solid var(--hover-main-color);
   border-radius: 50%;
   transition: border var(--arrow-down-grow-animation-time) ease,
     transform var(--arrow-down-grow-animation-time) ease;
 }
 
-.arrow_down:hover {
-  border: 2px solid var(--hover-main-color);
-  background: var(--hover-main-color);
-}
-
 .arrow_active {
+  box-sizing: border-box;
   transform: rotateX(180deg);
   border: 5px solid var(--hover-main-color);
   border-radius: 5px;
@@ -165,6 +162,25 @@
   margin-right: 15px;
   height: 22px;
   width: 22px;
+}
+
+.profile_link {
+  align-self: stretch;
+  font-size: 1rem;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  transition: all 0.5s ease;
+  padding: 10px;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.profile_link:hover {
+  color: white;
+  z-index: +1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background: rgb(175, 175, 175);
 }
 
 /* Landscape - телефоны */
@@ -218,7 +234,7 @@
     padding: 0;
   }
   .phone {
-    transform: scale(1.50);
+    transform: scale(1.5);
   }
 }
 
@@ -273,7 +289,8 @@
 
 /* Не показывать кнопку меню при ширине минимум 1440px */
 @media (min-width: 1440px) {
-  .hamburger_menu_container, .hover_element {
+  .hamburger_menu_container,
+  .hover_element {
     min-width: 0;
     width: 0;
     opacity: 0;

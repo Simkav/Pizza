@@ -15,15 +15,23 @@ import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
 export default function Header() {
-  const [popUp, setPopUp] = useState(false);
+  const [contactsPopUp, setContactsPopUp] = useState(false);
+  const [profilePopUp, setProfilePopUp] = useState(false);
 
   const dispatch = useDispatch();
-  const hamburgerMenuState = useSelector((state) => state);
+  const hamburgerMenuState = useSelector((state) => state.hamburgerMenu);
+  const isUserAuth = useSelector((state) => state.currentUser.isAuth);
 
   const hamburgerMenuToggle = () => {
     const toggle = !hamburgerMenuState;
     dispatch({ type: "SWITCH_MENU", payload: toggle });
   };
+
+  const setLogOut = () => {
+    dispatch({ type: "AUTHORIZED", payload: false });
+  };
+
+  console.log(isUserAuth);
 
   return (
     <header className={cl.header}>
@@ -48,15 +56,20 @@ export default function Header() {
         />
       </Link>
       <div className={cl.header_navigation}>
-        <div className={cl.col} onClick={() => setPopUp((popUp) => !popUp)}>
+        <div
+          className={cl.col}
+          onClick={() => setContactsPopUp((contactsPopUp) => !contactsPopUp)}
+        >
           <div className={cl.contact_phone_container}>
-            <FaPhone className="fas fa-phone" />
+            <FaPhone />
             <span className={cl.header_menu_text}>Контакты</span>
             <FaChevronDown
-              className={cn(cl.arrow_down, { [cl.arrow_active]: popUp })}
+              className={cn(cl.arrow_down, {
+                [cl.arrow_active]: contactsPopUp,
+              })}
             ></FaChevronDown>
           </div>
-          <PopUpModule visible={popUp} setVisible={setPopUp}>
+          <PopUpModule visible={contactsPopUp} setVisible={setContactsPopUp}>
             {HeaderContactPhonesList.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
@@ -73,10 +86,37 @@ export default function Header() {
             })}
           </PopUpModule>
         </div>
-        <Link to={"/login"} className={cl.row}>
-          <FaUser />
-          <span className={cl.header_menu_text}>Войти</span>
-        </Link>
+        {isUserAuth ? (
+          <div
+            className={cl.col}
+            onClick={() => setProfilePopUp((profilePopUp) => !profilePopUp)}
+          >
+            <div className={cl.contact_phone_container}>
+              <FaUser />
+              <span className={cl.header_menu_text}>Профиль</span>
+              <FaChevronDown
+                className={cn(cl.arrow_down, {
+                  [cl.arrow_active]: profilePopUp,
+                })}
+              ></FaChevronDown>
+            </div>
+            <PopUpModule visible={profilePopUp} setVisible={setProfilePopUp}>
+              <Link className={cl.profile_link} to={"/profile"}>
+                Персональная информация
+              </Link>
+              <div className={cl.profile_link} onClick={setLogOut}>
+                Выйти
+              </div>
+            </PopUpModule>
+          </div>
+        ) : (
+          <Link className={cl.col} to={"/login"}>
+            <div className={cl.contact_phone_container}>
+              <FaUser />
+              <span className={cl.header_menu_text}>Войти</span>
+            </div>
+          </Link>
+        )}
         <div className={cl.row}>
           <FaShoppingCart />
           <span className={cl.header_menu_text}>Cart</span>

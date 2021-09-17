@@ -4,13 +4,13 @@ import "./index.css";
 import App from "./App";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { hamburgerMenuReducer } from "./Redux/HamburgerMenuReducer";
+import rootReducer from './Redux/RootReducer'
 
-const hamburgerMenuStore = createStore(hamburgerMenuReducer);
+const rootStore = createStore(rootReducer);
 
 render(
   <React.StrictMode>
-    <Provider store={hamburgerMenuStore}>
+    <Provider store={rootStore}>
       <App />
     </Provider>
   </React.StrictMode>,
