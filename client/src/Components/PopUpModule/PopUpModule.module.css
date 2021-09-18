@@ -51,15 +51,14 @@
 
 @media (max-width: 650px) {
   .popup:before {
-    transform: rotate(180deg);
-    top: 100%;
-    left: calc((100%/3)/2);
+    opacity: 0;
   }
   .popup {
-    left: 0;
+    left: 15px;
+    right: 15px;
     top: auto;
     bottom: 50px;
-    width: 100%;
+    max-width: 100%;
     justify-content: baseline;
     height: calc(100% - 140px);
   }

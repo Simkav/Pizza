@@ -1,7 +1,10 @@
-const express = require('express')
+const Router = require('express').Router()
 const userRouter = require('./user')
-const Router = express.Router()
+const errorHandlers = require('../errorHandlers/errorHandler')
+const secondRouter = require('express').Router()
 
-Router.use('/users', userRouter)
+Router.use('/auth', userRouter)
+
+Router.use(errorHandlers.basicHandler)
 
 module.exports = Router
