@@ -4,7 +4,7 @@ include .env
 
 #----------- Make Environment ----------------------
 .DEFAULT_GOAL := help
-SHELL= /bin/sh
+SHELL = /bin/bash
 docker_bin= $(shell command -v docker 2> /dev/null)
 docker_compose_bin= $(shell command -v docker-compose 2> /dev/null)
 COMPOSE_CONFIG=--env-file .env -p "$(PROJECT_NAME)" -f docker/docker-compose.yml -f docker/docker-compose.${ENVIRONMENT}.yml
@@ -26,3 +26,5 @@ api_log: ## Show log from api container
 	$(docker_bin) logs -t -f -n 1000 pizza-api-web-service
 app_log: ## Show log from app container
 	$(docker_bin) logs -t -f -n 1000 pizza-app-web-service
+init: ##yarn install
+	pushd server && yarn && popd && pushd client && yarn && popd 
