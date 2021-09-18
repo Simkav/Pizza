@@ -14,7 +14,6 @@ const checkUserCredentials = async (req, res, next) => {
 const findUser = async (req, res, next) => {
   try {
     const { phone } = req.body
-    console.log(phone)
     const findedUser = await User.findOne({ where: { phone } })
     if (!findedUser) {
       return next(new Error('User not found'))
@@ -31,7 +30,6 @@ const checkRefreshToken = async (req, res, next) => {
     const {
       body: { token }
     } = req
-    console.log(token)
     req.token = await verifyRefreshToken(token)
     next()
   } catch (error) {
