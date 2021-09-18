@@ -23,22 +23,13 @@ const tokenConfig = {
 }
 
 const createToken = (payload, { time, secret }) =>
-  signJWT(
-    {
-      userId: payload.id,
-      email: payload.email
-    },
-    secret,
-    { expiresIn: time }
-  )
+  signJWT(payload, secret, { expiresIn: time })
 const verifyToken = (token, { secret }) => verifyJWT(token, secret)
 
-createTokenPair = async payload => {
-  return {
-    refresh: await createToken(payload, tokenConfig.refresh),
-    access: await createToken(payload, tokenConfig.access)
-  }
-}
+createTokenPair = async payload => ({
+  refresh: await createToken(payload, tokenConfig.refresh),
+  access: await createToken(payload, tokenConfig.access)
+})
 
 verifyAccessToken = token => verifyToken(token, tokenConfig.access)
 
