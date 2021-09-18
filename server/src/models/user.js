@@ -1,22 +1,20 @@
 'use strict'
 const { Model } = require('sequelize')
-const { createHash } = require('crypto')
+const { hash } = require('../helpers/crypto')
 
 const hashPassword = user => {
   if (user.changed('password')) {
     const { password } = user
-    const hashedPassword = createHash('sha256')
-      .update(password)
-      .digest('hex')
-    user.password = hashedPassword
+    user.password = hash(password)
   }
 }
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate (models) {}
-    comparePassword = password =>
-      hashPassword(password) === this.getDataValue('password')
+    comparePassword = password => {
+      return hash(password) === this.getDataValue('password')
+    }
   }
   User.init(
     {
