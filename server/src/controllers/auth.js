@@ -13,8 +13,8 @@ const register = async (req, res, next) => {
       id: createdUser.getDataValue('id'),
       phone: createdUser.getDataValue('phone')
     })
-    const omitedUser = omit(user.dataValues, ['password'])
-    res.send({ data: { tokens, omitedUser } })
+    const omitedUser = omit(createdUser.dataValues, ['password'])
+    res.send({ data: { tokens, user:omitedUser } })
   } catch (error) {
     next(error)
   }
