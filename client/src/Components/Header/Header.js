@@ -33,7 +33,7 @@ export default function Header() {
 
   };
 
-  const isUserAuth = true;
+  const isUserAuth = false;
 
   return (
     <header className={cl.header}>
