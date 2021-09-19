@@ -7,18 +7,15 @@ import OnlyNotAuthorizedUserHoc from "./Components/OnlyNotAuthorizedUserHoc.jsx/
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import Main from "./Pages/Main";
+import constants from "./constants";
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    const isAuth = localStorage.getItem("IsAuth");
-    if (isAuth) {
-      dispatch({ type: "AUTHORIZED", payload: true });
-      dispatch({
-        type: "LOGIN_USER",
-        payload: JSON.parse(localStorage.getItem("UserObject")),
-      });
+    const refreshToken = localStorage.getItem(constants.REFRESH_TOKEN);
+    if (refreshToken) {
+      // TODO requestAuthRefresh
     }
   }, []);
 
