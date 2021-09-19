@@ -30,7 +30,7 @@ export default function Header() {
   };
 
   const setLogOut = () => {
-    
+
   };
 
   const isUserAuth = true;
@@ -39,11 +39,11 @@ export default function Header() {
     <header className={cl.header}>
       <div
         className={cn(cl.hamburger_menu_container, cl.hover_element, {
-          [cl.hamburger_menu_active]: hamburgerMenuState,
+          [cl.hamburger_menu_active]: hamburgerMenuState.isOpened,
         })}
         onClick={() => hamburgerMenuToggle()}
       >
-        {!hamburgerMenuState ? (
+        {!hamburgerMenuState.isOpened ? (
           <FaBars className={cl.hamburger_bars} />
         ) : (
           <FaTimes className={cl.hamburger_cross} />
