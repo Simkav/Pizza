@@ -1,6 +1,6 @@
 const initState = false;
 
-export const hamburgerMenuReducer = (state = initState, action) => {
+export default function (state = initState, action) {
   switch (action.type) {
     case "SWITCH_MENU":
       return action.payload;
@@ -8,4 +8,4 @@ export const hamburgerMenuReducer = (state = initState, action) => {
     default:
       return state;
   }
-};
+}
