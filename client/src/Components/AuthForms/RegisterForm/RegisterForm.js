@@ -3,13 +3,12 @@ import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
-import RegisterService from "../../../Services/AuthService";
-import { useHistory } from "react-router-dom";
+import history from '../../../browserHistory'
 import { useDispatch } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
+import * as ACTION from '../../../Actions/actionCreator'
 
 function RegisterForm() {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const currentUserObject = (values) => {
@@ -27,14 +26,7 @@ function RegisterForm() {
       passwordConfirm: "",
     },
     onSubmit: (values) => {
-      console.log("Submit values:", values);
-      RegisterService(currentUserObject(values)).then((data) => {
-        if (data.status === 200) {
-          history.push("/");
-          dispatch({ type: "AUTHORIZED", payload: true });
-          dispatch({ type: "LOGIN_USER", payload: currentUserObject(values) });
-        }
-      });
+      dispatch(ACTION.authActionRegister(currentUserObject(values)))
     },
     validationSchema: signUpSchema,
   });
