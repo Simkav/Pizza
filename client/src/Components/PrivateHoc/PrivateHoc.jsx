@@ -2,7 +2,7 @@ import { Redirect } from "react-router-dom";
 import WithHeaderFooterAside from "../Hoc/WithHeaderFooterAside";
 
 const PrivateHoc = (Component) => (props) => {
-  const isAuth = localStorage.getItem("AccessToken");
+  const isAuth = false;
   const MainComponent = WithHeaderFooterAside(Component)
   return isAuth ? (
     <MainComponent />
