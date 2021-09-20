@@ -22,6 +22,8 @@ down: ## Stop all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) down
 restart:  ## Restart all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) restart
+flush_db: ##
+	$(docker_bin) exec $(API_SERVICE_CONTAINER) make reinit_db
 	
 ---------------: ## ------[ EXEC ]---------
 #Exec --------------------------------------------------
