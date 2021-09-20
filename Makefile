@@ -16,15 +16,28 @@ help: ## Show this help
 #Actions --------------------------------------------------
 check: ## Check your configuration
 	$(docker_compose_bin) $(COMPOSE_CONFIG) config
-up: ## Start all containers (in background)
+up: init ## Start all containers (in background)
 	$(docker_compose_bin) $(COMPOSE_CONFIG) up --no-recreate -d
 down: ## Stop all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) down
 restart:  ## Restart all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) restart
+	
+---------------: ## ------[ EXEC ]---------
+#Exec --------------------------------------------------
+api_exec: ## exec bash on api container
+	$(docker_bin) exec -it $(API_SERVICE_CONTAINER) bash
+app_exec: ## exec bash on app container
+	$(docker_bin) exec -it $(APP_SERVICE_CONTAINER) bash
+
+---------------: ## ------[ LOGS ]---------
+#Logs --------------------------------------------------
 api_log: ## Show log from api container
-	$(docker_bin) logs -t -f -n 1000 pizza-api-web-service
+	$(docker_bin) logs -tf -n 1000 $(API_SERVICE_CONTAINER)
 app_log: ## Show log from app container
-	$(docker_bin) logs -t -f -n 1000 pizza-app-web-service
+	$(docker_bin) logs -tf -n 1000 $(APP_SERVICE_CONTAINER)
+
+---------------: ## ------[ Launch ]---------
+#Launch --------------------------------------------------
 init: ##yarn install
 	pushd server && yarn && popd && pushd client && yarn && popd 
