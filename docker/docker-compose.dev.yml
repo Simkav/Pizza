@@ -7,7 +7,7 @@ services:
       - "3000:3000"
 
   &api-web-service api-web-service:
-    command: yarn start:dev
+    command: make start
     ports: 
       - "3001:3001"
 
