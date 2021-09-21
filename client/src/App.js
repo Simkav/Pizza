@@ -2,10 +2,10 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
-import OnlyNotAuthorizedUserHoc from './Components/Hoc/OnlyNotAuthorizedUserHoc'
-import PrivateHoc from './Components/Hoc/PrivateHoc'
-import { useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
+import OnlyNotAuthorizedUserHoc from "./Components/Hoc/OnlyNotAuthorizedUserHoc";
+import PrivateHoc from "./Components/Hoc/PrivateHoc";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Main from "./Pages/Main";
 import constants from "./constants";
 import { requestAuthRefresh } from "./Actions/actionCreator";
