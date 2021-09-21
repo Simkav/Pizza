@@ -13,18 +13,18 @@ import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
 
 function App() {
   const dispatch = useDispatch();
-  // useStaae isSlider true
+  const isFetch = useSelector(({ auth }) => auth).isFetching;
+
   useLayoutEffect(() => {
     const refreshToken = localStorage.getItem(constants.REFRESH_TOKEN);
     if (refreshToken) {
       dispatch(requestAuthRefresh(refreshToken));
-      // TODO requestAuthRefresh
-      //after succee isSliider false
     }
-    // if !refrrshToken slider=falss
   }, []);
 
+  return isFetch ? (
     <LoadSpinner />
+  ) : (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Main} />
