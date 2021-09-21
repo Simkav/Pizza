@@ -1,18 +1,18 @@
 import React from "react";
-import Header from '../Header/Header'
+import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Aside from "../Aside/Aside";
-import Content from "../Content/Content";
-const WithHeaderFooterAside = (Component) => (props) =>
-  (
+import ContentHoc from "./ContentHoc/ContentHoc";
+const WithHeaderFooterAside = (Component) => (props) => {
+  const MainContent = ContentHoc(Component);
+  return (
     <>
       <Header />
       <Aside />
-      <Content>
-        <Component {...props} />
-      </Content>
+      <MainContent />
       <Footer />
     </>
   );
+};
 
 export default WithHeaderFooterAside;
