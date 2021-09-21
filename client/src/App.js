@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
-import PrivateHoc from "./Components/PrivateHoc/PrivateHoc";
-import OnlyNotAuthorizedUserHoc from "./Components/OnlyNotAuthorizedUserHoc.jsx/OnlyNotAuthorizedUserHoc";
+import OnlyNotAuthorizedUserHoc from './Components/Hoc/OnlyNotAuthorizedUserHoc'
+import PrivateHoc from './Components/Hoc/PrivateHoc'
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import Main from "./Pages/Main";
