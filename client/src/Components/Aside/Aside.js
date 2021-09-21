@@ -6,10 +6,10 @@ import { AsideMenuList } from "../../Helpers/AsideMenuItemList";
 import cn from "classnames"
 
 export default function Aside() {
-  const hamburgerMenuState = useSelector((state) => state.hamburgerMenu);
+  const hamburgerMenuState = useSelector(({hamburgerMenu}) => hamburgerMenu);
 
   return (
-    <aside className={cn(cl.aside_container, {[cl.aside_active]: hamburgerMenuState})}>
+    <aside className={cn(cl.aside_container, {[cl.aside_active]: hamburgerMenuState.isOpened})}>
       <ul className={cl.main_navigation_menu}>
         {AsideMenuList.map((item) => {
           return (

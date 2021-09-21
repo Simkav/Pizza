@@ -5,16 +5,26 @@ import cn from "classnames";
 import { useFormik } from "formik";
 import { signInSchema } from "../../../Validations/SignInSchema";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
+import { useDispatch } from "react-redux";
+import { authActionLogin } from "../../../Actions/actionCreator";
+import { useHistory } from "react-router-dom";
 
 function LoginForm() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const LoginFormik = useFormik({
     initialValues: {
       phone: "+38",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log("Submit values:", values);
-    },
+    onSubmit: ({phone, password}) =>
+      dispatch(
+        authActionLogin(
+          { phone, password },
+          history
+        )
+      ),
     validationSchema: signInSchema,
   });
 
@@ -22,11 +32,9 @@ function LoginForm() {
   const formikTouched = LoginFormik.touched;
   const formikError = LoginFormik.errors;
 
-  if (formikTouched.phone) {
     if (!formikValue.phone.includes("+38")) {
       formikValue.phone = "+38";
     }
-  }
 
   return (
     <form onSubmit={LoginFormik.handleSubmit}>
@@ -91,12 +99,7 @@ function LoginForm() {
         <div className={cl.field_container}>
           <button
             type={"submit"}
-            className={cn(cl.button, {
-              [cl.button_active]:
-                formikTouched.phone &
-                formikTouched.password &
-                LoginFormik.isValid,
-            })}
+            className={cn(cl.button, cl.button_active)}
           >
             Войти
           </button>
@@ -104,6 +107,6 @@ function LoginForm() {
       </div>
     </form>
   );
-}
+} 
 
 export default LoginForm;

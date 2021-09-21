@@ -2,44 +2,58 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
-import PrivateHoc from "./Components/PrivateHoc/PrivateHoc";
-import OnlyNotAuthorizedUserHoc from "./Components/OnlyNotAuthorizedUserHoc.jsx/OnlyNotAuthorizedUserHoc";
-import { useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
+import OnlyNotAuthorizedUserHoc from "./Components/Hoc/OnlyNotAuthorizedUserHoc";
+import PrivateHoc from "./Components/Hoc/PrivateHoc";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Main from "./Pages/Main";
+import constants from "./constants";
+import { requestAuthRefresh } from "./Actions/actionCreator";
+import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
 
 function App() {
   const dispatch = useDispatch();
+  const hasUser = useSelector(({ auth: { user } }) => user);
+  const [isShow, setisShow] = useState(false);
 
-  useLayoutEffect(() => {
-    const isAuth = localStorage.getItem("IsAuth");
-    if (isAuth) {
-      dispatch({ type: "AUTHORIZED", payload: true });
-      dispatch({
-        type: "LOGIN_USER",
-        payload: JSON.parse(localStorage.getItem("UserObject")),
-      });
-    }
-  }, []);
+  useEffect(() => {
+    const refreshToken = localStorage.getItem(constants.REFRESH_TOKEN);
+    const fn = () => {
+      if (refreshToken) {
+        if (!hasUser) {
+          dispatch(requestAuthRefresh(refreshToken));
+          return;
+        }
+      }
+      setisShow(true);
+    };
+    fn();
+  }, [hasUser]);
 
-  return (
+  return isShow ? (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Main} />
         <Route
           exact
           path="/login"
-          component={OnlyNotAuthorizedUserHoc(Login)}
+          render={() => <OnlyNotAuthorizedUserHoc Component={Login} />}
         />
         <Route
           exact
           path="/register"
-          component={OnlyNotAuthorizedUserHoc(Register)}
+          render={() => <OnlyNotAuthorizedUserHoc Component={Register} />}
         />
-        <Route exact path="/profile" component={PrivateHoc(Profile)} />
+        <Route
+          exact
+          path="/profile"
+          render={() => <PrivateHoc Component={Profile} />}
+        />
         <Redirect to={"/"} />
       </Switch>
     </BrowserRouter>
+  ) : (
+    <LoadSpinner />
   );
 }
 

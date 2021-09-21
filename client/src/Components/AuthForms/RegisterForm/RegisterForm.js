@@ -3,39 +3,25 @@ import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
-import RegisterService from "../../../Services/AuthService";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
+import { authActionRegister } from "../../../Actions/actionCreator";
+import { useHistory } from "react-router-dom";
 
 function RegisterForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const currentUserObject = (values) => {
-    return {
-      email: new Date(), //Временное решение!
-      phone: values.phone,
-      password: values.password,
-    };
-  };
-
   const RegisterFormik = useFormik({
     initialValues: {
       phone: "+38",
       password: "",
       passwordConfirm: "",
     },
-    onSubmit: (values) => {
-      console.log("Submit values:", values);
-      RegisterService(currentUserObject(values)).then((data) => {
-        if (data.status === 200) {
-          history.push("/");
-          dispatch({ type: "AUTHORIZED", payload: true });
-          dispatch({ type: "LOGIN_USER", payload: currentUserObject(values) });
-        }
-      });
-    },
+    onSubmit: ({phone,password}) =>
+      dispatch(
+        authActionRegister({ phone , password}, history)
+      )
+      ,
     validationSchema: signUpSchema,
   });
 
@@ -43,10 +29,8 @@ function RegisterForm() {
   const formikTouched = RegisterFormik.touched;
   const formikError = RegisterFormik.errors;
 
-  if (formikTouched.phone) {
-    if (!formikValue.phone.includes("+38")) {
-      formikValue.phone = "+38";
-    }
+  if (!formikValue.phone.includes("+38")) {
+    formikValue.phone = "+38";
   }
 
   return (
@@ -101,13 +85,7 @@ function RegisterForm() {
         <div className={cl.field_container}>
           <button
             type={"submit"}
-            className={cn(cl.button, {
-              [cl.button_active]:
-                formikTouched.phone &
-                formikTouched.password &
-                formikTouched.passwordConfirm &
-                RegisterFormik.isValid,
-            })}
+            className={cn(cl.button, cl.button_active)}
           >
             Зарегистрироваться
           </button>

@@ -7,9 +7,7 @@ import { ProfilePersonalInfoItems } from "./../../Helpers/ProfilePersonalInfoIte
 
 function ProfileForm() {
   const [isEdit, setIsEdit] = useState(false);
-  const currentUser = useSelector(
-    (state) => state.currentUser.currentUserObject
-  );
+  const currentUser = useSelector(({ auth }) => auth).user;
 
   const dispatch = useDispatch();
   const editUserPersonalInfo = (values) => {
@@ -36,11 +34,11 @@ function ProfileForm() {
 
   const ProfileFormik = useFormik({
     initialValues: {
-      phone: currentUser === undefined ? "" : currentUser.phone,
-      password: currentUser === undefined ? "" : currentUser.password,
-      email: currentUser === undefined ? "" : currentUser.email,
-      firstName: currentUser === undefined ? "" : currentUser.firstName,
-      secondName: currentUser === undefined ? "" : currentUser.secondName,
+      phone: currentUser.phone === null ? "" : currentUser.phone,
+      password: currentUser.password === null ? "" : currentUser.password,
+      email: currentUser.email === null ? "" : currentUser.email,
+      firstName: currentUser.firstName === null ? "" : currentUser.firstName,
+      secondName: currentUser.secondName === null ? "" : currentUser.secondName,
     },
     onSubmit: (values) => {
       editUserPersonalInfo(values);

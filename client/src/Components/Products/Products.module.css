@@ -56,6 +56,7 @@
   font-weight: 400;
   font-style: italic;
   text-align: center;
+  transition: font-size 0.1s ease;
 }
 
 .product_footer {
@@ -90,6 +91,7 @@
   justify-content: center;
   font-size: 0.9rem;
   font-weight: 400;
+  transition: font-size 0.1s ease;
 }
 
 .product_size {
@@ -108,6 +110,36 @@
 .product_size_active {
   background: rgb(255, 238, 0);
   border: 2px solid rgb(255, 238, 0);
+}
+
+@media (min-width: 2561px) {
+  .product {
+    flex: 0 1 20%;
+  }
+  .product_sizes {
+    font-size: 1.2rem;
+  }
+  .product_price {
+    font-size: 1.2rem;
+  }
+  .product_ingridients_container {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1921px) and (max-width: 2560px) {
+  .product {
+    flex: 0 1 25%;
+  }
+  .product_sizes {
+    font-size: 1rem;
+  }
+  .product_price {
+    font-size: 1rem;
+  }
+  .product_ingridients_container {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 1439px) {

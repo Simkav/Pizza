@@ -1,4 +1,5 @@
-import WithHeaderFooterAside from "../Components/Hoc/WithHeaderFooterAside";
+
+import WithHeaderFooterAside from "../Components/Hoc/WithHeaderFooterAside/WithHeaderFooterAside";
 import Products from "../Components/Products/Products";
 
 function Main() {
