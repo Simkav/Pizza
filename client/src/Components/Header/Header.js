@@ -121,7 +121,7 @@ export default function Header() {
         )}
         <div className={cl.row}>
           <FaShoppingCart />
-          <span className={cl.header_menu_text}>Cart</span>
+          <span className={cl.header_menu_text}>Корзина</span>
         </div>
       </div>
     </header>
