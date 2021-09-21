@@ -43,3 +43,22 @@ export function* loginSaga({ history, data }) {
     yield put({ type: ACTION.AUTH_ACTION_ERROR, error: err.response });
   }
 }
+
+export function* refreshSaga({ data }) {
+  try {
+    yield put({ type: ACTION.AUTH_ACTION_REQUEST });
+    const {
+      data: {
+        data: {
+          user,
+          tokens: { refresh, access },
+        },
+      },
+    } = yield API.AuthApi.refresh({ token: data.refreshToken });
+    yield put({ type: ACTION.AUTH_ACTION_SUCCESS, user });
+    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refresh);
+    window.localStorage.setItem(CONSTANTS.ACCESS_TOKEN, access);
+  } catch (err) {
+    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: err.response });
+  }
+}
