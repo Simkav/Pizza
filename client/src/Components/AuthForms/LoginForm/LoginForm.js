@@ -32,11 +32,9 @@ function LoginForm() {
   const formikTouched = LoginFormik.touched;
   const formikError = LoginFormik.errors;
 
-  if (formikTouched.phone) {
     if (!formikValue.phone.includes("+38")) {
       formikValue.phone = "+38";
     }
-  }
 
   return (
     <form onSubmit={LoginFormik.handleSubmit}>
@@ -101,12 +99,7 @@ function LoginForm() {
         <div className={cl.field_container}>
           <button
             type={"submit"}
-            className={cn(cl.button, {
-              [cl.button_active]:
-                formikTouched.phone &
-                formikTouched.password &
-                LoginFormik.isValid,
-            })}
+            className={cn(cl.button, cl.button_active)}
           >
             Войти
           </button>
@@ -114,6 +107,6 @@ function LoginForm() {
       </div>
     </form>
   );
-}
+} 
 
 export default LoginForm;
