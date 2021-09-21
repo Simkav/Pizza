@@ -6,28 +6,23 @@ import { signUpSchema } from "../../../Validations/SignUpSchema";
 import history from '../../../browserHistory'
 import { useDispatch } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
-import * as ACTION from '../../../Actions/actionCreator'
+import { authActionRegister } from "../../../Actions/actionCreator";
+import { useHistory } from "react-router-dom";
 
 function RegisterForm() {
+  const history = useHistory();
   const dispatch = useDispatch();
-
-  const currentUserObject = (values) => {
-    return {
-      email: new Date(), //Временное решение!
-      phone: values.phone,
-      password: values.password,
-    };
-  };
-
   const RegisterFormik = useFormik({
     initialValues: {
       phone: "+38",
       password: "",
       passwordConfirm: "",
     },
-    onSubmit: (values) => {
-      dispatch(ACTION.authActionRegister(currentUserObject(values)))
-    },
+    onSubmit: ({phone,password}) =>
+      dispatch(
+        authActionRegister({ phone , password}, history)
+      )
+      ,
     validationSchema: signUpSchema,
   });
 
