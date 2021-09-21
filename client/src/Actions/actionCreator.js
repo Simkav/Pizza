@@ -12,16 +12,18 @@ export const requestAuthRefresh = (refreshToken) => ({
   data: { refreshToken },
 });
 
-export const authActionLogin = (data) => {
+export const authActionLogin = (data, history) => {
   return {
     type: ACTION.AUTH_ACTION_LOGIN,
     data: data,
+    history: history,
   };
 };
 
-export const authActionRegister = (data) => {
+export const authActionRegister = (data, history) => {
   return {
     type: ACTION.AUTH_ACTION_REGISTER,
     data: data,
+    history: history,
   };
 };
