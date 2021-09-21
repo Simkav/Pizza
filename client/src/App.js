@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Main from "./Pages/Main";
 import constants from "./constants";
 import { requestAuthRefresh } from "./Actions/actionCreator";
+import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,8 +24,7 @@ function App() {
     // if !refrrshToken slider=falss
   }, []);
 
-  return (
-    // isSlider ? <Slider> :
+    <LoadSpinner />
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Main} />
