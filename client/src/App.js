@@ -8,18 +8,23 @@ import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import Main from "./Pages/Main";
 import constants from "./constants";
+import { requestAuthRefresh } from "./Actions/actionCreator";
 
 function App() {
-  // const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
+  // useStaae isSlider true
   useLayoutEffect(() => {
     const refreshToken = localStorage.getItem(constants.REFRESH_TOKEN);
     if (refreshToken) {
+      dispatch(requestAuthRefresh(refreshToken));
       // TODO requestAuthRefresh
+      //after succee isSliider false
     }
+    // if !refrrshToken slider=falss
   }, []);
 
   return (
+    // isSlider ? <Slider> :
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Main} />
