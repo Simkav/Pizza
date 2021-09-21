@@ -1,4 +1,3 @@
-import Content from "../Components/Content/Content";
 import ProfileForm from "../Components/ProfileForm/ProfileForm";
 import ProfileFormContainer from "../Components/ProfileFormContainer/ProfileFormContainer";
 
