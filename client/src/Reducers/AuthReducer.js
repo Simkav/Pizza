@@ -30,6 +30,9 @@ export default function (state = initialState, action) {
         error: action.error,
       };
     }
+    case ACTION.AUTH_ACTION_CLEAR: {
+      return { ...initialState };
+    }
     default:
       return state;
   }
