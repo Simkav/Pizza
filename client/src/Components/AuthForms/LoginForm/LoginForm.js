@@ -5,16 +5,26 @@ import cn from "classnames";
 import { useFormik } from "formik";
 import { signInSchema } from "../../../Validations/SignInSchema";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
+import { useDispatch } from "react-redux";
+import { authActionLogin } from "../../../Actions/actionCreator";
+import { useHistory } from "react-router-dom";
 
 function LoginForm() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const LoginFormik = useFormik({
     initialValues: {
       phone: "+38",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log("Submit values:", values);
-    },
+    onSubmit: ({phone, password}) =>
+      dispatch(
+        authActionLogin(
+          { phone, password },
+          history
+        )
+      ),
     validationSchema: signInSchema,
   });
 
