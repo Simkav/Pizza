@@ -16,13 +16,15 @@ import { Link } from "react-router-dom";
 import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
-export default function Header() {
+function Header() {
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
 
+  const isUserAuth = useSelector(({auth}) => auth).user
+
   const dispatch = useDispatch();
   const hamburgerMenuState = useSelector(({ hamburgerMenu }) => hamburgerMenu);
-  const {asideToggle} = bindActionCreators(ActionCreators, dispatch);
+  const { asideToggle, authActionClear } = bindActionCreators(ActionCreators, dispatch);
 
   const hamburgerMenuToggle = () => {
     const toggle = !hamburgerMenuState.isOpened;
@@ -30,10 +32,8 @@ export default function Header() {
   };
 
   const setLogOut = () => {
-
+    authActionClear()
   };
-
-  const isUserAuth = false;
 
   return (
     <header className={cl.header}>
