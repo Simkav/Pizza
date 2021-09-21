@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
-function Header() {
+export default function Header() {
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
 
