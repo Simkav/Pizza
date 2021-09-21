@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import WithHeaderFooterAside from "../Hoc/WithHeaderFooterAside";
+import WithHeaderFooterAside from "./WithHeaderFooterAside/WithHeaderFooterAside";
 
 const PrivateHoc = (Component) => {
   const isAuth = useSelector(({ auth }) => auth).user;
