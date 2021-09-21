@@ -33,6 +33,13 @@ export default function (state = initialState, action) {
     case ACTION.AUTH_ACTION_CLEAR: {
       return { ...initialState };
     }
+    case ACTION.CLEAR_STORE:{
+      return{
+          ...state,
+          user: null,
+          error: null
+      }
+  }
     default:
       return state;
   }
