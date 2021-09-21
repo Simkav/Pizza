@@ -27,3 +27,9 @@ export const authActionRegister = (data, history) => {
     history: history,
   };
 };
+
+export const authActionClear = () => {
+  return {
+      type: ACTION.AUTH_ACTION_CLEAR
+  }
+};
