@@ -1,11 +1,17 @@
 const basicHandler = (err, req, res, next) => {
   console.log(
+    `=============================================================================
+                                ASHIBKA                                           `
+  )
+  const error = err.stack.split('\n').map(v => v.trim())
+  const header = error.shift()
+  const trace = error.filter(v => v.includes('/home/node/app/src'))
+  console.log(header)
+  console.log(trace)
+  console.log(
     '============================================================================='
   )
-  console.log(
-    '                           ASHIBKA                                           '
-  )
-  console.error(err)
+  console.log(err)
   console.log(
     '============================================================================='
   )
