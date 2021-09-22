@@ -5,11 +5,12 @@ import cn from "classnames";
 import { useFormik } from "formik";
 import { signInSchema } from "../../../Validations/SignInSchema";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActionLogin } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
 
 function LoginForm() {
+  const isFetch = useSelector(({ auth: { isFetching } }) => isFetching);
   const dispatch = useDispatch();
   const history = useHistory();
 
