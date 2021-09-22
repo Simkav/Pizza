@@ -20,9 +20,9 @@ export default function Header() {
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
 
-  const isUserAuth = useSelector(({ auth }) => auth).user;
+  const isUserAuth = useSelector(({ auth: { user } }) => user);
   //Temporary
-  const isAdmin = useSelector(({ auth }) => auth).user;
+  const isAdmin = useSelector(({ auth: { user } }) => user);
 
   const dispatch = useDispatch();
   const hamburgerMenuState = useSelector(
@@ -51,7 +51,7 @@ export default function Header() {
         })}
         onClick={() => hamburgerMenuToggle()}
       >
-        {!hamburgerMenuState.isOpened ? (
+        {!hamburgerMenuState ? (
           <FaBars className={cl.hamburger_bars} />
         ) : (
           <FaTimes className={cl.hamburger_cross} />
