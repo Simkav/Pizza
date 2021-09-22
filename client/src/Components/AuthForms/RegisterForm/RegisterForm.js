@@ -3,7 +3,7 @@ import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
 import { authActionRegister } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
@@ -11,6 +11,8 @@ import { useHistory } from "react-router-dom";
 function RegisterForm() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const isFetch = useSelector(({ auth: { isFetching } }) => isFetching);
+
   const RegisterFormik = useFormik({
     initialValues: {
       phone: "+38",
