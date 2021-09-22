@@ -60,6 +60,8 @@ export function* refreshSaga({ data }) {
     window.localStorage.setItem(CONSTANTS.ACCESS_TOKEN, access);
   } catch (err) {
     yield put({ type: ACTION.AUTH_ACTION_ERROR, error: err.response });
+    window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
+    window.localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
   }
 }
 
