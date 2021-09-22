@@ -10,6 +10,8 @@ import Main from "./Pages/Main";
 import constants from "./constants";
 import { requestAuthRefresh } from "./Actions/actionCreator";
 import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
+import PrivateAdminHoc from "./Components/Hoc/PrivateAdminHoc";
+import Admin from "./Pages/Admin";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +50,11 @@ function App() {
           exact
           path="/profile"
           render={() => <PrivateHoc Component={Profile} />}
+        />
+                <Route
+          exact
+          path="/admin"
+          render={() => <PrivateAdminHoc Component={Admin} />}
         />
         <Redirect to={"/"} />
       </Switch>
