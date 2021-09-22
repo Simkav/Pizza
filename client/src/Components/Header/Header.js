@@ -28,13 +28,14 @@ export default function Header() {
   const hamburgerMenuState = useSelector(
     ({ hamburgerMenu: { isOpened } }) => isOpened
   );
+
   const { asideToggle, authActionClear } = bindActionCreators(
     ActionCreators,
     dispatch
   );
 
   const hamburgerMenuToggle = () => {
-    const toggle = !hamburgerMenuState.isOpened;
+    const toggle = !hamburgerMenuState;
     asideToggle(toggle);
   };
 
