@@ -8,6 +8,7 @@ import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
 import { useDispatch, useSelector } from "react-redux";
 import { authActionLogin } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
+import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
 
 function LoginForm() {
   const isFetch = useSelector(({ auth: { isFetching } }) => isFetching);
@@ -98,11 +99,8 @@ function LoginForm() {
       </div>
       <div className={cl.row}>
         <div className={cl.field_container}>
-          <button
-            type={"submit"}
-            className={cn(cl.button, cl.button_active)}
-          >
-            Войти
+          <button type={"submit"} className={cn(cl.button, cl.button_active)}>
+            {isFetch ? <ButtonLoadSpinner /> : "Войти"}
           </button>
         </div>
       </div>
