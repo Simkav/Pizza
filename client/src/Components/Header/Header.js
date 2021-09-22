@@ -20,11 +20,18 @@ export default function Header() {
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
 
-  const isUserAuth = useSelector(({auth}) => auth).user
+  const isUserAuth = useSelector(({ auth }) => auth).user;
+  //Temporary
+  const isAdmin = useSelector(({ auth }) => auth).user;
 
   const dispatch = useDispatch();
-  const hamburgerMenuState = useSelector(({ hamburgerMenu }) => hamburgerMenu);
-  const { asideToggle, authActionClear } = bindActionCreators(ActionCreators, dispatch);
+  const hamburgerMenuState = useSelector(
+    ({ hamburgerMenu: { isOpened } }) => isOpened
+  );
+  const { asideToggle, authActionClear } = bindActionCreators(
+    ActionCreators,
+    dispatch
+  );
 
   const hamburgerMenuToggle = () => {
     const toggle = !hamburgerMenuState.isOpened;
@@ -32,14 +39,14 @@ export default function Header() {
   };
 
   const setLogOut = () => {
-    authActionClear()
+    authActionClear();
   };
 
   return (
     <header className={cl.header}>
       <div
         className={cn(cl.hamburger_menu_container, cl.hover_element, {
-          [cl.hamburger_menu_active]: hamburgerMenuState.isOpened,
+          [cl.hamburger_menu_active]: hamburgerMenuState,
         })}
         onClick={() => hamburgerMenuToggle()}
       >
@@ -103,6 +110,11 @@ export default function Header() {
               ></FaChevronDown>
             </div>
             <PopUpModule visible={profilePopUp} setVisible={setProfilePopUp}>
+              {isAdmin ? (
+                <Link className={cl.profile_link} to={"/admin"}>
+                  Панель администратора
+                </Link>
+              ) : null}
               <Link className={cl.profile_link} to={"/profile"}>
                 Персональная информация
               </Link>
