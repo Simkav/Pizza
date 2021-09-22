@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
 import { authActionRegister } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
+import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
 
 function RegisterForm() {
   const history = useHistory();
@@ -85,11 +86,8 @@ function RegisterForm() {
       })}
       <div className={cl.row}>
         <div className={cl.field_container}>
-          <button
-            type={"submit"}
-            className={cn(cl.button, cl.button_active)}
-          >
-            Зарегистрироваться
+          <button type={"submit"} className={cn(cl.button, cl.button_active)}>
+            {isFetch ? <ButtonLoadSpinner /> : "Зарегистрироваться"}
           </button>
         </div>
       </div>
