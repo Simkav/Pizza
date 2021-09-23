@@ -35,7 +35,19 @@ export function* removeIngridientSaga({ id }) {
   }
 }
 
-    yield put({ type: ACTION.INGRIDIENTS_ACTION_SUCCESS, ingredients });
+export function* createIngridientSaga({ data }) {
+  try {
+    const { status } = yield API.IngridientsCRUDApi.createIngridient(data);
+    if (status === 200) {
+      const {
+        data: {
+          data: { ingredients },
+        },
+      } = yield API.IngridientsCRUDApi.getIngridients();
+      yield put({ type: ACTION.INGRIDIENTS_ACTION_SUCCESS, ingredients });
+    } else {
+      yield put({ type: ACTION.INGRIDIENTS_ACTION_ERROR });
+    }
   } catch (e) {
     console.log(e);
     yield put({ type: ACTION.INGRIDIENTS_ACTION_ERROR });
