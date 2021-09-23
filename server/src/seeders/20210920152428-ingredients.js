@@ -10,8 +10,6 @@ module.exports = {
       'ingredients',
       ingredientsArr.map(val => ({
         name: val,
-        createdAt: new Date(),
-        updatedAt: new Date()
       })),
       {}
     )

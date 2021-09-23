@@ -1,6 +1,8 @@
 const { User } = require('../models/index')
 const userValidation = require('../validations/user')
 const { verifyRefreshToken } = require('../helpers/jwtService')
+const parseAuthorization = require('../helpers/parseAuthorization')
+
 const checkUserCredentials = async (req, res, next) => {
   try {
     const userBody = req.body
@@ -37,4 +39,29 @@ const checkRefreshToken = async (req, res, next) => {
   }
 }
 
-module.exports = { checkUserCredentials, findUser, checkRefreshToken }
+const checkAccesToken = async (req, res, next) => {
+  try {
+    const {
+      headers: { authorization }
+    } = req
+    if (!authorization) {
+      return next(new Error('Empty authorization header'))
+    }
+    const user = await parseAuthorization(authorization)
+    req.user = user
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
+
+const isAdmin = async (req, res, next) =>
+  req.user.isAdmin === true ? next() : next(new Error('Not a admin'))
+
+module.exports = {
+  checkUserCredentials,
+  findUser,
+  checkRefreshToken,
+  checkAccesToken,
+  isAdmin
+}
