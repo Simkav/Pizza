@@ -77,7 +77,7 @@ export default function Header() {
               })}
             ></FaChevronDown>
           </div>
-          <PopUpModule visible={contactsPopUp} setVisible={setContactsPopUp}>
+          <PopUpModule visible={contactsPopUp}>
             {HeaderContactPhonesList.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
@@ -108,7 +108,7 @@ export default function Header() {
                 })}
               ></FaChevronDown>
             </div>
-            <PopUpModule visible={profilePopUp} setVisible={setProfilePopUp}>
+            <PopUpModule visible={profilePopUp}>
               {isAdmin ? (
                 <Link className={cl.profile_link} to={"/admin"}>
                   Панель администратора
