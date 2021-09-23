@@ -22,12 +22,15 @@ function AdminPageHeader() {
           onClick={() => setMenuPopUp((menuPopUp) => !menuPopUp)}
         >
           Меню
-          <PopUpModule visible={menuPopUp} setVisible={setMenuPopUp}>
+          <PopUpModule visible={menuPopUp}>
             <Link className={cl.menu_link} to={"/"}>
               Главная страница
             </Link>
-            <Link className={cl.menu_link} to={"admin/edit_products"}>
+            <Link className={cl.menu_link} to={"/edit_products"}>
               Редактировать продукты
+            </Link>
+            <Link className={cl.menu_link} to={"/edit_ingridients"}>
+              Редактировать ингридиенты
             </Link>
           </PopUpModule>
         </div>
