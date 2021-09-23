@@ -68,10 +68,6 @@ class IngridientsCRUDApi {
       return this.#_client(config);
     }
 
-    if (status === 401 && refreshToken) {
-      this.logout();
-    }
-
     return Promise.reject(error);
   };
 }
