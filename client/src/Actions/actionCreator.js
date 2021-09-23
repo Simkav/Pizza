@@ -46,3 +46,10 @@ export const ingridientsActionRemove = (id) => {
     id: id,
   };
 };
+
+export const ingridientsActionCreate = (data) => {
+  return {
+    type: ACTION.INGRIDIENTS_ACTION_POST,
+    data: data,
+  };
+};
