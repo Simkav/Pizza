@@ -23,6 +23,8 @@ class IngridientsCRUDApi {
 
   createIngridient = async (data) => this.#_client.post(this.#_url, data);
 
+  removeIngridient = async (id) => this.#_client.delete(this.#_url + id);
+
   requestInterceptor = (config) => {
     if (this.#_accessToken) {
       config.headers["Authorization"] = `Bearer ${this.#_accessToken}`;
