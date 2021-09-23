@@ -15,6 +15,26 @@ export function* getIngridientsSaga() {
     yield put({ type: ACTION.INGRIDIENTS_ACTION_ERROR });
   }
 }
+
+export function* removeIngridientSaga({ id }) {
+  try {
+    const { status } = yield API.IngridientsCRUDApi.removeIngridient(id);
+    if (status === 200) {
+      const {
+        data: {
+          data: { ingredients },
+        },
+      } = yield API.IngridientsCRUDApi.getIngridients();
+      yield put({ type: ACTION.INGRIDIENTS_ACTION_SUCCESS, ingredients });
+    } else {
+      yield put({ type: ACTION.INGRIDIENTS_ACTION_ERROR });
+    }
+  } catch (e) {
+    console.log(e);
+    yield put({ type: ACTION.INGRIDIENTS_ACTION_ERROR });
+  }
+}
+
     yield put({ type: ACTION.INGRIDIENTS_ACTION_SUCCESS, ingredients });
   } catch (e) {
     console.log(e);
