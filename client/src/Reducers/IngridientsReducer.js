@@ -33,7 +33,7 @@ export default function (state = initState, action) {
     case ACTION.INGRIDIENTS_ACTION_SUCCESS: {
       return {
         ...state,
-        isFetching: true,
+        isFetching: false,
         error: null,
         ingridients: action.ingredients,
       };
