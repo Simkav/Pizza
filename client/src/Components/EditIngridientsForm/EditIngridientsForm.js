@@ -9,6 +9,7 @@ import {
   ingridientsActionRemove,
   ingridientsActionCreate,
 } from "../../Actions/actionCreator";
+import { useFormik } from "formik";
 
 function EditIngridientsForm() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -36,8 +37,22 @@ function EditIngridientsForm() {
   const removeIngridient = (id) => {
     dispatch(ingridientsActionRemove(id));
   };
+
+  const IngridientsFormik = useFormik({
+    initialValues: {
+      newIngridient: "",
+      ingridients: ingridients
+        ? ingridients.map((item) => {
+            return { [item.id]: item.name };
+          })
+        : null,
+    },
+    onSubmit: ({ newIngridient }) => {
+      dispatch(ingridientsActionCreate({ name: newIngridient }));
     setModalOpen(false);
-  }
+      IngridientsFormik.resetForm()
+    },
+  });
 
   return (
     <div className={cl.edit_ingridients_form_container}>
