@@ -15,6 +15,21 @@ export default function (state = initState, action) {
         error: null,
       };
     }
+    case ACTION.INGRIDIENTS_ACTION_REMOVE: {
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+        ingridients: action.ingredients,
+      }
+    }
+    case ACTION.INGRIDIENTS_ACTION_POST: {
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      }
+    }
     case ACTION.INGRIDIENTS_ACTION_SUCCESS: {
       return {
         ...state,
