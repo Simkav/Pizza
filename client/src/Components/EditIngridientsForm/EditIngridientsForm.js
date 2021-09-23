@@ -4,7 +4,11 @@ import { FaEdit, FaTrash, FaTimes, FaCheck } from "react-icons/fa";
 import Modal from "../Modal/Modal";
 import cn from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { ingridientsActionGet } from "../../Actions/actionCreator";
+import {
+  ingridientsActionGet,
+  ingridientsActionRemove,
+  ingridientsActionCreate,
+} from "../../Actions/actionCreator";
 
 function EditIngridientsForm() {
   const [isModalOpen, setModalOpen] = useState(false);
