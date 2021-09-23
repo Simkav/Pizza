@@ -25,6 +25,8 @@ class IngridientsCRUDApi {
 
   removeIngridient = async (id) => this.#_client.delete(this.#_url + id);
 
+  refresh = async (data) => this.#_client.post("auth/refresh", data);
+
   requestInterceptor = (config) => {
     if (this.#_accessToken) {
       config.headers["Authorization"] = `Bearer ${this.#_accessToken}`;
@@ -59,7 +61,7 @@ class IngridientsCRUDApi {
     } = error;
 
     const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
-    if (status === 419 && refreshToken) {
+    if (status === 418 && refreshToken) {
       const {
         data: {
           data: { tokenPair },
