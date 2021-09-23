@@ -21,6 +21,8 @@ class IngridientsCRUDApi {
 
   getIngridients = async () => this.#_client.get(this.#_url);
 
+  createIngridient = async (data) => this.#_client.post(this.#_url, data);
+
   requestInterceptor = (config) => {
     if (this.#_accessToken) {
       config.headers["Authorization"] = `Bearer ${this.#_accessToken}`;
