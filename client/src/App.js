@@ -13,6 +13,7 @@ import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
 import PrivateAdminHoc from "./Components/Hoc/PrivateAdminHoc";
 import Admin from "./Pages/Admin";
 import EditProducts from "./Pages/EditProducts";
+import EditIngridients from "./Pages/EditIngridients";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ function App() {
           path="/profile"
           render={() => <PrivateHoc Component={Profile} />}
         />
-                <Route
+        <Route
           exact
           path="/admin"
           render={() => <PrivateAdminHoc Component={Admin} />}
@@ -61,6 +62,11 @@ function App() {
           exact
           path="/edit_products"
           render={() => <PrivateAdminHoc Component={EditProducts} />}
+        />
+        <Route
+          exact
+          path="/edit_ingridients"
+          render={() => <PrivateAdminHoc Component={EditIngridients} />}
         />
         <Redirect to={"/"} />
       </Switch>
