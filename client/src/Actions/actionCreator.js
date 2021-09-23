@@ -33,3 +33,9 @@ export const authActionClear = () => {
       type: ACTION.AUTH_ACTION_CLEAR
   }
 };
+
+export const ingridientsActionGet = () => {
+  return {
+      type: ACTION.INGRIDIENTS_ACTION_GET
+  }
+}
