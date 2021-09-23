@@ -33,7 +33,9 @@ function EditIngridientsForm() {
     setIsEdit(false);
   };
 
-  const addIngridient = (id) => {
+  const removeIngridient = (id) => {
+    dispatch(ingridientsActionRemove(id));
+  };
     setModalOpen(false);
   }
 
