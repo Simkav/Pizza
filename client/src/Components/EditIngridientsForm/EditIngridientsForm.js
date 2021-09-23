@@ -54,17 +54,27 @@ function EditIngridientsForm() {
     },
   });
 
+  const ingridientsValue = IngridientsFormik.values;
+
   return (
-    <div className={cl.edit_ingridients_form_container}>
+    <form
+      onSubmit={IngridientsFormik.handleSubmit}
+      className={cl.edit_ingridients_form_container}
+    >
       <h1 className={cl.edit_ingridients_form_title}>Ингридиенты</h1>
       <div className={cl.edit_ingridients_form_wrapper}>
-        {ingridients === null ? null : ingridients.map((item) => {
+        {ingridients
+          ? ingridients.map((item, index) => {
           return (
             <div key={item.id} className={cl.ingridient_container}>
               <input
+                    type={"text"}
+                    name={IngridientsFormik.initialValues.ingridients}
+                    onChange={IngridientsFormik.handleChange}
+                    onBlur={IngridientsFormik.handleBlur}
                 disabled={isEdit == item.id ? false : true}
                 className={cl.ingridient_input}
-                defaultValue={item.name}
+                    value={ingridients[index].name}
               />
               <div className={cl.ingridient_edit_buttons_container}>
                 {isEdit == item.id ? (
@@ -83,7 +93,9 @@ function EditIngridientsForm() {
                       onClick={() => cancelEdit(item.id)}
                     >
                       <FaTimes className={cl.edit_button} />
-                      <span className={cl.button_tooltip_text}>Отменить</span>
+                          <span className={cl.button_tooltip_text}>
+                            Отменить
+                          </span>
                     </div>
                   </>
                 ) : (
@@ -97,25 +109,43 @@ function EditIngridientsForm() {
                         Редактировать
                       </span>
                     </div>
-                    <div className={cl.edit_button_container}>
+                        <div
+                          className={cl.edit_button_container}
+                          onClick={() => removeIngridient(item.id)}
+                        >
                       <FaTrash className={cl.edit_button} />
-                      <span className={cl.button_tooltip_text}>Удалить</span>
+                          <span className={cl.button_tooltip_text}>
+                            Удалить
+                          </span>
                     </div>
                   </>
                 )}
               </div>
             </div>
           );
-        })}
+            })
+          : isFetch
+          ? null
+          : //TODO Loading spinner
+            null}
         <Modal visible={isModalOpen} setVisible={setModalOpen}>
           <div className={cl.add_ingridient_window}>
             <h3 className={cl.modal_title}>Добавить ингридиент</h3>
-            <input className={cl.add_ingridient_input} />
+            <input
+              type={"text"}
+              name={"newIngridient"}
+              onChange={IngridientsFormik.handleChange}
+              onBlur={IngridientsFormik.handleBlur}
+              className={cl.add_ingridient_input}
+              value={ingridientsValue.newIngridient}
+            />
             <div className={cl.add_window_buttons_container}>
-              <div className={cn(cl.add_window_button, cl.apply)}
-              onClick={addIngridient}>
+              <button
+                type={"submit"}
+                className={cn(cl.add_window_button, cl.apply)}
+              >
                 <FaCheck></FaCheck>
-              </div>
+              </button>
               <div
                 className={cn(cl.add_window_button, cl.cancel)}
                 onClick={() => setModalOpen((isMenuOpen) => !isMenuOpen)}
@@ -134,7 +164,7 @@ function EditIngridientsForm() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 
