@@ -30,12 +30,19 @@ export const authActionRegister = (data, history) => {
 
 export const authActionClear = () => {
   return {
-      type: ACTION.AUTH_ACTION_CLEAR
-  }
+    type: ACTION.AUTH_ACTION_CLEAR,
+  };
 };
 
 export const ingridientsActionGet = () => {
   return {
-      type: ACTION.INGRIDIENTS_ACTION_GET
-  }
-}
+    type: ACTION.INGRIDIENTS_ACTION_GET,
+  };
+};
+
+export const ingridientsActionRemove = (id) => {
+  return {
+    type: ACTION.INGRIDIENTS_ACTION_REMOVE,
+    id: id,
+  };
+};
