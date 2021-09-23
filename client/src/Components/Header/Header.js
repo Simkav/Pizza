@@ -17,14 +17,12 @@ import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
 export default function Header() {
+  const dispatch = useDispatch();
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
 
-  const isUserAuth = useSelector(({ auth: { user } }) => user);
-  //Temporary
-  const isAdmin = useSelector(({ auth: { user } }) => user);
-
-  const dispatch = useDispatch();
+  const [isUserAuth, isAdmin] = useSelector(({auth}) => [auth.user, auth.user ? auth.user.isAdmin : false]);
+  
   const hamburgerMenuState = useSelector(
     ({ hamburgerMenu: { isOpened } }) => isOpened
   );
