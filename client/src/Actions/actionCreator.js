@@ -40,10 +40,11 @@ export const ingridientsActionGet = () => {
   };
 };
 
-export const ingridientsActionRemove = (id) => {
+export const ingridientsActionRemove = (id, ingridients) => {
   return {
     type: ACTION.INGRIDIENTS_ACTION_REMOVE,
     id: id,
+    ingridients: ingridients
   };
 };
 
