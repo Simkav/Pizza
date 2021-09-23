@@ -17,10 +17,13 @@ function EditIngridientsForm() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ingridientsActionGet())
-  }, [])
+    dispatch(ingridientsActionGet());
+  }, []);
 
-  const ingridients = useSelector(({ingridients: {ingridients}}) => ingridients)
+  const [ingridients, isFetch] = useSelector(({ ingridients }) => [
+    ingridients.ingridients,
+    ingridients.isFetching,
+  ]);
 
   const cancelEdit = (id) => {
     setIsEdit(false);
