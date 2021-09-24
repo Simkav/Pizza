@@ -3,34 +3,19 @@ import ACTION from "../Actions/actionTypes";
 const initState = {
   ingridients: null,
   isFetching: false,
-  error: false
+  error: false,
 };
 
 export default function (state = initState, action) {
   switch (action.type) {
-    case ACTION.INGRIDIENTS_ACTION_GET: {
+    case ACTION.INGRIDIENTS_ACTION_GET_REQUEST: {
       return {
         ...state,
         isFetching: true,
         error: null,
       };
     }
-    case ACTION.INGRIDIENTS_ACTION_REMOVE: {
-      return {
-        ...state,
-        isFetching: true,
-        error: null,
-        ingridients: action.ingredients,
-      }
-    }
-    case ACTION.INGRIDIENTS_ACTION_POST: {
-      return {
-        ...state,
-        isFetching: true,
-        error: null,
-      }
-    }
-    case ACTION.INGRIDIENTS_ACTION_SUCCESS: {
+    case ACTION.INGRIDIENTS_ACTION_GET_SUCCESS: {
       return {
         ...state,
         isFetching: false,
@@ -38,6 +23,60 @@ export default function (state = initState, action) {
         ingridients: action.ingredients,
       };
     }
+    case ACTION.INGRIDIENTS_ACTION_GET_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+    }
+
+    case ACTION.INGRIDIENTS_ACTION_REMOVE_REQUEST: {
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    }
+    case ACTION.INGRIDIENTS_ACTION_REMOVE_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        ingridients: action.ingridients,
+      };
+    }
+    case ACTION.INGRIDIENTS_ACTION_REMOVE_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+    }
+
+    case ACTION.INGRIDIENTS_ACTION_POST_REQUEST: {
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    }
+    case ACTION.INGRIDIENTS_ACTION_POST_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        ingridients: [...state.ingridients, action.ingridient],
+      };
+    }
+    case ACTION.INGRIDIENTS_ACTION_POST_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+    }
+
     default:
       return state;
   }
