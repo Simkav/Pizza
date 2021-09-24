@@ -1,3 +1,4 @@
 const { basicHandler } = require('./basicErrorHandler')
-
-module.exports = { basicHandler }
+const { authErrorHandler } = require('./authErrorHandler')
+const { customErrorHandler } = require('./customErrorHandler')
+module.exports = { customErrorHandler, authErrorHandler, basicHandler }

@@ -7,6 +7,10 @@ Router.use('/auth', userRouter)
 
 Router.use('/ingredient', ingredientRouter)
 
-Router.use(errorHandlers.basicHandler)
+Router.use(
+  errorHandlers.authErrorHandler,
+  errorHandlers.customErrorHandler,
+  errorHandlers.basicHandler
+)
 
 module.exports = Router

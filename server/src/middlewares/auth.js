@@ -2,6 +2,7 @@ const { User } = require('../models/index')
 const userValidation = require('../validations/user')
 const { verifyRefreshToken } = require('../helpers/jwtService')
 const parseAuthorization = require('../helpers/parseAuthorization')
+const CustomError = require('../errors/customError')
 
 const checkUserCredentials = async (req, res, next) => {
   try {
@@ -18,7 +19,7 @@ const findUser = async (req, res, next) => {
     const { phone } = req.body
     const findedUser = await User.findOne({ where: { phone } })
     if (!findedUser) {
-      return next(new Error('User not found'))
+      return next(new CustomError('User not found'))
     }
     req.user = findedUser
     next()
@@ -45,7 +46,7 @@ const checkAccesToken = async (req, res, next) => {
       headers: { authorization }
     } = req
     if (!authorization) {
-      return next(new Error('Empty authorization header'))
+      return next(new CustomError('Empty authorization header'))
     }
     const user = await parseAuthorization(authorization)
     req.user = user
@@ -56,7 +57,7 @@ const checkAccesToken = async (req, res, next) => {
 }
 
 const isAdmin = async (req, res, next) =>
-  req.user.isAdmin === true ? next() : next(new Error('Not a admin'))
+  req.user.isAdmin === true ? next() : next(new CustomError('Not a admin'))
 
 module.exports = {
   checkUserCredentials,
