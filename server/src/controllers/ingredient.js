@@ -36,4 +36,19 @@ const create = async (req, res, next) => {
   }
 }
 
-module.exports = { getAll, deleteById, create }
+const updateIngridient = async (req, res, next) => {
+  try {
+    const {
+      body: { name },
+      ingredient
+    } = req
+    // TODO Check on pointless change
+    const updated = await ingredient.update({ name })
+    console.log(updated)
+    res.send({ data: { name: updated.getDataValue('name') }, error: {} })
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { getAll, deleteById, create, updateIngridient }
