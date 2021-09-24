@@ -45,13 +45,13 @@ class AuthApi {
     const {
       config: { url },
     } = response;
-    if (url.includes(this._url)) {
+    if (url.includes(this.#_url)) {
       const {
         data: {
-          data: { tokenPair },
+          data: { tokens },
         },
       } = response;
-      this._saveTokenPair(tokenPair);
+      this._saveTokenPair(tokens);
     }
     return response;
   };
