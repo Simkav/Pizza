@@ -61,7 +61,7 @@ class IngridientsCRUDApi {
     } = error;
 
     const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
-    if (status === 418 && refreshToken) {
+    if (status === 419 && refreshToken) {
       const {
         data: {
           data: { tokenPair },
