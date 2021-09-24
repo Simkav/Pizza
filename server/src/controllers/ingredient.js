@@ -1,5 +1,7 @@
 const { Ingredient } = require('../models/index')
 
+const CustomError = require('../errors/customError')
+
 const getAll = async (req, res, next) => {
   try {
     const ingredients = await Ingredient.findAll({ attributes: ['id', 'name'] })
@@ -10,14 +12,12 @@ const getAll = async (req, res, next) => {
 }
 const deleteById = async (req, res, next) => {
   try {
-    const {
-      params: { ingredientId }
-    } = req
-    const deleted = await Ingredient.destroy({ where: { id: ingredientId } })
-    if (deleted) {
-      res.send()
+    const { ingredient } = req
+    const deleted = await ingredient.destroy()
+    if (!deleted) {
+      return res.send({ data: {}, error: 'Not found' })
     }
-    res.send({ data: {}, error: 'Not found' })
+    res.send()
   } catch (error) {
     next(error)
   }
@@ -27,7 +27,7 @@ const create = async (req, res, next) => {
     const { body } = req
     //TODO REFACTOR
     if (!body.name) {
-      next(new Error('Missing name'))
+      return next(new CustomError('Missing name'))
     }
     const created = await Ingredient.create({ name: body.name })
     res.send({ data: { id: created.getDataValue('id') } })
