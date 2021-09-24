@@ -32,7 +32,8 @@
   margin: 5px 0;
 }
 
-.ingridient_input {
+.ingridient_span {
+  min-width: 200px;
   text-align: left;
   font-size: 1rem;
   background: rgba(0, 0, 0, 0.05);
@@ -66,7 +67,7 @@
   font-size: 1.2rem;
   position: absolute;
   bottom: 150%;
-  left: 0;
+  right: 0;
   --button-tooltip-width: fit-content;
   display: none;
   background: black;
@@ -76,10 +77,14 @@
   border-radius: 5px;
 }
 
+.edit_button_container:hover .button_tooltip_text {
+  display: flex;
+}
+
 .edit_button_container > .button_tooltip_text::after {
   content: " ";
   position: absolute;
-  left: 13px;
+  right: 8px;
   bottom: -10px;
   margin-left: -5px;
   border-width: 5px;
@@ -203,11 +208,5 @@
 @media (max-width: 570px) {
   .ingridient_container {
     flex: 0 1 calc(100%/1)
-  }
-}
-
-@media (min-width: 768px) {
-  .edit_button_container:hover .button_tooltip_text {
-    display: flex;
   }
 }
