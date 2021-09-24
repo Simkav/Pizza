@@ -1,6 +1,7 @@
 const { User } = require('../models/index')
 const { createTokenPair } = require('../helpers/jwtService')
 const omit = require('../helpers/omit')
+const CustomError = require('../errors/customError')
 
 const templateCreateTokenPair = async objFrom =>
   await createTokenPair({
@@ -31,7 +32,7 @@ const login = async (req, res, next) => {
       user
     } = req
     if (!user.comparePassword(password)) {
-      return next(new Error('Wrong password'))
+      return next(new CustomError('Wrong password'))
     }
     const tokens = await templateCreateTokenPair(user)
     const omitedUser = omit(user.dataValues, ['password'])
