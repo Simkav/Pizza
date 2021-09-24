@@ -3,20 +3,10 @@ import CONSTANTS from "../constants";
 class IngridientsCRUDApi {
   #_client;
   #_url;
-  #_accessToken;
 
   constructor(client) {
     this.#_client = client;
     this.#_url = "ingredient/";
-    this.#_accessToken = null;
-
-    this.#_client.interceptors.request.use(this.requestInterceptor, (err) =>
-      Promise.reject(err)
-    );
-    this.#_client.interceptors.response.use(
-      this.responseInterceptor,
-      this.responseInterceptorError
-    );
   }
 
   getIngridients = async () => this.#_client.get(this.#_url);
