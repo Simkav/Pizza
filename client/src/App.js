@@ -11,9 +11,9 @@ import constants from "./constants";
 import { requestAuthRefresh } from "./Actions/actionCreator";
 import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
 import PrivateAdminHoc from "./Components/Hoc/PrivateAdminHoc";
-import Admin from "./Pages/Admin";
-import EditProducts from "./Pages/EditProducts";
-import EditIngridients from "./Pages/EditIngridients";
+import Admin from "./Pages/AdminPages/Admin";
+import EditProducts from "./Pages/AdminPages/EditProducts";
+import EditIngridients from "./Pages/AdminPages/EditIngridients";
 
 function App() {
   const dispatch = useDispatch();
