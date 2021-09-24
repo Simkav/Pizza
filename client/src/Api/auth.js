@@ -61,18 +61,18 @@ class AuthApi {
       config,
       response: { status },
     } = error;
-
     const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
     if (status === 419 && refreshToken) {
+  
       const {
         data: {
-          data: { tokenPair },
+          data: { tokens },
         },
-      } = await this.refresh({ refreshToken });
+      } = await this.refresh({ token: refreshToken });
 
-      this._saveTokenPair(tokenPair);
+      this._saveTokenPair(tokens);
 
-      config.headers["Authorization"] = `Bearer ${tokenPair.accessToken}`;
+      config.headers["Authorization"] = `Bearer ${tokens.refreshToken}`;
       return this.#_client(config);
     }
 
@@ -81,7 +81,7 @@ class AuthApi {
     }
 
     return Promise.reject(error);
-  }
+  };
 }
 
 export default AuthApi;
