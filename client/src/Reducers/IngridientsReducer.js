@@ -77,6 +77,29 @@ export default function (state = initState, action) {
       };
     }
 
+    case ACTION.INGRIDIENTS_ACTION_UPDATE_REQUEST: {
+      return {
+        ...state,
+        isFetching: true,
+        error: null,
+      };
+    }
+    case ACTION.INGRIDIENTS_ACTION_UPDATE_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        ingridients: action.ingridients,
+      };
+    }
+    case ACTION.INGRIDIENTS_ACTION_UPDATE_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      };
+    }
+
     default:
       return state;
   }
