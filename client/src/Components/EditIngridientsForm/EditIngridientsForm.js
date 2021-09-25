@@ -76,6 +76,39 @@ function EditIngridientsForm() {
                       <span className={cl.button_tooltip_text}>Удалить</span>
                     </div>
                   </div>
+                  <Modal
+                    visible={item.id === isEditModalOpen ? true : false}
+                    setVisible={setEditModalOpen}
+                  >
+                    <div className={cl.add_ingridient_window}>
+                      <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
+                      <input
+                        placeholder={"Название ингридиента"}
+                        type={"text"}
+                        className={cl.add_ingridient_input}
+                        defaultValue={item.name}
+                        onChange={(e) =>
+                          setEditableIngridient({ name : e.currentTarget.value, id : item.id})
+                        }
+                      />
+                      <div className={cl.add_window_buttons_container}>
+                        <button
+                          onClick={() => applyEdit()}
+                          className={cn(cl.add_window_button, cl.apply)}
+                        >
+                          <FaCheck></FaCheck>
+                        </button>
+                        <div
+                          className={cn(cl.add_window_button, cl.cancel)}
+                          onClick={() =>
+                            setEditModalOpen((isEditModalOpen) => !isEditModalOpen)
+                          }
+                        >
+                          <FaTimes></FaTimes>
+                        </div>
+                      </div>
+                    </div>
+                  </Modal>
                 </div>
               );
             })
