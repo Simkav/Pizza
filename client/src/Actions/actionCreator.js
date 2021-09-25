@@ -54,3 +54,11 @@ export const ingridientsActionCreate = (data) => {
     data: data,
   };
 };
+
+export const ingridientsActionUpdate = (newIngridient, ingridients) => {
+  return {
+    type: ACTION.INGRIDIENTS_ACTION_UPDATE,
+    newIngridient: newIngridient,
+    ingridients: ingridients,
+  };
+};
