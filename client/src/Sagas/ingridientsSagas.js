@@ -22,11 +22,14 @@ export function* removeIngridientSaga({ id, ingridients }) {
   try {
     const { status } = yield API.IngridientsCRUDApi.removeIngridient(id);
     if (status === 200) {
-      const newIngridients = yield ingridients.filter(item => item.id !== id)
+      const newIngridients = yield ingridients.filter((item) => item.id !== id);
       yield put({
         type: ACTION.INGRIDIENTS_ACTION_REMOVE_SUCCESS,
-        ingridients: newIngridients ,
+        ingridients: newIngridients,
       });
+    }
+    if (status === 400) {
+      yield call(getIngridientsSaga);
     }
   } catch (e) {
     console.log(e);
