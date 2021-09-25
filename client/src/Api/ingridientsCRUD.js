@@ -15,7 +15,7 @@ class IngridientsCRUDApi {
 
   removeIngridient = async (id) => this.#_client.delete(this.#_url + id);
 
-  updateIngridient = async (id, data) => this.#_client.put(this.#_url + id, data);
+  updateIngridient = async (id, data) => this.#_client.patch(this.#_url + id, {name: data});
 }
 
 export default IngridientsCRUDApi;
