@@ -111,10 +111,7 @@ function EditIngridientsForm() {
         </Modal>
       </div>
       <div className={cl.add_button_container}>
-        <div
-          className={cl.add_button}
-          onClick={() => handleCancelAddItem()}
-        >
+        <div className={cl.add_button} onClick={() => setAddModalOpen(true)}>
           Добавить ингридиент
         </div>
       </div>
