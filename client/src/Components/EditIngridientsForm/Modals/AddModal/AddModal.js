@@ -6,6 +6,10 @@ import { useState } from "react";
 
 function AddModal({ visible, setVisible, handleSubmitAdd }) {
   const [newIngridient, setNewIngridient] = useState("");
+  const handleSubmit = () => {
+    handleSubmitAdd(newIngridient);
+    setNewIngridient("")
+  }
   const handleCancel = () => {
     setNewIngridient("");
     setVisible((visible) => !visible);
@@ -23,7 +27,7 @@ function AddModal({ visible, setVisible, handleSubmitAdd }) {
         />
         <div className={cl.add_window_buttons_container}>
           <button
-            onClick={() => handleSubmitAdd()}
+            onClick={() => handleSubmit()}
             className={cn(cl.add_window_button, cl.apply)}
           >
             <FaCheck></FaCheck>
