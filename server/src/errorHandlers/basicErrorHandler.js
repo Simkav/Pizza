@@ -16,7 +16,7 @@ const basicHandler = (err, req, res, next) => {
     '============================================================================='
   )
   res.statusCode = 400
-  res.send(err.message)
+  res.send({ data: {}, error: err.message })
 }
 
 module.exports = { basicHandler }
