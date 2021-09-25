@@ -8,11 +8,14 @@ import {
   ingridientsActionGet,
   ingridientsActionRemove,
   ingridientsActionCreate,
+  ingridientsActionUpdate,
 } from "../../Actions/actionCreator";
 
 function EditIngridientsForm() {
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
   const [newIngridient, setNewIngridient] = useState("");
+  const [editableIngridient, setEditableIngridient] = useState(false)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,9 +28,14 @@ function EditIngridientsForm() {
     ingridients.error,
   ]);
 
-  const cancelEdit = () => {};
+  const cancelEdit = () => {
+    setEditModalOpen(false);
+  };
 
-  const applyEdit = () => {};
+  const applyEdit = () => {
+    dispatch(ingridientsActionUpdate(editableIngridient, ingridients));
+    setEditModalOpen(false);
+  };
 
   const removeIngridient = (id) => {
     dispatch(ingridientsActionRemove(id, ingridients));
@@ -40,9 +48,9 @@ function EditIngridientsForm() {
   };
 
   const handleCancelAddItem = () => {
-    setAddModalOpen((isMenuOpen) => !isMenuOpen)
+    setAddModalOpen((isMenuOpen) => !isMenuOpen);
     setNewIngridient("");
-  }
+  };
 
   return (
     <div className={cl.edit_ingridients_form_container}>
@@ -51,29 +59,28 @@ function EditIngridientsForm() {
         {ingridients
           ? ingridients.map((item, index) => {
               return (
-                <div key={item.id} className={cl.ingridient_container}>
-                  <span className={cl.ingridient_span}>
-                    {ingridients[index].name}
-                  </span>
-                  <div className={cl.ingridient_edit_buttons_container}>
-                    {
-                      //TODO переделать на изменение в модалке!
-                    }
-                    <div
-                      className={cl.edit_button_container}
-                      // onClick={() => setIsEdit(item.id)}
-                    >
-                      <FaEdit className={cl.edit_button} />
-                      <span className={cl.button_tooltip_text}>
-                        Редактировать
-                      </span>
-                    </div>
-                    <div
-                      className={cl.edit_button_container}
-                      onClick={() => removeIngridient(item.id)}
-                    >
-                      <FaTrash className={cl.edit_button} />
-                      <span className={cl.button_tooltip_text}>Удалить</span>
+                <div key={item.id} className={cl.ingridient_wrapper}>
+                  <div className={cl.ingridient_container}>
+                    <span className={cl.ingridient_span}>
+                      {ingridients[index].name}
+                    </span>
+                    <div className={cl.ingridient_edit_buttons_container}>
+                      <div
+                        className={cl.edit_button_container}
+                        onClick={() => setEditModalOpen(item.id)}
+                      >
+                        <FaEdit className={cl.edit_button} />
+                        <span className={cl.button_tooltip_text}>
+                          Редактировать
+                        </span>
+                      </div>
+                      <div
+                        className={cl.edit_button_container}
+                        onClick={() => removeIngridient(item.id)}
+                      >
+                        <FaTrash className={cl.edit_button} />
+                        <span className={cl.button_tooltip_text}>Удалить</span>
+                      </div>
                     </div>
                   </div>
                   <Modal
