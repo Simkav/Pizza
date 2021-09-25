@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cl from "./EditIngridientsForm.module.css";
-import { FaEdit, FaTrash, FaTimes, FaCheck } from "react-icons/fa";
-import Modal from "../Modal/Modal";
-import cn from "classnames";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ingridientsActionGet,
@@ -10,12 +8,12 @@ import {
   ingridientsActionCreate,
   ingridientsActionUpdate,
 } from "../../Actions/actionCreator";
+import EditModal from "./Modals/EditModal/EditModal";
+import AddModal from "./Modals/AddModal/AddModal";
 
 function EditIngridientsForm() {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
-  const [newIngridient, setNewIngridient] = useState("");
-  const [editableIngridient, setEditableIngridient] = useState(false)
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,28 +26,17 @@ function EditIngridientsForm() {
     ingridients.error,
   ]);
 
-  const cancelEdit = () => {
-    setEditModalOpen(false);
-  };
-
-  const applyEdit = () => {
+  const handleSubmitEdit = (editableIngridient) => {
     dispatch(ingridientsActionUpdate(editableIngridient, ingridients));
     setEditModalOpen(false);
   };
 
-  const removeIngridient = (id) => {
+  const handleSubmitRemove = (id) =>
     dispatch(ingridientsActionRemove(id, ingridients));
-  };
 
-  const handleSubmit = () => {
+  const handleSubmitAdd = (newIngridient) => {
     dispatch(ingridientsActionCreate({ name: newIngridient }));
     setAddModalOpen(false);
-    setNewIngridient("");
-  };
-
-  const handleCancelAddItem = () => {
-    setAddModalOpen((isMenuOpen) => !isMenuOpen);
-    setNewIngridient("");
   };
 
   return (
@@ -67,7 +54,9 @@ function EditIngridientsForm() {
                     <div className={cl.ingridient_edit_buttons_container}>
                       <div
                         className={cl.edit_button_container}
-                        onClick={() => setEditModalOpen(item.id)}
+                        onClick={() => {
+                          setEditModalOpen(item.id);
+                        }}
                       >
                         <FaEdit className={cl.edit_button} />
                         <span className={cl.button_tooltip_text}>
@@ -76,46 +65,20 @@ function EditIngridientsForm() {
                       </div>
                       <div
                         className={cl.edit_button_container}
-                        onClick={() => removeIngridient(item.id)}
+                        onClick={() => handleSubmitRemove(item.id)}
                       >
                         <FaTrash className={cl.edit_button} />
                         <span className={cl.button_tooltip_text}>Удалить</span>
                       </div>
                     </div>
                   </div>
-                  <Modal
+                  <EditModal
                     visible={item.id === isEditModalOpen ? true : false}
                     setVisible={setEditModalOpen}
-                  >
-                    <div className={cl.add_ingridient_window}>
-                      <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
-                      <input
-                        placeholder={"Название ингридиента"}
-                        type={"text"}
-                        className={cl.add_ingridient_input}
-                        defaultValue={item.name}
-                        onChange={(e) =>
-                          setEditableIngridient({ name : e.currentTarget.value, id : item.id})
-                        }
-                      />
-                      <div className={cl.add_window_buttons_container}>
-                        <button
-                          onClick={() => applyEdit()}
-                          className={cn(cl.add_window_button, cl.apply)}
-                        >
-                          <FaCheck></FaCheck>
-                        </button>
-                        <div
-                          className={cn(cl.add_window_button, cl.cancel)}
-                          onClick={() =>
-                            setEditModalOpen((isEditModalOpen) => !isEditModalOpen)
-                          }
-                        >
-                          <FaTimes></FaTimes>
-                        </div>
-                      </div>
-                    </div>
-                  </Modal>
+                    id={item.id}
+                    name={item.name}
+                    handleSubmitEdit={handleSubmitEdit}
+                  ></EditModal>
                 </div>
               );
             })
@@ -123,32 +86,11 @@ function EditIngridientsForm() {
           ? null
           : //TODO Loading spinner
             null}
-        <Modal visible={isAddModalOpen} setVisible={setAddModalOpen}>
-          <div className={cl.add_ingridient_window}>
-            <h3 className={cl.modal_title}>Добавить ингридиент</h3>
-            <input
-              placeholder={"Название ингридиента"}
-              type={"text"}
-              className={cl.add_ingridient_input}
-              value={newIngridient}
-              onChange={(e) => setNewIngridient(e.currentTarget.value)}
-            />
-            <div className={cl.add_window_buttons_container}>
-              <button
-                onClick={() => handleSubmit()}
-                className={cn(cl.add_window_button, cl.apply)}
-              >
-                <FaCheck></FaCheck>
-              </button>
-              <div
-                className={cn(cl.add_window_button, cl.cancel)}
-                onClick={() => setAddModalOpen((isMenuOpen) => !isMenuOpen)}
-              >
-                <FaTimes></FaTimes>
-              </div>
-            </div>
-          </div>
-        </Modal>
+        <AddModal
+          visible={isAddModalOpen}
+          setVisible={setAddModalOpen}
+          handleSubmitAdd={handleSubmitAdd}
+        />
       </div>
       <div className={cl.add_button_container}>
         <div className={cl.add_button} onClick={() => setAddModalOpen(true)}>
