@@ -1,4 +1,4 @@
-import Modal from "../../../Modal/Modal";
+import Modal from "../../Modal/Modal";
 import cl from "./AddModal.module.css";
 import cn from "classnames";
 import { FaTimes, FaCheck } from "react-icons/fa";
@@ -8,14 +8,18 @@ function AddModal({ visible, setVisible, handleSubmitAdd }) {
   const [newIngridient, setNewIngridient] = useState("");
   const handleSubmit = () => {
     handleSubmitAdd(newIngridient);
-    setNewIngridient("")
-  }
+    setNewIngridient("");
+  };
   const handleCancel = () => {
     setNewIngridient("");
     setVisible((visible) => !visible);
   };
   return (
-    <Modal visible={visible} setVisible={setVisible}>
+    <Modal
+      visible={visible}
+      setVisible={setVisible}
+      handleCancel={handleCancel}
+    >
       <div className={cl.add_ingridient_window}>
         <h3 className={cl.modal_title}>Добавить ингридиент</h3>
         <input
