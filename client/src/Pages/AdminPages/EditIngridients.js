@@ -1,5 +1,5 @@
 import AdminPageHeader from "../../Components/AdminPageHeader/AdminPageHeader";
-import EditIngridientsForm from "../../Components/EditIngridientsForm/EditIngridientsForm";
+import EditIngridientsForm from "../../Components/EditIngridientsForms/EditIngridientsForm/EditIngridientsForm";
 
 function EditIngridients() {
   return (
