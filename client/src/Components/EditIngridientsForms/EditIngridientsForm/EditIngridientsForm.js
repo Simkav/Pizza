@@ -7,9 +7,9 @@ import {
   ingridientsActionRemove,
   ingridientsActionCreate,
   ingridientsActionUpdate,
-} from "../../Actions/actionCreator";
-import EditModal from "./Modals/EditModal/EditModal";
-import AddModal from "./Modals/AddModal/AddModal";
+} from "../../../Actions/actionCreator";
+import EditModal from "../EditModal/EditModal";
+import AddModal from "../AddModal/AddModal";
 
 function EditIngridientsForm() {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
