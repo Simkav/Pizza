@@ -1,4 +1,4 @@
-import Modal from "../../../Modal/Modal";
+import Modal from "../../Modal/Modal";
 import cl from "./EditModal.module.css";
 import cn from "classnames";
 import { FaTimes, FaCheck } from "react-icons/fa";
@@ -11,7 +11,11 @@ function EditModal({ visible, setVisible, id, name, handleSubmitEdit }) {
     setVisible((visible) => !visible);
   };
   return (
-    <Modal visible={visible} setVisible={setVisible}>
+    <Modal
+      visible={visible}
+      setVisible={setVisible}
+      handleCancel={handleCancel}
+    >
       <div className={cl.add_ingridient_window}>
         <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
         <input
@@ -38,8 +42,8 @@ function EditModal({ visible, setVisible, id, name, handleSubmitEdit }) {
           </div>
         </div>
       </div>
-    </Modal>
-  );
+      </Modal>
+    )
 }
 
 export default EditModal;
