@@ -124,3 +124,9 @@
 .add_button:hover {
   background: rgb(0, 185, 0);
 }
+
+@media (max-width: 480px) {
+  .ingridient_container {
+    width: 100vw;
+  }
+}
