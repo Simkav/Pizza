@@ -13,7 +13,10 @@ export function* getIngridientsSaga() {
     yield put({ type: ACTION.INGRIDIENTS_ACTION_GET_SUCCESS, ingredients });
   } catch (e) {
     console.log(e);
-    yield put({ type: ACTION.INGRIDIENTS_ACTION_GET_ERROR, error: e });
+    yield put({
+      type: ACTION.INGRIDIENTS_ACTION_GET_ERROR,
+      error: e.response.data.error,
+    });
   }
 }
 
@@ -33,7 +36,10 @@ export function* removeIngridientSaga({ id, ingridients }) {
     }
   } catch (e) {
     console.log(e);
-    yield put({ type: ACTION.INGRIDIENTS_ACTION_REMOVE_ERROR, error: e });
+    yield put({
+      type: ACTION.INGRIDIENTS_ACTION_REMOVE_ERROR,
+      error: e.response.data.error,
+    });
   }
 }
 
@@ -50,8 +56,10 @@ export function* createIngridientSaga({ data }) {
       ingridient: { name: data.name, id: id },
     });
   } catch (e) {
-    console.log(e);
-    yield put({ type: ACTION.INGRIDIENTS_ACTION_POST_ERROR, error: e });
+    yield put({
+      type: ACTION.INGRIDIENTS_ACTION_POST_ERROR,
+      error: e.response.data.error,
+    });
   }
 }
 
@@ -79,6 +87,9 @@ export function* updateIngridientSaga({
     }
   } catch (e) {
     console.log(e);
-    yield put({ type: ACTION.INGRIDIENTS_ACTION_UPDATE_ERROR, error: e });
+    yield put({
+      type: ACTION.INGRIDIENTS_ACTION_UPDATE_ERROR,
+      error: e.response.data.error,
+    });
   }
 }
