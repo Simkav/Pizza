@@ -2,14 +2,13 @@ import Modal from "../../Modal/Modal";
 import cl from "./DeleteModal.module.css";
 import cn from "classnames";
 import { FaTimes, FaCheck } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 function DeleteModal({ visible, setVisible, id, name, handleSubmitRemove }) {
-  const [removeIngridient, setRemoveIngridient] = useState(name)
-  useEffect(() => {
+  const [removeIngridient, setRemoveIngridient] = useState(name);
+  useLayoutEffect(() => {
     setRemoveIngridient(name);
-  }, name);
-  const handleSubmit = () => handleSubmitRemove(id);
+  });
 
   const handleCancel = () => setVisible((visible) => !visible);
 
