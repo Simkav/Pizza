@@ -19,7 +19,9 @@
     "yup-phone": "^1.2.19"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
+    "response-time": "^2.3.2",
     "sequelize-cli": "^6.2.0"
   }
 }
