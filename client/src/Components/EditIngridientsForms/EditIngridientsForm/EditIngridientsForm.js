@@ -10,6 +10,7 @@ import {
 } from "../../../Actions/actionCreator";
 import EditModal from "../EditModal/EditModal";
 import AddModal from "../AddModal/AddModal";
+import DeleteModal from "../DeleteModal/DeleteModal"
 
 function EditIngridientsForm() {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -78,7 +79,14 @@ function EditIngridientsForm() {
                     id={item.id}
                     name={item.name}
                     handleSubmitEdit={handleSubmitEdit}
-                  ></EditModal>
+                  />
+                   <DeleteModal
+                    visible={item.id === isDeleteModalOpen ? true : false}
+                    setVisible={setDeleteModalOpen}
+                    id={item.id}
+                    name={item.name}
+                    handleSubmitRemove={handleSubmitRemove}
+                  />
                 </div>
               );
             })
