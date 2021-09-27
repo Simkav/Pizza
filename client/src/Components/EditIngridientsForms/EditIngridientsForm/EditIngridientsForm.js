@@ -10,23 +10,31 @@ import {
 } from "../../../Actions/actionCreator";
 import EditModal from "../EditModal/EditModal";
 import AddModal from "../AddModal/AddModal";
-import DeleteModal from "../DeleteModal/DeleteModal"
+import DeleteModal from "../DeleteModal/DeleteModal";
+import ErrorModal from "../../ErrorModal/ErrorModal";
 
 function EditIngridientsForm() {
+  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(ingridientsActionGet());
-  }, []);
 
   const [ingridients, isFetch, isError] = useSelector(({ ingridients }) => [
     ingridients.ingridients,
     ingridients.isFetching,
     ingridients.error,
   ]);
+
+  useEffect(() => {
+    if (isError) {
+      setErrorModalOpen(isError);
+    }
+    if (!ingridients) {
+      dispatch(ingridientsActionGet());
+    }
+  }, [isError]);
 
   const handleSubmitEdit = (editableIngridient) => {
     dispatch(ingridientsActionUpdate(editableIngridient, ingridients));
@@ -57,7 +65,7 @@ function EditIngridientsForm() {
                       <div
                         className={cl.edit_button_container}
                         onClick={() => {
-                          setEditModalOpen(item.id);
+                          setEditModalOpen(item);
                         }}
                       >
                         <FaEdit className={cl.edit_button} />
@@ -68,7 +76,7 @@ function EditIngridientsForm() {
                       <div
                         className={cl.edit_button_container}
                         onClick={() => {
-                          setDeleteModalOpen(item.id);
+                          setDeleteModalOpen(item);
                         }}
                       >
                         <FaTrash className={cl.edit_button} />
@@ -76,20 +84,6 @@ function EditIngridientsForm() {
                       </div>
                     </div>
                   </div>
-                  <EditModal
-                    visible={item.id === isEditModalOpen ? true : false}
-                    setVisible={setEditModalOpen}
-                    id={item.id}
-                    name={item.name}
-                    handleSubmitEdit={handleSubmitEdit}
-                  />
-                   <DeleteModal
-                    visible={item.id === isDeleteModalOpen ? true : false}
-                    setVisible={setDeleteModalOpen}
-                    id={item.id}
-                    name={item.name}
-                    handleSubmitRemove={handleSubmitRemove}
-                  />
                 </div>
               );
             })
@@ -101,6 +95,27 @@ function EditIngridientsForm() {
           visible={isAddModalOpen}
           setVisible={setAddModalOpen}
           handleSubmitAdd={handleSubmitAdd}
+        />
+        {isErrorModalOpen ? (
+          <ErrorModal
+            visible={isErrorModalOpen}
+            setVisible={setErrorModalOpen}
+            error={isError}
+          />
+        ) : null}
+        <EditModal
+          visible={isEditModalOpen}
+          setVisible={setEditModalOpen}
+          id={isEditModalOpen.id}
+          name={isEditModalOpen.name}
+          handleSubmitEdit={handleSubmitEdit}
+        />
+        <DeleteModal
+          visible={isDeleteModalOpen}
+          setVisible={setDeleteModalOpen}
+          id={isDeleteModalOpen.id}
+          name={isDeleteModalOpen.name}
+          handleSubmitRemove={handleSubmitRemove}
         />
       </div>
       <div className={cl.add_button_container}>
