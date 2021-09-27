@@ -27,6 +27,8 @@
 }
 
 .menu_button {
+  position: relative;
+  z-index: +1;
   box-sizing: border-box;
   min-width: 100%;
   display: flex;
