@@ -55,12 +55,12 @@ function EditIngridientsForm() {
       <h1 className={cl.edit_ingridients_form_title}>Ингридиенты</h1>
       <div className={cl.edit_ingridients_form_wrapper}>
         {ingridients ? (
-          ingridients.map((item, index) => {
+          ingridients.map((item) => {
             return (
               <div key={item.id} className={cl.ingridient_wrapper}>
                 <div className={cl.ingridient_container}>
                   <span className={cl.ingridient_span}>
-                    {ingridients[index].name}
+                    {item.name}
                   </span>
                   <div className={cl.ingridient_edit_buttons_container}>
                     <div
