@@ -22,7 +22,7 @@
     margin: 10px 0;
   }
   
-  .delete_ingridient_input {
+  .delete_span {
     word-break: break-word;
     flex: 0 1 50%;
     text-align: center;
