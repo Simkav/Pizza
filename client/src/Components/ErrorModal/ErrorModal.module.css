@@ -1,4 +1,4 @@
-.add_ingridient_window {
+.error_window {
     position: absolute;
     margin: 0 auto;
     left: 0;
@@ -22,7 +22,7 @@
     margin: 10px 0;
   }
   
-  .add_ingridient_input {
+  .error_span {
     word-break: break-word;
     flex: 0 1 50%;
     text-align: center;
@@ -33,7 +33,7 @@
     margin: 10px 10px;
   }
   
-  .add_window_buttons_container {
+  .error_window_buttons_container {
     align-self: stretch;
     flex: 1 1 30%;
     display: flex;
@@ -43,7 +43,7 @@
     margin-bottom: 5px;
   }
   
-  .add_window_button {
+  .error_window_button {
     padding: 5px 0;
     border-radius: 5px;
     color: white;
@@ -60,6 +60,6 @@
     background: green;
   }
   
-  .add_window_button:hover {
+  .error_window_button:hover {
     filter: saturate(2);
   }
