@@ -2,15 +2,14 @@ import Modal from "../../Modal/Modal";
 import cl from "./EditModal.module.css";
 import cn from "classnames";
 import { FaTimes, FaCheck } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
-function EditModal({ visible, setVisible, id, name, handleSubmitEdit }) {
+function EditModal({ visible, setVisible, id, name = "", handleSubmitEdit }) {
   const [newName, setNewName] = useState(name);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setNewName(name);
-  }, name);
+  }, [name]);
   const handleCancel = () => {
-    setNewName(name);
     setVisible((visible) => !visible);
   };
   return (
