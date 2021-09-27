@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import cl from "./LoginForm.module.css";
 import cn from "classnames";
@@ -9,9 +9,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActionLogin } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
 import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
+import ErrorModal from "../../ErrorModal/ErrorModal";
 
 function LoginForm() {
-  const isFetch = useSelector(({ auth: { isFetching } }) => isFetching);
+  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+  const [isFetch, isError] = useSelector(({ auth }) => [
+    auth.isFetching,
+    auth.error,
+  ]);
+
+  useEffect(() => {
+    setErrorModalOpen(isError);
+  }, [isError]);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,13 +30,8 @@ function LoginForm() {
       phone: "+38",
       password: "",
     },
-    onSubmit: ({phone, password}) =>
-      dispatch(
-        authActionLogin(
-          { phone, password },
-          history
-        )
-      ),
+    onSubmit: ({ phone, password }) =>
+      dispatch(authActionLogin({ phone, password }, history)),
     validationSchema: signInSchema,
   });
 
@@ -34,9 +39,9 @@ function LoginForm() {
   const formikTouched = LoginFormik.touched;
   const formikError = LoginFormik.errors;
 
-    if (!formikValue.phone.includes("+38")) {
-      formikValue.phone = "+38";
-    }
+  if (!formikValue.phone.includes("+38")) {
+    formikValue.phone = "+38";
+  }
 
   return (
     <form onSubmit={LoginFormik.handleSubmit}>
@@ -104,8 +109,15 @@ function LoginForm() {
           </button>
         </div>
       </div>
+      {isErrorModalOpen ? (
+        <ErrorModal
+          visible={isErrorModalOpen}
+          setVisible={setErrorModalOpen}
+          error={isError}
+        />
+      ) : null}
     </form>
   );
-} 
+}
 
 export default LoginForm;
