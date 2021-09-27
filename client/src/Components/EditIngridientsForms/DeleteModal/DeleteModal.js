@@ -19,20 +19,20 @@ function DeleteModal({ visible, setVisible, id, name, handleSubmitRemove }) {
       setVisible={setVisible}
       handleCancel={handleCancel}
     >
-      <div className={cl.add_ingridient_window}>
+      <div className={cl.delete_ingridient_window}>
         <h3 className={cl.modal_title}>Удалить ингридиент</h3>
-        <span className={cl.add_ingridient_input}>
+        <span className={cl.delete_span}>
           Вы действительно хотите удалить ингридиент: {removeIngridient}?
         </span>
-        <div className={cl.add_window_buttons_container}>
+        <div className={cl.delete_window_buttons_container}>
           <button
             onClick={() => handleSubmit()}
-            className={cn(cl.add_window_button, cl.apply)}
+            className={cn(cl.delete_window_button, cl.apply)}
           >
             <FaCheck></FaCheck>
           </button>
           <div
-            className={cn(cl.add_window_button, cl.cancel)}
+            className={cn(cl.delete_window_button, cl.cancel)}
             onClick={() => handleCancel()}
           >
             <FaTimes></FaTimes>
