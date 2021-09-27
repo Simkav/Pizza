@@ -13,6 +13,7 @@ import AddModal from "../AddModal/AddModal";
 import DeleteModal from "../DeleteModal/DeleteModal"
 
 function EditIngridientsForm() {
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
@@ -66,7 +67,9 @@ function EditIngridientsForm() {
                       </div>
                       <div
                         className={cl.edit_button_container}
-                        onClick={() => handleSubmitRemove(item.id)}
+                        onClick={() => {
+                          setDeleteModalOpen(item.id);
+                        }}
                       >
                         <FaTrash className={cl.edit_button} />
                         <span className={cl.button_tooltip_text}>Удалить</span>
