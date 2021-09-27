@@ -1,4 +1,4 @@
-import { React } from "react";
+import { useEffect, useState } from "react";
 import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
@@ -8,11 +8,21 @@ import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
 import { authActionRegister } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
 import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
+import ErrorModal from "../../ErrorModal/ErrorModal";
 
 function RegisterForm() {
+  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+  const [isFetch, isError] = useSelector(({ auth }) => [
+    auth.isFetching,
+    auth.error,
+  ]);
+
+  useEffect(() => {
+    setErrorModalOpen(isError);
+  }, [isError]);
+
   const history = useHistory();
   const dispatch = useDispatch();
-  const isFetch = useSelector(({ auth: { isFetching } }) => isFetching);
 
   const RegisterFormik = useFormik({
     initialValues: {
@@ -20,11 +30,8 @@ function RegisterForm() {
       password: "",
       passwordConfirm: "",
     },
-    onSubmit: ({phone,password}) =>
-      dispatch(
-        authActionRegister({ phone , password}, history)
-      )
-      ,
+    onSubmit: ({ phone, password }) =>
+      dispatch(authActionRegister({ phone, password }, history)),
     validationSchema: signUpSchema,
   });
 
@@ -91,6 +98,13 @@ function RegisterForm() {
           </button>
         </div>
       </div>
+      {isErrorModalOpen ? (
+        <ErrorModal
+          visible={isErrorModalOpen}
+          setVisible={setErrorModalOpen}
+          error={isError}
+        />
+      ) : null}
     </form>
   );
 }
