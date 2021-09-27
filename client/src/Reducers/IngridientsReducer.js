@@ -3,7 +3,7 @@ import ACTION from "../Actions/actionTypes";
 const initState = {
   ingridients: null,
   isFetching: false,
-  error: false,
+  error: null,
 };
 
 export default function (state = initState, action) {
