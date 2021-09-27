@@ -1,4 +1,4 @@
-.add_ingridient_window {
+.edit_ingridient_window {
     position: absolute;
     margin: 0 auto;
     left: 0;
@@ -22,7 +22,7 @@
     margin: 10px 0;
   }
   
-  .add_ingridient_input {
+  .edit_ingridient_input {
     flex: 0 1 20%;
     text-align: left;
     font-size: 1rem;
@@ -33,7 +33,7 @@
     margin: 10px 0;
   }
   
-  .add_window_buttons_container {
+  .edit_window_buttons_container {
     align-self: stretch;
     flex: 1 1 30%;
     display: flex;
@@ -43,7 +43,7 @@
     margin-bottom: 5px;
   }
   
-  .add_window_button {
+  .edit_window_button {
     padding: 5px 0;
     border-radius: 5px;
     color: white;
@@ -63,6 +63,6 @@
     background: rgb(185, 0, 0);
   }
   
-  .add_window_button:hover {
+  .edit_window_button:hover {
     filter: saturate(2);
   }

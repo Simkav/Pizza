@@ -19,24 +19,24 @@ function EditModal({ visible, setVisible, id, name, handleSubmitEdit }) {
       setVisible={setVisible}
       handleCancel={handleCancel}
     >
-      <div className={cl.add_ingridient_window}>
+      <div className={cl.edit_ingridient_window}>
         <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
         <input
           placeholder={"Название ингридиента"}
           type={"text"}
-          className={cl.add_ingridient_input}
+          className={cl.edit_ingridient_input}
           value={newName}
           onChange={(e) => setNewName(e.currentTarget.value)}
         />
-        <div className={cl.add_window_buttons_container}>
+        <div className={cl.edit_window_buttons_container}>
           <button
             onClick={() => handleSubmitEdit({ name: newName, id: id })}
-            className={cn(cl.add_window_button, cl.apply)}
+            className={cn(cl.edit_window_button, cl.apply)}
           >
             <FaCheck></FaCheck>
           </button>
           <div
-            className={cn(cl.add_window_button, cl.cancel)}
+            className={cn(cl.edit_window_button, cl.cancel)}
             onClick={() => {
               handleCancel();
             }}
