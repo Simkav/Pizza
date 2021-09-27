@@ -2,7 +2,12 @@
 const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Ingredient extends Model {
-    static associate (models) {}
+    static associate ({ Pizza, PizzaIngredient }) {
+      Ingredient.belongsToMany(Pizza, {
+        through: PizzaIngredient,
+        foreignKey: 'ingredientId'
+      })
+    }
   }
   Ingredient.init(
     {
