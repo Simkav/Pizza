@@ -14,7 +14,7 @@ export function* registerSaga({ history, data }) {
     history.push("/");
   } catch (e) {
     console.log(e);
-    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: e.response });
+    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: e.response.data.error });
   }
 }
 
@@ -28,8 +28,8 @@ export function* loginSaga({ history, data }) {
     } = yield API.AuthApi.signIn(data);
     yield put({ type: ACTION.AUTH_ACTION_SUCCESS, user });
     history.push("/");
-  } catch (err) {
-    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: err.response });
+  } catch (e) {
+    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: e.response.data.error });
   }
 }
 
@@ -42,8 +42,8 @@ export function* refreshSaga({ data }) {
       },
     } = yield API.AuthApi.refresh({ token: data.refreshToken });
     yield put({ type: ACTION.AUTH_ACTION_SUCCESS, user });
-  } catch (err) {
-    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: err.response });
+  } catch (e) {
+    yield put({ type: ACTION.AUTH_ACTION_ERROR, error: e.response.data.error });
   }
 }
 
