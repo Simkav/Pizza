@@ -12,6 +12,7 @@ import EditModal from "../EditModal/EditModal";
 import AddModal from "../AddModal/AddModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import ErrorModal from "../../ErrorModal/ErrorModal";
+import IngridientsSpinner from "../IngridientsSpinner/IngridientsSpinner";
 
 function EditIngridientsForm() {
   const [isErrorModalOpen, setErrorModalOpen] = useState(false);
@@ -53,44 +54,43 @@ function EditIngridientsForm() {
     <div className={cl.edit_ingridients_form_container}>
       <h1 className={cl.edit_ingridients_form_title}>Ингридиенты</h1>
       <div className={cl.edit_ingridients_form_wrapper}>
-        {ingridients
-          ? ingridients.map((item, index) => {
-              return (
-                <div key={item.id} className={cl.ingridient_wrapper}>
-                  <div className={cl.ingridient_container}>
-                    <span className={cl.ingridient_span}>
-                      {ingridients[index].name}
-                    </span>
-                    <div className={cl.ingridient_edit_buttons_container}>
-                      <div
-                        className={cl.edit_button_container}
-                        onClick={() => {
-                          setEditModalOpen(item);
-                        }}
-                      >
-                        <FaEdit className={cl.edit_button} />
-                        <span className={cl.button_tooltip_text}>
-                          Редактировать
-                        </span>
-                      </div>
-                      <div
-                        className={cl.edit_button_container}
-                        onClick={() => {
-                          setDeleteModalOpen(item);
-                        }}
-                      >
-                        <FaTrash className={cl.edit_button} />
-                        <span className={cl.button_tooltip_text}>Удалить</span>
-                      </div>
+        {ingridients ? (
+          ingridients.map((item, index) => {
+            return (
+              <div key={item.id} className={cl.ingridient_wrapper}>
+                <div className={cl.ingridient_container}>
+                  <span className={cl.ingridient_span}>
+                    {ingridients[index].name}
+                  </span>
+                  <div className={cl.ingridient_edit_buttons_container}>
+                    <div
+                      className={cl.edit_button_container}
+                      onClick={() => {
+                        setEditModalOpen(item);
+                      }}
+                    >
+                      <FaEdit className={cl.edit_button} />
+                      <span className={cl.button_tooltip_text}>
+                        Редактировать
+                      </span>
+                    </div>
+                    <div
+                      className={cl.edit_button_container}
+                      onClick={() => {
+                        setDeleteModalOpen(item);
+                      }}
+                    >
+                      <FaTrash className={cl.edit_button} />
+                      <span className={cl.button_tooltip_text}>Удалить</span>
                     </div>
                   </div>
                 </div>
-              );
-            })
-          : isFetch
-          ? null
-          : //TODO Loading spinner
-            null}
+              </div>
+            );
+          })
+        ) : isFetch ? (
+          <IngridientsSpinner />
+        ) : null}
         <AddModal
           visible={isAddModalOpen}
           setVisible={setAddModalOpen}
