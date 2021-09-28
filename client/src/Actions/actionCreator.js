@@ -62,3 +62,32 @@ export const ingridientsActionUpdate = (newIngridient, ingridients) => {
     ingridients: ingridients,
   };
 };
+
+export const productsActionGet = () => {
+  return {
+    type: ACTION.PRODUCTS_ACTION_GET,
+  };
+};
+
+export const productsActionRemove = (id, products) => {
+  return {
+    type: ACTION.PRODUCTS_ACTION_REMOVE,
+    id: id,
+    products: products
+  };
+};
+
+export const productsActionCreate = (data) => {
+  return {
+    type: ACTION.PRODUCTS_ACTION_POST,
+    data: data,
+  };
+};
+
+export const productsActionUpdate = (newProduct, products) => {
+  return {
+    type: ACTION.PRODUCTS_ACTION_UPDATE,
+    newProduct: newProduct,
+    products: products,
+  };
+};
