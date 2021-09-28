@@ -55,7 +55,7 @@ function Products() {
 
   return isProductsFetch || isIngridientsFetch ? (
     <LoadSpinner />
-  ) : isErrorModalOpen ? (
+  ) : isErrorModalOpen.text ? (
     <ErrorModal
       visible={isErrorModalOpen}
       setVisible={setErrorModalOpen}
