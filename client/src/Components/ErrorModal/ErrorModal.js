@@ -1,9 +1,15 @@
-import Modal from "../Modal/Modal";
-import cl from "./ErrorModal.module.css";
-import cn from "classnames";
-import { FaCheck } from "react-icons/fa";
+import Modal from '../Modal/Modal';
+import cl from './ErrorModal.module.css';
+import cn from 'classnames';
+import { FaCheck } from 'react-icons/fa';
+import { useEffect } from 'react';
 
-function ErrorModal({ visible, setVisible, error }) {
+function ErrorModal({ visible, setVisible, error, clearError }) {
+  useEffect(() => {
+    return () => {
+      clearError();
+    };
+  });
   return (
     <Modal visible={visible} setVisible={setVisible}>
       <div className={cl.error_window}>
