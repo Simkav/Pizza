@@ -2,26 +2,30 @@ import React, { useEffect, useState } from "react";
 import cl from "./EditIngridientsForm.module.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ingridientsActionGet,
-  ingridientsActionRemove,
-  ingridientsActionCreate,
-  ingridientsActionUpdate,
-} from "../../../Actions/actionCreator";
 import EditModal from "../EditModal/EditModal";
 import AddModal from "../AddModal/AddModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import ErrorModal from "../../ErrorModal/ErrorModal";
 import IngridientsSpinner from "../IngridientsSpinner/IngridientsSpinner";
+import * as ActionCreators from '../../../Actions/actionCreator';
+import { bindActionCreators } from "redux";
 
 function EditIngridientsForm() {
+  const dispatch = useDispatch();
   const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
-  const dispatch = useDispatch();
-
+  const { ingridientsActionGet,
+    ingridientsActionRemove,
+    ingridientsActionCreate,
+    ingridientsActionUpdate,
+    ingridientsActionClearError, } = bindActionCreators(
+    ActionCreators,
+    dispatch
+  );
+  
   const [ingridients, isFetch, isError] = useSelector(({ ingridients }) => [
     ingridients.ingridients,
     ingridients.isFetching,
@@ -33,20 +37,20 @@ function EditIngridientsForm() {
       setErrorModalOpen(isError);
     }
     if (!ingridients) {
-      dispatch(ingridientsActionGet());
+      ingridientsActionGet();
     }
   }, [isError]);
 
   const handleSubmitEdit = (editableIngridient) => {
-    dispatch(ingridientsActionUpdate(editableIngridient, ingridients));
+    ingridientsActionUpdate(editableIngridient, ingridients);
     setEditModalOpen(false);
   };
 
   const handleSubmitRemove = (id) =>
-    dispatch(ingridientsActionRemove(id, ingridients));
+    ingridientsActionRemove(id, ingridients);
 
   const handleSubmitAdd = (newIngridient) => {
-    dispatch(ingridientsActionCreate({ name: newIngridient }));
+    ingridientsActionCreate({ name: newIngridient });
     setAddModalOpen(false);
   };
 
@@ -101,6 +105,7 @@ function EditIngridientsForm() {
             visible={isErrorModalOpen}
             setVisible={setErrorModalOpen}
             error={isError}
+            clearError={ingridientsActionClearError}
           />
         ) : null}
         <EditModal
