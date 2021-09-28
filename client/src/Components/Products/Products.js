@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import {
-  ingridientsActionGet,
-  productsActionGet,
-} from '../../Actions/actionCreator';
+import * as ActionCreators from '../../Actions/actionCreator';
+import { bindActionCreators } from 'redux';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
 import ErrorModal from '../ErrorModal/ErrorModal';
 import ProductsList from '../ProductsList/ProductsList';
@@ -11,7 +9,17 @@ import ProductsList from '../ProductsList/ProductsList';
 function Products() {
   const dispatch = useDispatch();
 
-  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+  const {
+    ingridientsActionGet,
+    ingridientsActionClearError,
+    productsActionGet,
+    productsActionClearError,
+  } = bindActionCreators(ActionCreators, dispatch);
+
+  const [isErrorModalOpen, setErrorModalOpen] = useState({
+    text: false,
+    clearError: () => {},
+  });
 
   const [products, isProductsFetch, isProductsError] = useSelector(
     ({ products }) => [products.products, products.isFetching, products.error]
@@ -26,16 +34,22 @@ function Products() {
   );
   useEffect(() => {
     if (isProductsError) {
-      setErrorModalOpen(isProductsError);
+      setErrorModalOpen({
+        text: isProductsError,
+        clearError: productsActionClearError,
+      });
     }
     if (isIngridientsError) {
-      setErrorModalOpen(isIngridientsError);
+      setErrorModalOpen({
+        text: isIngridientsError,
+        clearError: ingridientsActionClearError,
+      });
     }
     if (!ingridients) {
-      dispatch(ingridientsActionGet());
+      ingridientsActionGet();
     }
     if (!products) {
-      dispatch(productsActionGet());
+      productsActionGet();
     }
   }, [isProductsError, isIngridientsError]);
 
@@ -45,7 +59,8 @@ function Products() {
     <ErrorModal
       visible={isErrorModalOpen}
       setVisible={setErrorModalOpen}
-      error={isErrorModalOpen}
+      error={isErrorModalOpen.text}
+      clearError={isErrorModalOpen.clearError}
     />
   ) : products ? (
     <ProductsList products={products} ingridients={ingridients} />
