@@ -99,6 +99,12 @@ export default function (state = initState, action) {
         error: action.error,
       };
     }
+    case ACTION.INGRIDIENTS_ACTION_CLEAR_ERROR: {
+      return {
+        ...state,
+        error: null,
+      }
+    }
 
     default:
       return state;
