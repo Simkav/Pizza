@@ -5,24 +5,31 @@ import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
-import { authActionRegister } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
 import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
 import ErrorModal from "../../ErrorModal/ErrorModal";
+import * as ActionCreators from '../../../Actions/actionCreator';
+import { bindActionCreators } from "redux";
 
 function RegisterForm() {
+  const dispatch = useDispatch();
   const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const [isFetch, isError] = useSelector(({ auth }) => [
     auth.isFetching,
     auth.error,
   ]);
 
+  const { authActionRegister, authActionClearError } = bindActionCreators(
+    ActionCreators,
+    dispatch
+  );
+
   useEffect(() => {
     setErrorModalOpen(isError);
   }, [isError]);
 
   const history = useHistory();
-  const dispatch = useDispatch();
+
 
   const RegisterFormik = useFormik({
     initialValues: {
@@ -31,7 +38,7 @@ function RegisterForm() {
       passwordConfirm: "",
     },
     onSubmit: ({ phone, password }) =>
-      dispatch(authActionRegister({ phone, password }, history)),
+      authActionRegister({ phone, password }, history),
     validationSchema: signUpSchema,
   });
 
@@ -103,6 +110,7 @@ function RegisterForm() {
           visible={isErrorModalOpen}
           setVisible={setErrorModalOpen}
           error={isError}
+          clearError={authActionClearError}
         />
       ) : null}
     </form>
