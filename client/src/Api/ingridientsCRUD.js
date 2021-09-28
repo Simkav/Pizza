@@ -1,5 +1,3 @@
-import CONSTANTS from "../constants";
-
 class IngridientsCRUDApi {
   #_client;
   #_url;
