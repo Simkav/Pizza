@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "staging": "yarn run build & npx serve -s -l 3000 build/"
+    "staging": "yarn run build && npx serve -s -l 3000 build/"
   },
   "eslintConfig": {
     "extends": ["react-app", "react-app/jest"]
