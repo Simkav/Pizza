@@ -1,7 +1,9 @@
-import cl from "./AuthFormContainer.module.css";
+import cl from './AuthFormContainer.module.css'
+import { useLocation } from 'react-router-dom'
 
-function AuthFormContainer(props) {
-  const isLogin = props.children._source.fileName.includes('Login');
+function AuthFormContainer (props) {
+  const location = useLocation()
+  const isLogin = location.pathname === '/login'
   return (
     <div className={cl.signup_container}>
       <div className={cl.signup_form_wrapper}>
@@ -11,7 +13,7 @@ function AuthFormContainer(props) {
         {props.children}
       </div>
     </div>
-  );
+  )
 }
 
-export default AuthFormContainer;
+export default AuthFormContainer
