@@ -69,6 +69,12 @@ export const ingridientsActionUpdate = (newIngridient, ingridients) => {
   };
 };
 
+export const ingridientsActionClearError = () => {
+  return {
+    type: ACTION.INGRIDIENTS_ACTION_CLEAR_ERROR,
+  };
+};
+
 export const productsActionGet = () => {
   return {
     type: ACTION.PRODUCTS_ACTION_GET,
