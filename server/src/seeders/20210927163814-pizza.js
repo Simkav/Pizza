@@ -7,6 +7,7 @@ const defaultPizza = {
   image: '/pizzas/testPizza.png'
 }
 
+
 const getRandom = max => (Math.random() * (max - 1) + 1).toFixed(2)
 
 const createPizzaArr = () =>

@@ -19,7 +19,7 @@
 }
 
 .hamburger_menu_container {
-  width: auto;
+  width: 100px;
   height: auto;
   min-width: 100px;
   display: flex;
@@ -282,7 +282,6 @@
     transition: all 1s ease;
   }
   .site_logo_container {
-    margin: 0px 50px;
     transition: all 1s ease;
   }
 }

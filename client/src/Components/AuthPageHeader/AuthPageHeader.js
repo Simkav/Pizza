@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux";
 
 function SignUpHeader(props) {
-  const isAuth = false;
+  const isAuth = useSelector(({auth : {user}}) => user);
 
   return (
     <div className={cl.signup_header}>

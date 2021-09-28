@@ -10,6 +10,10 @@ import Main from "./Pages/Main";
 import constants from "./constants";
 import { requestAuthRefresh } from "./Actions/actionCreator";
 import LoadSpinner from "./Components/LoadSpinner/LoadSpinner";
+import PrivateAdminHoc from "./Components/Hoc/PrivateAdminHoc";
+import Admin from "./Pages/AdminPages/Admin";
+import EditProducts from "./Pages/AdminPages/EditProducts";
+import EditIngridients from "./Pages/AdminPages/EditIngridients";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +52,21 @@ function App() {
           exact
           path="/profile"
           render={() => <PrivateHoc Component={Profile} />}
+        />
+        <Route
+          exact
+          path="/admin"
+          render={() => <PrivateAdminHoc Component={Admin} />}
+        />
+        <Route
+          exact
+          path="/edit_products"
+          render={() => <PrivateAdminHoc Component={EditProducts} />}
+        />
+        <Route
+          exact
+          path="/edit_ingridients"
+          render={() => <PrivateAdminHoc Component={EditIngridients} />}
         />
         <Redirect to={"/"} />
       </Switch>

@@ -1,27 +1,44 @@
-import { React } from "react";
+import { useEffect, useState } from "react";
 import cl from "./RegisterForm.module.css";
 import cn from "classnames";
 import { useFormik } from "formik";
 import { signUpSchema } from "../../../Validations/SignUpSchema";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
-import { authActionRegister } from "../../../Actions/actionCreator";
 import { useHistory } from "react-router-dom";
+import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
+import ErrorModal from "../../ErrorModal/ErrorModal";
+import * as ActionCreators from '../../../Actions/actionCreator';
+import { bindActionCreators } from "redux";
 
 function RegisterForm() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
+  const [isFetch, isError] = useSelector(({ auth }) => [
+    auth.isFetching,
+    auth.error,
+  ]);
+
+  const { authActionRegister, authActionClearError } = bindActionCreators(
+    ActionCreators,
+    dispatch
+  );
+
+  useEffect(() => {
+    setErrorModalOpen(isError);
+  }, [isError]);
+
+  const history = useHistory();
+
+
   const RegisterFormik = useFormik({
     initialValues: {
       phone: "+38",
       password: "",
       passwordConfirm: "",
     },
-    onSubmit: ({phone,password}) =>
-      dispatch(
-        authActionRegister({ phone , password}, history)
-      )
-      ,
+    onSubmit: ({ phone, password }) =>
+      authActionRegister({ phone, password }, history),
     validationSchema: signUpSchema,
   });
 
@@ -83,14 +100,19 @@ function RegisterForm() {
       })}
       <div className={cl.row}>
         <div className={cl.field_container}>
-          <button
-            type={"submit"}
-            className={cn(cl.button, cl.button_active)}
-          >
-            Зарегистрироваться
+          <button type={"submit"} className={cn(cl.button, cl.button_active)}>
+            {isFetch ? <ButtonLoadSpinner /> : "Зарегистрироваться"}
           </button>
         </div>
       </div>
+      {isErrorModalOpen ? (
+        <ErrorModal
+          visible={isErrorModalOpen}
+          setVisible={setErrorModalOpen}
+          error={isError}
+          clearError={authActionClearError}
+        />
+      ) : null}
     </form>
   );
 }

@@ -17,33 +17,39 @@ import { HeaderContactPhonesList } from "../../Helpers/HeaderContactPhonesList";
 import cn from "classnames";
 
 export default function Header() {
+  const dispatch = useDispatch();
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
 
-  const isUserAuth = useSelector(({auth}) => auth).user
+  const [isUserAuth, isAdmin] = useSelector(({auth}) => [auth.user, auth.user ? auth.user.isAdmin : false]);
+  
+  const hamburgerMenuState = useSelector(
+    ({ hamburgerMenu: { isOpened } }) => isOpened
+  );
 
-  const dispatch = useDispatch();
-  const hamburgerMenuState = useSelector(({ hamburgerMenu }) => hamburgerMenu);
-  const { asideToggle, authActionClear } = bindActionCreators(ActionCreators, dispatch);
+  const { asideToggle, authActionClear } = bindActionCreators(
+    ActionCreators,
+    dispatch
+  );
 
   const hamburgerMenuToggle = () => {
-    const toggle = !hamburgerMenuState.isOpened;
+    const toggle = !hamburgerMenuState;
     asideToggle(toggle);
   };
 
   const setLogOut = () => {
-    authActionClear()
+    authActionClear();
   };
 
   return (
     <header className={cl.header}>
       <div
         className={cn(cl.hamburger_menu_container, cl.hover_element, {
-          [cl.hamburger_menu_active]: hamburgerMenuState.isOpened,
+          [cl.hamburger_menu_active]: hamburgerMenuState,
         })}
         onClick={() => hamburgerMenuToggle()}
       >
-        {!hamburgerMenuState.isOpened ? (
+        {!hamburgerMenuState ? (
           <FaBars className={cl.hamburger_bars} />
         ) : (
           <FaTimes className={cl.hamburger_cross} />
@@ -71,7 +77,7 @@ export default function Header() {
               })}
             ></FaChevronDown>
           </div>
-          <PopUpModule visible={contactsPopUp} setVisible={setContactsPopUp}>
+          <PopUpModule visible={contactsPopUp}>
             {HeaderContactPhonesList.map((item) => {
               return (
                 <div key={item.prefix} className={cl.contact_phone}>
@@ -102,7 +108,12 @@ export default function Header() {
                 })}
               ></FaChevronDown>
             </div>
-            <PopUpModule visible={profilePopUp} setVisible={setProfilePopUp}>
+            <PopUpModule visible={profilePopUp}>
+              {isAdmin ? (
+                <Link className={cl.profile_link} to={"/admin"}>
+                  Панель администратора
+                </Link>
+              ) : null}
               <Link className={cl.profile_link} to={"/profile"}>
                 Персональная информация
               </Link>

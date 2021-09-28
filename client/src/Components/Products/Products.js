@@ -1,48 +1,70 @@
-import cl from "./Products.module.css";
-import cn from "classnames";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import * as ActionCreators from '../../Actions/actionCreator';
+import { bindActionCreators } from 'redux';
+import LoadSpinner from '../LoadSpinner/LoadSpinner';
+import ErrorModal from '../ErrorModal/ErrorModal';
+import ProductsList from '../ProductsList/ProductsList';
 
 function Products() {
-  return (
-    <ul className={cl.products_container}>
-      {Array(11)
-        .fill("")
-        .map((item, index) => {
-          return (
-            <li key={index} className={cl.product}>
-              <a className={cl.product_link_container}>
-                <div className={cl.product_image_container}>
-                  <img
-                    className={cl.product_image}
-                    src={"/pizzasImages/testPizzaItem.png"}
-                  ></img>
-                </div>
-                <h3>Product Title</h3>
-                <div className={cl.product_ingridients_container}>
-                  <p>
-                    Соус білий, сир моцарела, бекон, фарш з яловичини, помідор,
-                    огірок солоний, цибуля, сир чедер, орегано базилік
-                  </p>
-                </div>
-              </a>
-              <div className={cl.product_footer}>
-                <span className={cl.product_price}>100</span>
-                <div className={cl.product_sizes}>
-                  <div className={cn(cl.product_size, cl.product_size_active)}>
-                    <span>M</span>
-                  </div>
-                  <div className={cl.product_size}>
-                    <span>L</span>
-                  </div>
-                  <div className={cl.product_size}>
-                    <span>XL</span>
-                  </div>
-                </div>
-              </div>
-            </li>
-          );
-        })}
-    </ul>
+  const dispatch = useDispatch();
+
+  const {
+    ingridientsActionGet,
+    ingridientsActionClearError,
+    productsActionGet,
+    productsActionClearError,
+  } = bindActionCreators(ActionCreators, dispatch);
+
+  const [isErrorModalOpen, setErrorModalOpen] = useState({
+    text: false,
+    clearError: () => {},
+  });
+
+  const [products, isProductsFetch, isProductsError] = useSelector(
+    ({ products }) => [products.products, products.isFetching, products.error]
   );
+
+  const [ingridients, isIngridientsFetch, isIngridientsError] = useSelector(
+    ({ ingridients }) => [
+      ingridients.ingridients,
+      ingridients.isFetching,
+      ingridients.error,
+    ]
+  );
+  useEffect(() => {
+    if (isProductsError) {
+      setErrorModalOpen({
+        text: isProductsError,
+        clearError: productsActionClearError,
+      });
+    }
+    if (isIngridientsError) {
+      setErrorModalOpen({
+        text: isIngridientsError,
+        clearError: ingridientsActionClearError,
+      });
+    }
+    if (!ingridients) {
+      ingridientsActionGet();
+    }
+    if (!products) {
+      productsActionGet();
+    }
+  }, [isProductsError, isIngridientsError]);
+
+  return isProductsFetch || isIngridientsFetch ? (
+    <LoadSpinner />
+  ) : isErrorModalOpen ? (
+    <ErrorModal
+      visible={isErrorModalOpen}
+      setVisible={setErrorModalOpen}
+      error={isErrorModalOpen.text}
+      clearError={isErrorModalOpen.clearError}
+    />
+  ) : products ? (
+    <ProductsList products={products} ingridients={ingridients} />
+  ) : null;
 }
 
 export default Products;

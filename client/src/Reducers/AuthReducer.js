@@ -1,4 +1,4 @@
-import ACTION from "../Actions/actionTypes";
+import ACTION from '../Actions/actionTypes';
 
 const initialState = {
   isFetching: false,
@@ -33,13 +33,19 @@ export default function (state = initialState, action) {
     case ACTION.AUTH_ACTION_CLEAR: {
       return { ...initialState };
     }
-    case ACTION.CLEAR_STORE:{
-      return{
-          ...state,
-          user: null,
-          error: null
-      }
-  }
+    case ACTION.CLEAR_STORE: {
+      return {
+        ...state,
+        user: null,
+        error: null,
+      };
+    }
+    case ACTION.AUTH_ACTION_CLEAR_ERROR: {
+      return {
+        ...state,
+        error: null,
+      };
+    }
     default:
       return state;
   }
