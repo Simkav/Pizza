@@ -34,6 +34,12 @@ export const authActionClear = () => {
   };
 };
 
+export const authActionClearError = () => {
+  return {
+    type: ACTION.AUTH_ACTION_CLEAR_ERROR,
+  };
+};
+
 export const ingridientsActionGet = () => {
   return {
     type: ACTION.INGRIDIENTS_ACTION_GET,
