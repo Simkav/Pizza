@@ -1,4 +1,4 @@
-import ACTION from "./actionTypes";
+import ACTION from './actionTypes';
 
 export const asideToggle = (data) => {
   return {
@@ -50,7 +50,7 @@ export const ingridientsActionRemove = (id, ingridients) => {
   return {
     type: ACTION.INGRIDIENTS_ACTION_REMOVE,
     id: id,
-    ingridients: ingridients
+    ingridients: ingridients,
   };
 };
 
@@ -85,7 +85,7 @@ export const productsActionRemove = (id, products) => {
   return {
     type: ACTION.PRODUCTS_ACTION_REMOVE,
     id: id,
-    products: products
+    products: products,
   };
 };
 
@@ -101,5 +101,11 @@ export const productsActionUpdate = (newProduct, products) => {
     type: ACTION.PRODUCTS_ACTION_UPDATE,
     newProduct: newProduct,
     products: products,
+  };
+};
+
+export const productsActionClearError = () => {
+  return {
+    type: ACTION.PRODUCTS_ACTION_CLEAR_ERROR,
   };
 };
