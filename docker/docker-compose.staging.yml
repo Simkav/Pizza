@@ -3,7 +3,6 @@ version: "3"
 services:
   &app-web-service app-web-service:
     command: npm run staging
-    environment:
     ports: 
       - "3000:3000"
 

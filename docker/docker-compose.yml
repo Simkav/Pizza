@@ -15,6 +15,8 @@ services:
     user: "1000"
     environment: 
       - ENVIRONMENT=${ENVIRONMENT}
+      - API_HOSTNAME
+      - API_PORT
     volumes:
       - ../client:/home/node/app
     working_dir: /home/node/app
@@ -33,8 +35,6 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_HOST
-      - API_HOSTNAME
-      - API_PORT
     volumes:
       - ../server:/home/node/app
     working_dir: /home/node/app
