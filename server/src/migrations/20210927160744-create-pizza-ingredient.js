@@ -10,6 +10,8 @@ module.exports = {
       },
       pizzaId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         references: {
           model: {
             tableName: 'pizzas'
@@ -19,6 +21,8 @@ module.exports = {
       },
       ingredientId: {
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         references: {
           model: {
             tableName: 'ingredients'
