@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate ({ Pizza, PizzaIngredient }) {
       Ingredient.belongsToMany(Pizza, {
         through: PizzaIngredient,
-        foreignKey: 'ingredientId'
+        foreignKey: 'ingredientId',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       })
     }
   }
