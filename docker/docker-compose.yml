@@ -15,8 +15,8 @@ services:
     user: "1000"
     environment: 
       - ENVIRONMENT=${ENVIRONMENT}
-      - API_HOSTNAME
-      - API_PORT
+      - REACT_APP_BACKEND_HOST=${API_HOSTNAME}
+      - REACT_APP_BACKEND_PORT=${API_PORT}
     volumes:
       - ../client:/home/node/app
     working_dir: /home/node/app

@@ -1,7 +1,7 @@
-const { API_HOSTNAME, API_PORT } = process.env
+const { REACT_APP_BACKEND_HOST, REACT_APP_BACKEND_PORT } = process.env
 
-const hostName = API_HOSTNAME || 'localhost'
-const serverPort = API_PORT || 3001
+const hostName = REACT_APP_BACKEND_HOST || 'localhost'
+const serverPort = REACT_APP_BACKEND_PORT || 3001
 
 export default {
   ACCESS_TOKEN: 'accessToken',
