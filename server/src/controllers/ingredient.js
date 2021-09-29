@@ -31,6 +31,10 @@ const getAll = async (req, res, next) => {
   }
 }
 const deleteById = async (req, res, next) => {
+  /* 
+  TODO 
+  Add check when delete last id from some product
+  */
   try {
     const { ingredient } = req
     const deleted = await ingredient.destroy()
