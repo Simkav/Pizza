@@ -37,4 +37,61 @@ const getAll = async (req, res, next) => {
   res.send({ data: pizzasCache, error: {} })
 }
 
-module.exports = { getAll }
+const createPizza = async (req, res, next) => {
+  /* 
+  TODO
+  add validation body
+  add error handlers
+  fix security 80000
+  */
+  const { name, price, weight, ingredients } = req.body
+  const imgPath = `/pizzas/${req.file.filename}`
+  const pizzaData = {
+    name,
+    price: +price,
+    weight: +weight,
+    image: imgPath
+  }
+  const parsedIngredients = JSON.parse(ingredients)
+  const newPizza = await Pizza.create(pizzaData)
+  const findedIngredients = await Ingredient.findAll({
+    where: { id: parsedIngredients }
+  })
+  await newPizza.addIngredients(findedIngredients)
+  updateCache()
+  res.send({ data: { id: newPizza.getDataValue('id') } })
+}
+
+const deletePizza = async (req, res, next) => {
+  try {
+    const { pizza } = req
+    /* 
+    TODO
+    Add checks + validation
+    */
+    await pizza.destroy()
+    updateCache()
+    return res.send({ data: {}, error: {} })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const updatePizza = async (req, res, next) => {
+  /* 
+  TODO
+  add validation checks
+  */
+  try {
+    const { body, pizza } = req
+    await pizza.update(body)
+    updateCache()
+    res.send({ data: pizza, error: {} })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// TODO add logic for update image and ingredients
+
+module.exports = { getAll, createPizza, deletePizza, updatePizza }
