@@ -8,7 +8,7 @@ function DeleteModal({ visible, setVisible, id, name, handleSubmitRemove }) {
   const [removeIngridient, setRemoveIngridient] = useState(name);
   useLayoutEffect(() => {
     setRemoveIngridient(name);
-  });
+  }, [name]);
   const handleSubmit = () => {
     handleSubmitRemove(id);
     setVisible((visible) => !visible);
