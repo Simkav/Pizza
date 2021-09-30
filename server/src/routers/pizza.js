@@ -22,14 +22,14 @@ PizzaRouter.route('/:id')
   .delete(PizzaController.deletePizza)
   .patch(PizzaController.deletePizza)
 
-PizzaRouter.post(
+PizzaRouter.patch(
   '/:id/image',
   PizzaMw.findPizza,
   pizzasStorage.single('img'),
   PizzaController.updateImage
 )
 
-PizzaRouter.post(
+PizzaRouter.patch(
   '/:id/ingredients',
   PizzaMw.findPizza,
   findIngredients,
