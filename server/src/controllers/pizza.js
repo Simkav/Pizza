@@ -91,6 +91,39 @@ const updatePizza = async (req, res, next) => {
   }
 }
 
+const updateImage = async (req, res, next) => {
+  try {
+    const {
+      pizza,
+      file: { filename }
+    } = req
+    const imgPath = `/pizzas/${filename}`
+    await pizza.update({ image: imgPath })
+    updateCache()
+    res.send({ data: {}, error: {} })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const updateIngredient = async (req, res, next) => {
+  try {
+    const { pizza, ingredients } = req
+    await pizza.setIngredients(ingredients)
+    updateCache()
+    res.send({ data: {}, error: {} })
+  } catch (error) {
+    next(error)
+  }
+}
+
 // TODO add logic for update image and ingredients
 
-module.exports = { getAll, createPizza, deletePizza, updatePizza }
+module.exports = {
+  getAll,
+  createPizza,
+  deletePizza,
+  updatePizza,
+  updateImage,
+  updateIngredient
+}
