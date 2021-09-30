@@ -3,7 +3,7 @@ import cl from './IngridientContainer.module.css'
 
 function IngridientContainer({item, setEditModalOpen, setDeleteModalOpen}) {
   return (
-      <div key={item.id} className={cl.ingridient_container}>
+      <div className={cl.ingridient_container}>
         <span className={cl.ingridient_span}>{item.name}</span>
         <div className={cl.ingridient_edit_buttons_container}>
           <div
