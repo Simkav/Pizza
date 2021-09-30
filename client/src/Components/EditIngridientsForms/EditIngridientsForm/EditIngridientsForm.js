@@ -55,6 +55,7 @@ function EditIngridientsForm() {
         {ingridients ? (
           ingridients.map((item) => (
             <IngridientContainer
+              key={item.id}
               item={item}
               setEditModalOpen={setEditModalOpen}
               setDeleteModalOpen={setDeleteModalOpen}
