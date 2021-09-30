@@ -21,7 +21,7 @@ function ErrorModal({error, clearError }) {
             onClick={() => setErrorModalOpen((isErrorModalOpen) => !isErrorModalOpen)}
             className={cn(cl.error_window_button, cl.apply)}
           >
-            <FaCheck></FaCheck>
+            <FaCheck/>
           </div>
         </div>
       </div>

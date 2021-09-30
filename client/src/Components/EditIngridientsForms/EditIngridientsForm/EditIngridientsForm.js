@@ -1,59 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import cl from './EditIngridientsForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import EditModal from '../EditModal/EditModal';
-import AddModal from '../AddModal/AddModal';
-import DeleteModal from '../DeleteModal/DeleteModal';
-import ErrorModal from '../../ErrorModal/ErrorModal';
-import IngridientsSpinner from '../IngridientsSpinner/IngridientsSpinner';
-import * as ActionCreators from '../../../Actions/actionCreator';
-import { bindActionCreators } from 'redux';
-import IngridientContainer from '../IngridientContainer/IngridientContainer';
+import React, { useEffect, useState } from 'react'
+import cl from './EditIngridientsForm.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import EditModal from '../EditModal/EditModal'
+import AddModal from '../AddModal/AddModal'
+import DeleteModal from '../DeleteModal/DeleteModal'
+import ErrorModal from '../../ErrorModal/ErrorModal'
+import IngridientsSpinner from '../IngridientsSpinner/IngridientsSpinner'
+import * as ActionCreators from '../../../Actions/actionCreator'
+import { bindActionCreators } from 'redux'
+import IngridientContainer from '../IngridientContainer/IngridientContainer'
 
-function EditIngridientsForm() {
-  const dispatch = useDispatch();
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isAddModalOpen, setAddModalOpen] = useState(false);
+function EditIngridientsForm () {
+  const dispatch = useDispatch()
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [isEditModalOpen, setEditModalOpen] = useState(false)
+  const [isAddModalOpen, setAddModalOpen] = useState(false)
 
   const {
     ingridientsActionGet,
     ingridientsActionRemove,
     ingridientsActionCreate,
     ingridientsActionUpdate,
-    ingridientsActionClearError,
-  } = bindActionCreators(ActionCreators, dispatch);
+    ingridientsActionClearError
+  } = bindActionCreators(ActionCreators, dispatch)
 
   const [ingridients, isFetch, isError] = useSelector(({ ingridients }) => [
     ingridients.ingridients,
     ingridients.isFetching,
-    ingridients.error,
-  ]);
+    ingridients.error
+  ])
+
+  // TODO убрать useEffect
 
   useEffect(() => {
     if (!ingridients) {
-      ingridientsActionGet();
+      ingridientsActionGet()
     }
-  }, [isError]);
+  }, [isError])
 
-  const handleSubmitEdit = (editableIngridient) => {
-    ingridientsActionUpdate(editableIngridient, ingridients);
-    setEditModalOpen(false);
-  };
+  const handleSubmitEdit = editableIngridient => {
+    ingridientsActionUpdate(editableIngridient, ingridients)
+    setEditModalOpen(false)
+  }
 
-  const handleSubmitRemove = (id) => ingridientsActionRemove(id, ingridients);
+  const handleSubmitRemove = id => ingridientsActionRemove(id, ingridients)
 
-  const handleSubmitAdd = (newIngridient) => {
-    ingridientsActionCreate({ name: newIngridient });
-    setAddModalOpen(false);
-  };
+  const handleSubmitAdd = newIngridient => {
+    ingridientsActionCreate({ name: newIngridient })
+    setAddModalOpen(false)
+  }
 
   return (
     <div className={cl.edit_ingridients_form_container}>
       <h1 className={cl.edit_ingridients_form_title}>Ингридиенты</h1>
       <div className={cl.edit_ingridients_form_wrapper}>
         {ingridients ? (
-          ingridients.map((item) => (
+          ingridients.map(item => (
             <IngridientContainer
               key={item.id}
               item={item}
@@ -62,14 +64,11 @@ function EditIngridientsForm() {
             />
           ))
         ) : isFetch ? (
+          // TODO убрать спиннер после тудушки в app.js
           <IngridientsSpinner />
         ) : null}
-        <AddModal
-          visible={isAddModalOpen}
-          setVisible={setAddModalOpen}
-          handleSubmitAdd={handleSubmitAdd}
-        />
         {isError ? (
+          // TODO IngridientModals
           <ErrorModal
             error={isError}
             clearError={ingridientsActionClearError}
@@ -89,6 +88,11 @@ function EditIngridientsForm() {
           name={isDeleteModalOpen.name}
           handleSubmitRemove={handleSubmitRemove}
         />
+        <AddModal
+          visible={isAddModalOpen}
+          setVisible={setAddModalOpen}
+          handleSubmitAdd={handleSubmitAdd}
+        />
       </div>
       <div className={cl.add_button_container}>
         <div className={cl.add_button} onClick={() => setAddModalOpen(true)}>
@@ -96,7 +100,7 @@ function EditIngridientsForm() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default EditIngridientsForm;
+export default EditIngridientsForm

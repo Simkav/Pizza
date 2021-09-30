@@ -23,9 +23,6 @@ function AdminPageHeader() {
         >
           Меню
           <PopUpModule visible={menuPopUp}>
-            <Link className={cl.menu_link} to={"/"}>
-              Главная страница
-            </Link>
             <Link className={cl.menu_link} to={"/edit_products"}>
               Редактировать продукты
             </Link>

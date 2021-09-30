@@ -21,6 +21,7 @@ function App() {
   const [isShow, setisShow] = useState(false);
 
   useEffect(() => {
+    // TODO Подгружать продукты и ингридиенты прямо тут!
     const refreshToken = localStorage.getItem(constants.REFRESH_TOKEN);
     const fn = () => {
       if (refreshToken) {

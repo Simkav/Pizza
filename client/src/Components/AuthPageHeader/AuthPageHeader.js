@@ -21,6 +21,7 @@ function SignUpHeader(props) {
         </Link>
       </div>
     </div>
+  
   );
 }
 
