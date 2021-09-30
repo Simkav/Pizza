@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as ActionCreators from '../../Actions/actionCreator';
 import { bindActionCreators } from 'redux';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
@@ -16,11 +16,6 @@ function Products() {
     productsActionClearError,
   } = bindActionCreators(ActionCreators, dispatch);
 
-  const [isErrorModalOpen, setErrorModalOpen] = useState({
-    text: false,
-    clearError: () => {},
-  });
-
   const [products, isProductsFetch, isProductsError] = useSelector(
     ({ products }) => [products.products, products.isFetching, products.error]
   );
@@ -32,35 +27,24 @@ function Products() {
       ingridients.error,
     ]
   );
+
   useEffect(() => {
-    if (isProductsError) {
-      setErrorModalOpen({
-        text: isProductsError,
-        clearError: productsActionClearError,
-      });
-    }
-    if (isIngridientsError) {
-      setErrorModalOpen({
-        text: isIngridientsError,
-        clearError: ingridientsActionClearError,
-      });
-    }
     if (!ingridients) {
       ingridientsActionGet();
     }
     if (!products) {
       productsActionGet();
     }
-  }, [isProductsError, isIngridientsError]);
+  }, []);
 
   return isProductsFetch || isIngridientsFetch ? (
     <LoadSpinner />
-  ) : isErrorModalOpen.text ? (
+  ) : isProductsError || isIngridientsError ? (
     <ErrorModal
-      visible={isErrorModalOpen}
-      setVisible={setErrorModalOpen}
-      error={isErrorModalOpen.text}
-      clearError={isErrorModalOpen.clearError}
+      error={isProductsError ? isProductsError : isIngridientsError}
+      clearError={
+        isProductsError ? productsActionClearError : ingridientsActionClearError
+      }
     />
   ) : products ? (
     <ProductsList products={products} ingridients={ingridients} />
