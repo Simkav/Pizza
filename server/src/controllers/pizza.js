@@ -44,7 +44,10 @@ const createPizza = async (req, res, next) => {
   add error handlers
   fix security 80000
   */
-  const { name, price, weight, ingredients } = req.body
+  const {
+    body: { name, price, weight },
+    ingredients
+  } = req
   const imgPath = `/pizzas/${req.file.filename}`
   const pizzaData = {
     name,
@@ -52,12 +55,8 @@ const createPizza = async (req, res, next) => {
     weight: +weight,
     image: imgPath
   }
-  const parsedIngredients = JSON.parse(ingredients)
   const newPizza = await Pizza.create(pizzaData)
-  const findedIngredients = await Ingredient.findAll({
-    where: { id: parsedIngredients }
-  })
-  await newPizza.addIngredients(findedIngredients)
+  await newPizza.addIngredients(ingredients)
   updateCache()
   res.send({ data: { id: newPizza.getDataValue('id') } })
 }
