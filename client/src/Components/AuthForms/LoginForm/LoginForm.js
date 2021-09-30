@@ -14,7 +14,6 @@ import * as ActionCreators from '../../../Actions/actionCreator';
 
 function LoginForm() {
   const dispatch = useDispatch();
-  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const { authActionClearError, authActionLogin } = bindActionCreators(
     ActionCreators,
     dispatch
@@ -24,10 +23,6 @@ function LoginForm() {
     auth.isFetching,
     auth.error,
   ]);
-
-  useEffect(() => {
-    setErrorModalOpen(isError);
-  }, [isError]);
 
   const history = useHistory();
 
@@ -115,13 +110,8 @@ function LoginForm() {
           </button>
         </div>
       </div>
-      {isErrorModalOpen ? (
-        <ErrorModal
-          visible={isErrorModalOpen}
-          setVisible={setErrorModalOpen}
-          error={isErrorModalOpen}
-          clearError={authActionClearError}
-        />
+      {isError ? (
+        <ErrorModal error={isError} clearError={authActionClearError} />
       ) : null}
     </form>
   );
