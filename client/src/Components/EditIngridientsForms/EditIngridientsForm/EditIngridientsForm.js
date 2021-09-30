@@ -12,7 +12,6 @@ import IngridientContainer from '../IngridientContainer/IngridientContainer';
 
 function EditIngridientsForm() {
   const dispatch = useDispatch();
-  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
@@ -32,9 +31,6 @@ function EditIngridientsForm() {
   ]);
 
   useEffect(() => {
-    if (isError) {
-      setErrorModalOpen(isError);
-    }
     if (!ingridients) {
       ingridientsActionGet();
     }
@@ -72,10 +68,8 @@ function EditIngridientsForm() {
           setVisible={setAddModalOpen}
           handleSubmitAdd={handleSubmitAdd}
         />
-        {isErrorModalOpen ? (
+        {isError ? (
           <ErrorModal
-            visible={isErrorModalOpen}
-            setVisible={setErrorModalOpen}
             error={isError}
             clearError={ingridientsActionClearError}
           />
