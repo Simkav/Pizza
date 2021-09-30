@@ -1,13 +1,16 @@
 const express = require('express')
 const router = require('./routers/router')
-const morgan = require('morgan')
-const responseTime = require('response-time')
 const cors = require('cors')
 const path = require('path')
 const app = express()
 
-app.use(morgan('dev'))
-app.use(responseTime())
+if (process.env.ENVIRONMENT === 'dev') {
+  app.use(require('morgan')('dev'))
+  app.use(require('response-time')())
+} else {
+  app.use(require('helmet')())
+}
+
 app.use(express.json())
 app.use(cors())
 

@@ -1,9 +1,10 @@
 const Router = require('express').Router()
-const userRouter = require('./user')
+const authRouter = require('./auth')
 const errorHandlers = require('../errorHandlers/errorHandler')
 const ingredientRouter = require('./ingredient')
 const pizzaRouter = require('./pizza')
-Router.use('/auth', userRouter)
+
+Router.use('/auth', authRouter)
 
 Router.use('/ingredient', ingredientRouter)
 
