@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import cl from "./EditIngridientsForm.module.css";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import EditModal from "../EditModal/EditModal";
-import AddModal from "../AddModal/AddModal";
-import DeleteModal from "../DeleteModal/DeleteModal";
-import ErrorModal from "../../ErrorModal/ErrorModal";
-import IngridientsSpinner from "../IngridientsSpinner/IngridientsSpinner";
+import React, { useEffect, useState } from 'react';
+import cl from './EditIngridientsForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import EditModal from '../EditModal/EditModal';
+import AddModal from '../AddModal/AddModal';
+import DeleteModal from '../DeleteModal/DeleteModal';
+import ErrorModal from '../../ErrorModal/ErrorModal';
+import IngridientsSpinner from '../IngridientsSpinner/IngridientsSpinner';
 import * as ActionCreators from '../../../Actions/actionCreator';
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
+import IngridientContainer from '../IngridientContainer/IngridientContainer';
 
 function EditIngridientsForm() {
   const dispatch = useDispatch();
@@ -17,15 +17,14 @@ function EditIngridientsForm() {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
-  const { ingridientsActionGet,
+  const {
+    ingridientsActionGet,
     ingridientsActionRemove,
     ingridientsActionCreate,
     ingridientsActionUpdate,
-    ingridientsActionClearError, } = bindActionCreators(
-    ActionCreators,
-    dispatch
-  );
-  
+    ingridientsActionClearError,
+  } = bindActionCreators(ActionCreators, dispatch);
+
   const [ingridients, isFetch, isError] = useSelector(({ ingridients }) => [
     ingridients.ingridients,
     ingridients.isFetching,
@@ -46,8 +45,7 @@ function EditIngridientsForm() {
     setEditModalOpen(false);
   };
 
-  const handleSubmitRemove = (id) =>
-    ingridientsActionRemove(id, ingridients);
+  const handleSubmitRemove = (id) => ingridientsActionRemove(id, ingridients);
 
   const handleSubmitAdd = (newIngridient) => {
     ingridientsActionCreate({ name: newIngridient });
@@ -59,39 +57,13 @@ function EditIngridientsForm() {
       <h1 className={cl.edit_ingridients_form_title}>Ингридиенты</h1>
       <div className={cl.edit_ingridients_form_wrapper}>
         {ingridients ? (
-          ingridients.map((item) => {
-            return (
-              <div key={item.id} className={cl.ingridient_wrapper}>
-                <div className={cl.ingridient_container}>
-                  <span className={cl.ingridient_span}>
-                    {item.name}
-                  </span>
-                  <div className={cl.ingridient_edit_buttons_container}>
-                    <div
-                      className={cl.edit_button_container}
-                      onClick={() => {
-                        setEditModalOpen(item);
-                      }}
-                    >
-                      <FaEdit className={cl.edit_button} />
-                      <span className={cl.button_tooltip_text}>
-                        Редактировать
-                      </span>
-                    </div>
-                    <div
-                      className={cl.edit_button_container}
-                      onClick={() => {
-                        setDeleteModalOpen(item);
-                      }}
-                    >
-                      <FaTrash className={cl.edit_button} />
-                      <span className={cl.button_tooltip_text}>Удалить</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })
+          ingridients.map((item) => (
+            <IngridientContainer
+              item={item}
+              setEditModalOpen={setEditModalOpen}
+              setDeleteModalOpen={setDeleteModalOpen}
+            />
+          ))
         ) : isFetch ? (
           <IngridientsSpinner />
         ) : null}
