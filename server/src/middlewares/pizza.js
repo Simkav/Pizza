@@ -1,17 +1,26 @@
-const { Pizza } = require('../models')
+const { Pizza, Ingredient } = require('../models')
 const CustomError = require('../errors/customError')
 const findPizza = async (req, res, next) => {
   const { id } = req.params
   try {
-    const Pizza = await Pizza.findByPk(id)
-    if (!Pizza) {
+    const findedPizza = await Pizza.findByPk(id)
+    if (!findedPizza) {
       return next(new CustomError('Pizza not found'))
     }
-    req.pizza = Pizza
+    req.pizza = findedPizza
     next()
   } catch (error) {
     next(error)
   }
 }
 
-module.exports = { findPizza }
+const parseIngredients = async (req, res, next) => {
+  try {
+    req.ingredients = JSON.parse(req.body.ingredients)
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { findPizza, parseIngredients }
