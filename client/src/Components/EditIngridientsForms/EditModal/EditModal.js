@@ -4,7 +4,13 @@ import cn from 'classnames'
 import { FaTimes, FaCheck } from 'react-icons/fa'
 import { useLayoutEffect, useState } from 'react'
 
-function EditModal ({ visible, setVisible, id, name = '', handleSubmitEdit }) {
+export default function EditModal ({
+  visible,
+  setVisible,
+  id,
+  name = '',
+  handleSubmitEdit
+}) {
   const [newName, setNewName] = useState(name)
   useLayoutEffect(() => {
     setNewName(name)
@@ -47,5 +53,3 @@ function EditModal ({ visible, setVisible, id, name = '', handleSubmitEdit }) {
     </Modal>
   )
 }
-
-export default EditModal
