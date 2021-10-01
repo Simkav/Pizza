@@ -1,7 +1,8 @@
 import AdminPageHeader from "../../Components/AdminPageHeader/AdminPageHeader";
 import EditIngridientsForm from "../../Components/EditIngridientsForms/EditIngridientsForm/EditIngridientsForm";
 
-function EditIngridients() {
+
+export default function EditIngridients() {
   return (
     <>
       <AdminPageHeader />
@@ -9,5 +10,3 @@ function EditIngridients() {
     </>
   );
 }
-
-export default EditIngridients;
