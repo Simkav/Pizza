@@ -1,7 +1,7 @@
-import Product from '../Product/Product';
+import Product from '../ProductForms/Product/Product';
 import cl from './ProductsList.module.css';
 
-function ProductsList({ products, ingridients }) {
+export default function ProductsList({ products, ingridients }) {
   return (
     <div>
       <ul className={cl.products_container}>
@@ -12,5 +12,3 @@ function ProductsList({ products, ingridients }) {
     </div>
   );
 }
-
-export default ProductsList;
