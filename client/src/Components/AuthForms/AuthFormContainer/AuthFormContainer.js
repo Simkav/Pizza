@@ -1,7 +1,7 @@
 import cl from './AuthFormContainer.module.css'
 import { useLocation } from 'react-router-dom'
 
-function AuthFormContainer (props) {
+export default function AuthFormContainer (props) {
   const location = useLocation()
   const isLogin = location.pathname === '/login'
   return (
@@ -15,5 +15,3 @@ function AuthFormContainer (props) {
     </div>
   )
 }
-
-export default AuthFormContainer
