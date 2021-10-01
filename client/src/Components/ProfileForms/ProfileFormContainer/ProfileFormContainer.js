@@ -1,6 +1,6 @@
 import cl from './ProfileFormContainer.module.css'
 
-function ProfileFormContainer(props) {
+export default function ProfileFormContainer(props) {
   return (
     <div className={cl.profile_container}>
       <div className={cl.profile_form_wrapper}>
@@ -12,5 +12,3 @@ function ProfileFormContainer(props) {
     </div>
   );
 }
-
-export default ProfileFormContainer;
