@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import cl from './LoginForm.module.css';
 import cn from 'classnames';
@@ -12,7 +11,7 @@ import ErrorModal from '../../ErrorModal/ErrorModal';
 import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../../../Actions/actionCreator';
 
-function LoginForm() {
+export default function LoginForm() {
   const dispatch = useDispatch();
   const { authActionClearError, authActionLogin } = bindActionCreators(
     ActionCreators,
@@ -116,5 +115,3 @@ function LoginForm() {
     </form>
   );
 }
-
-export default LoginForm;
