@@ -1,6 +1,6 @@
 import AdminPageHeader from "../../Components/AdminPageHeader/AdminPageHeader";
 
-function Admin() {
+export default function Admin() {
   return (
     <>
       <AdminPageHeader />
@@ -8,4 +8,3 @@ function Admin() {
   );
 }
 
-export default Admin;
