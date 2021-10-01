@@ -3,7 +3,7 @@ import cl from "./AuthPageHeader.module.css";
 import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux";
 
-function SignUpHeader(props) {
+export default function AuthPageHeader(props) {
   const isAuth = useSelector(({auth : {user}}) => user);
 
   return (
@@ -24,5 +24,3 @@ function SignUpHeader(props) {
   
   );
 }
-
-export default SignUpHeader;
