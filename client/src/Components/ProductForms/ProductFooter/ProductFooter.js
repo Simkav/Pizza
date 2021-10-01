@@ -1,6 +1,6 @@
 import cl from './ProductFooter.module.css'
 
-function ProductFooter({price, weight}) {
+export default function ProductFooter({price, weight}) {
   return (
     <div className={cl.product_footer}>
       <span className={cl.product_price}>Цена: {price}</span>
@@ -8,5 +8,3 @@ function ProductFooter({price, weight}) {
     </div>
   );
 }
-
-export default ProductFooter;
