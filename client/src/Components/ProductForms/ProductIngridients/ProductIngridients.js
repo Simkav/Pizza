@@ -1,6 +1,6 @@
 import cl from './ProductIngridients.module.css'
 
-function ProductIngridients({item, ingridients}) {
+export default function ProductIngridients({item, ingridients}) {
   return (
     <div className={cl.product_ingridients_container}>
       <p>
@@ -19,5 +19,3 @@ function ProductIngridients({item, ingridients}) {
     </div>
   );
 }
-
-export default ProductIngridients;
