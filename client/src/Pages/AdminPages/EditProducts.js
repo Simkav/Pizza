@@ -1,11 +1,9 @@
 import AdminPageHeader from "../../Components/AdminPageHeader/AdminPageHeader";
 
-function EditProducts() {
+export default function EditProducts() {
   return (
     <>
       <AdminPageHeader />
     </>
   );
 }
-
-export default EditProducts;
