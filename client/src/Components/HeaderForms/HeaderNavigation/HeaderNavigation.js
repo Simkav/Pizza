@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { FaChevronDown, FaPhone, FaShoppingCart, FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { HeaderContactPhonesList } from '../../Helpers/HeaderContactPhonesList';
-import PopUpModule from '../PopUpModule/PopUpModule';
+import { HeaderContactPhonesList } from '../../../Helpers/HeaderContactPhonesList';
+import PopUpModule from '../../PopUpModule/PopUpModule';
 import cl from './HeaderNavigation.module.css';
 import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
-import { authActionClear } from '../../Actions/actionCreator';
+import { authActionClear } from '../../../Actions/actionCreator';
 
-function HeaderNavigation() {
+export default function HeaderNavigation() {
   const dispatch = useDispatch();
   const [contactsPopUp, setContactsPopUp] = useState(false);
   const [profilePopUp, setProfilePopUp] = useState(false);
@@ -97,5 +97,3 @@ function HeaderNavigation() {
     </div>
   );
 }
-
-export default HeaderNavigation;
