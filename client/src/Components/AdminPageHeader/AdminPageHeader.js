@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import PopUpModule from "../PopUpModule/PopUpModule";
 
-function AdminPageHeader() {
+export default function AdminPageHeader() {
   const [menuPopUp, setMenuPopUp] = useState(false);
 
   return (
@@ -35,5 +35,3 @@ function AdminPageHeader() {
     </div>
   );
 }
-
-export default AdminPageHeader;
