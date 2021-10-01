@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { FaCheck } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
-function ErrorModal({error, clearError }) {
+export default function ErrorModal({error, clearError }) {
   const [isErrorModalOpen, setErrorModalOpen] = useState(true)
   useEffect(() => {
     return () => {
@@ -28,5 +28,3 @@ function ErrorModal({error, clearError }) {
     </Modal>
   );
 }
-
-export default ErrorModal;
