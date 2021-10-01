@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";
 import cl from './LoadSpinner.module.css'
 
-function LoadSpinner() {
+export default function LoadSpinner() {
   const override = css`
     display: block;
     margin: 0 0;
@@ -16,5 +16,3 @@ function LoadSpinner() {
     </div>
   );
 }
-
-export default LoadSpinner;
