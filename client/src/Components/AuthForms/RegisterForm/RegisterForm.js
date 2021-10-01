@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import cl from './RegisterForm.module.css';
 import cn from 'classnames';
 import { useFormik } from 'formik';
@@ -11,7 +10,7 @@ import ErrorModal from '../../ErrorModal/ErrorModal';
 import * as ActionCreators from '../../../Actions/actionCreator';
 import { bindActionCreators } from 'redux';
 
-function RegisterForm() {
+export default function RegisterForm() {
   const dispatch = useDispatch();
   const [isFetch, isError] = useSelector(({ auth }) => [
     auth.isFetching,
@@ -105,5 +104,3 @@ function RegisterForm() {
     </form>
   );
 }
-
-export default RegisterForm;
