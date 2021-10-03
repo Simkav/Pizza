@@ -6,7 +6,7 @@ const initState = {
   error: null,
 };
 
-export default function (state = initState, action) {
+export default function ingridientsReducer(state = initState, action) {
   switch (action.type) {
     case ACTION.INGRIDIENTS_ACTION_GET_REQUEST: {
       return {

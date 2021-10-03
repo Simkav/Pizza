@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
-import cl from "./RegisterForm.module.css";
-import cn from "classnames";
-import { useFormik } from "formik";
-import { signUpSchema } from "../../../Validations/SignUpSchema";
-import { useDispatch, useSelector } from "react-redux";
-import { AuthFormsInputItems } from "../../../Helpers/AuthFormsInputItems";
-import { useHistory } from "react-router-dom";
-import ButtonLoadSpinner from "../ButtonLoadSpinner/ButtonLoadSpinner";
-import ErrorModal from "../../ErrorModal/ErrorModal";
+import cl from './RegisterForm.module.css';
+import cn from 'classnames';
+import { useFormik } from 'formik';
+import { signUpSchema } from '../../../Validations/SignUpSchema';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthFormsInputItems } from '../../../Helpers/AuthFormsInputItems';
+import { useHistory } from 'react-router-dom';
+import ButtonLoadSpinner from '../ButtonLoadSpinner/ButtonLoadSpinner';
+import ErrorModal from '../../ErrorModal/ErrorModal';
 import * as ActionCreators from '../../../Actions/actionCreator';
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 
-function RegisterForm() {
+export default function RegisterForm() {
   const dispatch = useDispatch();
-  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const [isFetch, isError] = useSelector(({ auth }) => [
     auth.isFetching,
     auth.error,
@@ -24,18 +22,13 @@ function RegisterForm() {
     dispatch
   );
 
-  useEffect(() => {
-    setErrorModalOpen(isError);
-  }, [isError]);
-
   const history = useHistory();
-
 
   const RegisterFormik = useFormik({
     initialValues: {
-      phone: "+38",
-      password: "",
-      passwordConfirm: "",
+      phone: '+38',
+      password: '',
+      passwordConfirm: '',
     },
     onSubmit: ({ phone, password }) =>
       authActionRegister({ phone, password }, history),
@@ -46,8 +39,8 @@ function RegisterForm() {
   const formikTouched = RegisterFormik.touched;
   const formikError = RegisterFormik.errors;
 
-  if (!formikValue.phone.includes("+38")) {
-    formikValue.phone = "+38";
+  if (!formikValue.phone.includes('+38')) {
+    formikValue.phone = '+38';
   }
 
   return (
@@ -92,7 +85,7 @@ function RegisterForm() {
             </div>
             <div className={cn(cl.row, cl.error_text)}>
               <span className={cl.input_error_text}>
-                {formikTouched[item.name] ? formikError[item.name] : ""}
+                {formikTouched[item.name] ? formikError[item.name] : ''}
               </span>
             </div>
           </div>
@@ -100,21 +93,14 @@ function RegisterForm() {
       })}
       <div className={cl.row}>
         <div className={cl.field_container}>
-          <button type={"submit"} className={cn(cl.button, cl.button_active)}>
-            {isFetch ? <ButtonLoadSpinner /> : "Зарегистрироваться"}
+          <button type={'submit'} className={cn(cl.button, cl.button_active)}>
+            {isFetch ? <ButtonLoadSpinner /> : 'Зарегистрироваться'}
           </button>
         </div>
       </div>
-      {isErrorModalOpen ? (
-        <ErrorModal
-          visible={isErrorModalOpen}
-          setVisible={setErrorModalOpen}
-          error={isError}
-          clearError={authActionClearError}
-        />
+      {isError ? (
+        <ErrorModal error={isError} clearError={authActionClearError} />
       ) : null}
     </form>
   );
 }
-
-export default RegisterForm;

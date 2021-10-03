@@ -1,87 +1,84 @@
-import CONSTANTS from "../constants";
+import CONSTANTS from '../constants'
 
-class AuthApi {
-  #_client;
-  #_url;
-  #_accessToken;
+export default class AuthApi {
+  #_client
+  #_url
+  #_accessToken
 
-  constructor(client) {
-    this.#_client = client;
-    this.#_url = "auth/";
-    this.#_accessToken = null;
+  constructor (client) {
+    this.#_client = client
+    this.#_url = 'auth/'
+    this.#_accessToken = null
 
-    this.#_client.interceptors.request.use(this.requestInterceptor, (err) =>
+    this.#_client.interceptors.request.use(this.requestInterceptor, err =>
       Promise.reject(err)
-    );
+    )
     this.#_client.interceptors.response.use(
       this.responseInterceptor,
       this.responseInterceptorError
-    );
+    )
   }
-  signIn = async (data) => this.#_client.post(`${this.#_url}sign-in`, data);
+  signIn = async data => this.#_client.post(`${this.#_url}sign-in`, data)
 
-  signUp = async (data) => this.#_client.post(`${this.#_url}sign-up`, data);
+  signUp = async data => this.#_client.post(`${this.#_url}sign-up`, data)
 
-  refresh = async (data) => this.#_client.post(`${this.#_url}refresh`, data);
+  refresh = async data => this.#_client.post(`${this.#_url}refresh`, data)
 
   logout = () => {
-    window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
-    this.#_accessToken = null;
-  };
+    window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN)
+    this.#_accessToken = null
+  }
 
-  requestInterceptor = (config) => {
+  requestInterceptor = config => {
     if (this.#_accessToken) {
-      config.headers["Authorization"] = `Bearer ${this.#_accessToken}`;
+      config.headers['Authorization'] = `Bearer ${this.#_accessToken}`
     }
-    return config;
-  };
+    return config
+  }
 
   _saveTokenPair = ({ refresh, access }) => {
-    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refresh);
-    this.#_accessToken = access;
-  };
+    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refresh)
+    this.#_accessToken = access
+  }
 
-  responseInterceptor = async (response) => {
+  responseInterceptor = async response => {
     const {
-      config: { url },
-    } = response;
+      config: { url }
+    } = response
     if (url.includes(this.#_url)) {
       const {
         data: {
-          data: { tokens },
-        },
-      } = response;
-      this._saveTokenPair(tokens);
+          data: { tokens }
+        }
+      } = response
+      this._saveTokenPair(tokens)
     }
-    return response;
-  };
+    return response
+  }
 
-  responseInterceptorError = async (error) => {
+  responseInterceptorError = async error => {
     const {
       config,
-      response: { status },
-    } = error;
-    const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
+      response: { status }
+    } = error
+    const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
     if (status === 419 && refreshToken) {
-  
       const {
         data: {
-          data: { tokens },
-        },
-      } = await this.refresh({ token: refreshToken });
+          data: { tokens }
+        }
+      } = await this.refresh({ token: refreshToken })
 
-      this._saveTokenPair(tokens);
+      this._saveTokenPair(tokens)
 
-      config.headers["Authorization"] = `Bearer ${tokens.refreshToken}`;
-      return this.#_client(config);
+      config.headers['Authorization'] = `Bearer ${tokens.refreshToken}`
+      return this.#_client(config)
     }
 
     if (status === 401 && refreshToken) {
-      this.logout();
+      this.logout()
     }
 
-    return Promise.reject(error);
-  };
+    return Promise.reject(error)
+  }
 }
-
-export default AuthApi;

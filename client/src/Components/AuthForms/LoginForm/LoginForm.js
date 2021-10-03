@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import cl from './LoginForm.module.css';
 import cn from 'classnames';
@@ -12,9 +11,8 @@ import ErrorModal from '../../ErrorModal/ErrorModal';
 import { bindActionCreators } from 'redux';
 import * as ActionCreators from '../../../Actions/actionCreator';
 
-function LoginForm() {
+export default function LoginForm() {
   const dispatch = useDispatch();
-  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const { authActionClearError, authActionLogin } = bindActionCreators(
     ActionCreators,
     dispatch
@@ -24,10 +22,6 @@ function LoginForm() {
     auth.isFetching,
     auth.error,
   ]);
-
-  useEffect(() => {
-    setErrorModalOpen(isError);
-  }, [isError]);
 
   const history = useHistory();
 
@@ -115,16 +109,9 @@ function LoginForm() {
           </button>
         </div>
       </div>
-      {isErrorModalOpen ? (
-        <ErrorModal
-          visible={isErrorModalOpen}
-          setVisible={setErrorModalOpen}
-          error={isErrorModalOpen}
-          clearError={authActionClearError}
-        />
+      {isError ? (
+        <ErrorModal error={isError} clearError={authActionClearError} />
       ) : null}
     </form>
   );
 }
-
-export default LoginForm;

@@ -4,7 +4,7 @@ const initState = {
   isOpened: false
 };
 
-export default function (state = initState, action) {
+export default function hamburgerMenuReducer(state = initState, action) {
   switch (action.type) {
     case ACTION.ASIDE_TOGGLE:
       return {

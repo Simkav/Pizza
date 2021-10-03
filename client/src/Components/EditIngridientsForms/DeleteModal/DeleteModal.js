@@ -4,11 +4,11 @@ import cn from "classnames";
 import { FaTimes, FaCheck } from "react-icons/fa";
 import { useLayoutEffect, useState } from "react";
 
-function DeleteModal({ visible, setVisible, id, name, handleSubmitRemove }) {
+export default function DeleteModal({ visible, setVisible, id, name, handleSubmitRemove }) {
   const [removeIngridient, setRemoveIngridient] = useState(name);
   useLayoutEffect(() => {
     setRemoveIngridient(name);
-  });
+  }, [name]);
   const handleSubmit = () => {
     handleSubmitRemove(id);
     setVisible((visible) => !visible);
@@ -45,5 +45,3 @@ function DeleteModal({ visible, setVisible, id, name, handleSubmitRemove }) {
     </Modal>
   );
 }
-
-export default DeleteModal;

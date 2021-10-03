@@ -1,12 +1,11 @@
-import ProfileForm from "../Components/ProfileForm/ProfileForm";
-import ProfileFormContainer from "../Components/ProfileFormContainer/ProfileFormContainer";
+import ProfileForm from "../Components/ProfileForms/ProfileForm/ProfileForm";
+import ProfileFormContainer from "../Components/ProfileForms/ProfileFormContainer/ProfileFormContainer";
 
-function Profile() {
+
+export default function Profile() {
   return (
     <>
       <ProfileFormContainer children={<ProfileForm />} />
     </>
   );
 }
-
-export default Profile;

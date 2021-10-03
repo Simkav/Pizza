@@ -1,59 +1,3 @@
-:root {
-  --header-main-color: #f2f2f2;
-  --header-height: 90px;
-  --hamburger-menu-grow-animation-time: 1s;
-  --arrow-down-grow-animation-time: 0.5s;
-  --hover-main-color: rgb(175, 175, 175);
-}
-.header {
-  height: 90px;
-  min-width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 900;
-  background: var(--header-main-color);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-
-.hamburger_menu_container {
-  width: 100px;
-  height: auto;
-  min-width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 2rem;
-  transition: all var(--hamburger-menu-grow-animation-time) ease;
-}
-
-.hamburger_menu_active {
-  background: var(--hover-main-color);
-  transform: rotateY(180deg);
-}
-
-.hover_element:hover {
-  background: var(--hover-main-color);
-  color: white;
-  width: auto;
-  height: auto;
-}
-
-.site_logo_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.site_logo {
-  user-select: none;
-  max-height: 100%;
-  transition: all 1s ease;
-}
-
 .header_navigation {
   user-select: none;
   flex: 1 1 auto;
@@ -183,10 +127,6 @@
   background: rgb(175, 175, 175);
 }
 
-/* Landscape - телефоны */
-@media (max-width: 480px) {
-}
-
 @media (max-width: 650px) {
   .header_menu_text {
     display: none;
@@ -238,63 +178,8 @@
   }
 }
 
-/* От ландшафтного экрана телефона до потретного планшета */
-@media (max-width: 767px) {
-  .site_logo_container {
-    margin: 0 25px;
-    transition: all 1s ease;
-  }
-  .site_logo {
-    height: 50px;
-    transition: all 1s ease;
-  }
-  .header {
-    font-size: 1.3rem;
-    transition: all 1s ease;
-  }
-  .hamburger_menu_container {
-    order: 1;
-  }
-}
-
-/* От портретного планшета до ландшафтного экрана и настольных дисплеев */
 @media (max-width: 768px) {
   .header_menu_text {
     display: none;
-  }
-  .header {
-    font-size: 1.5rem;
-    transition: all 1s ease;
-  }
-  .site_logo_container {
-    margin: 0px 25px;
-    transition: all 1s ease;
-  }
-  .hamburger_menu_container {
-    order: 1;
-  }
-}
-
-/* Большой дисплей */
-@media (min-width: 980px) {
-  .header {
-    font-size: 1.5rem;
-    transition: all 1s ease;
-  }
-  .site_logo_container {
-    transition: all 1s ease;
-  }
-}
-
-/* Не показывать кнопку меню при ширине минимум 1440px */
-@media (min-width: 1440px) {
-  .hamburger_menu_container,
-  .hover_element {
-    min-width: 0;
-    width: 0;
-    opacity: 0;
-  }
-  .site_logo_container {
-    margin: 0;
   }
 }

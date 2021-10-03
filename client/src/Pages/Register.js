@@ -1,14 +1,12 @@
-import SignUpHeader from "../Components/AuthPageHeader/AuthPageHeader";
-import RegisterForm from "../Components/AuthForms/RegisterForm/RegisterForm";
-import AuthFormContainer from "../Components/AuthFormContainer/AuthFormContainer";
+import AuthFormContainer from '../Components/AuthForms/AuthFormContainer/AuthFormContainer'
+import AuthPageHeader from '../Components/AuthForms/AuthPageHeader/AuthPageHeader'
+import RegisterForm from '../Components/AuthForms/RegisterForm/RegisterForm'
 
-function Register() {
+export default function Register () {
   return (
     <>
-      <SignUpHeader />
+      <AuthPageHeader />
       <AuthFormContainer children={<RegisterForm />} />
     </>
-  );
+  )
 }
-
-export default Register;

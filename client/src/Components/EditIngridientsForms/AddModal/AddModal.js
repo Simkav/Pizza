@@ -4,7 +4,7 @@ import cn from "classnames";
 import { FaTimes, FaCheck } from "react-icons/fa";
 import { useState } from "react";
 
-function AddModal({ visible, setVisible, handleSubmitAdd }) {
+export default function AddModal({ visible, setVisible, handleSubmitAdd }) {
   const [newIngridient, setNewIngridient] = useState("");
   const handleSubmit = () => {
     handleSubmitAdd(newIngridient);
@@ -47,5 +47,3 @@ function AddModal({ visible, setVisible, handleSubmitAdd }) {
     </Modal>
   );
 }
-
-export default AddModal;

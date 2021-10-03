@@ -1,14 +1,12 @@
-import SignUpHeader from "../Components/AuthPageHeader/AuthPageHeader";
 import LoginForm from "../Components/AuthForms/LoginForm/LoginForm";
-import AuthFormContainer from "../Components/AuthFormContainer/AuthFormContainer";
+import AuthFormContainer from "../Components/AuthForms/AuthFormContainer/AuthFormContainer";
+import AuthPageHeader from "../Components/AuthForms/AuthPageHeader/AuthPageHeader";
 
-function Login() {
+export default function Login() {
   return (
     <>
-      <SignUpHeader login={true} />
+      <AuthPageHeader login={true} />
       <AuthFormContainer children={<LoginForm />} />
     </>
   );
 }
-
-export default Login;

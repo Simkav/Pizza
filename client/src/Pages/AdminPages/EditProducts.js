@@ -1,11 +1,11 @@
 import AdminPageHeader from "../../Components/AdminPageHeader/AdminPageHeader";
+import EditProductsForm from "../../Components/EditProductsForms/EditProductsForm/EditProductsForm";
 
-function EditProducts() {
+export default function EditProducts() {
   return (
     <>
       <AdminPageHeader />
+      <EditProductsForm />
     </>
   );
 }
-
-export default EditProducts;

@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import BarLoader from "react-spinners/BarLoader";
 import cl from './ButtonLoadSpinner.module.css'
 
-function ButtonLoadSpinner() {
+export default function ButtonLoadSpinner() {
   const override = css`
     display: block;
     margin: 0 0;
@@ -17,5 +17,3 @@ function ButtonLoadSpinner() {
     </div>
   );
 }
-
-export default ButtonLoadSpinner;

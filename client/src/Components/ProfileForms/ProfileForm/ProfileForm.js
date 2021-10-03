@@ -3,9 +3,9 @@ import cl from "./ProfileForm.module.css";
 import cn from "classnames";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { ProfilePersonalInfoItems } from "./../../Helpers/ProfilePersonalInfoItems";
+import { ProfilePersonalInfoItems } from "../../../Helpers/ProfilePersonalInfoItems";
 
-function ProfileForm() {
+export default function ProfileForm() {
   const [isEdit, setIsEdit] = useState(false);
   const currentUser = useSelector(({ auth }) => auth).user;
 
@@ -96,5 +96,3 @@ function ProfileForm() {
     </form>
   );
 }
-
-export default ProfileForm;

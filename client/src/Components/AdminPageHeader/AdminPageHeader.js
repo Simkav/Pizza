@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import PopUpModule from "../PopUpModule/PopUpModule";
 
-function AdminPageHeader() {
+export default function AdminPageHeader() {
   const [menuPopUp, setMenuPopUp] = useState(false);
 
   return (
@@ -23,9 +23,6 @@ function AdminPageHeader() {
         >
           Меню
           <PopUpModule visible={menuPopUp}>
-            <Link className={cl.menu_link} to={"/"}>
-              Главная страница
-            </Link>
             <Link className={cl.menu_link} to={"/edit_products"}>
               Редактировать продукты
             </Link>
@@ -38,5 +35,3 @@ function AdminPageHeader() {
     </div>
   );
 }
-
-export default AdminPageHeader;

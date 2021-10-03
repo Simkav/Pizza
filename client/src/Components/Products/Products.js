@@ -1,25 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
 import * as ActionCreators from '../../Actions/actionCreator';
 import { bindActionCreators } from 'redux';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
 import ErrorModal from '../ErrorModal/ErrorModal';
 import ProductsList from '../ProductsList/ProductsList';
 
-function Products() {
+export default function Products() {
   const dispatch = useDispatch();
 
   const {
-    ingridientsActionGet,
     ingridientsActionClearError,
-    productsActionGet,
     productsActionClearError,
   } = bindActionCreators(ActionCreators, dispatch);
-
-  const [isErrorModalOpen, setErrorModalOpen] = useState({
-    text: false,
-    clearError: () => {},
-  });
 
   const [products, isProductsFetch, isProductsError] = useSelector(
     ({ products }) => [products.products, products.isFetching, products.error]
@@ -32,39 +24,17 @@ function Products() {
       ingridients.error,
     ]
   );
-  useEffect(() => {
-    if (isProductsError) {
-      setErrorModalOpen({
-        text: isProductsError,
-        clearError: productsActionClearError,
-      });
-    }
-    if (isIngridientsError) {
-      setErrorModalOpen({
-        text: isIngridientsError,
-        clearError: ingridientsActionClearError,
-      });
-    }
-    if (!ingridients) {
-      ingridientsActionGet();
-    }
-    if (!products) {
-      productsActionGet();
-    }
-  }, [isProductsError, isIngridientsError]);
 
   return isProductsFetch || isIngridientsFetch ? (
     <LoadSpinner />
-  ) : isErrorModalOpen.text ? (
+  ) : isProductsError || isIngridientsError ? (
     <ErrorModal
-      visible={isErrorModalOpen}
-      setVisible={setErrorModalOpen}
-      error={isErrorModalOpen.text}
-      clearError={isErrorModalOpen.clearError}
+      error={isProductsError ? isProductsError : isIngridientsError}
+      clearError={
+        isProductsError ? productsActionClearError : ingridientsActionClearError
+      }
     />
   ) : products ? (
     <ProductsList products={products} ingridients={ingridients} />
   ) : null;
 }
-
-export default Products;
