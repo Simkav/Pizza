@@ -72,5 +72,22 @@ export function * removeProductSaga ({ id, products }) {
     })
   }
 }
+export function * updateProductImageSaga ({ id, img }) {
+  yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_REQUEST })
+  try {
+    const { status } = yield API.ProductsCRUDApi.updateProductImage(id, img)
+    if (status === 200) {
+      yield put({
+        type: ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_SUCCESS
+      })
+    }
+  } catch (e) {
+    console.log(e)
+    yield put({
+      type: ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_ERROR,
+      error: e.response.data.error
+    })
+  }
+}
   }
 }
