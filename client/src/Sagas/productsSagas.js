@@ -72,6 +72,50 @@ export function * removeProductSaga ({ id, products }) {
     })
   }
 }
+
+export function * updateProductSaga ({ newProduct, products }) {
+  const newProductSend = {
+    id: newProduct.id,
+    img: newProduct.img,
+    name: newProduct.name,
+    Ingredients: newProduct.ingredients,
+    price: newProduct.price,
+    weight: newProduct.weight
+  }
+
+  const compareArrays = (a, b) =>
+    a.length === b.length && a.every((n, i) => n === b[i])
+
+  for (let item of products) {
+    if (item.id === newProduct.id) {
+      if (!item.image.includes(newProduct.img.name)) {
+        yield call(updateProductImageSaga, {
+          id: newProductSend.id,
+          img: newProductSend.img
+        })
+      }
+      if (!compareArrays(item.Ingredients, newProduct.ingredients)) {
+        yield call(updateProductIngredientsSaga, {
+          id: newProductSend.id,
+          ingredients: newProductSend.Ingredients
+        })
+      }
+      if (
+        item.name !== newProduct.name ||
+        item.price !== newProduct.price ||
+        item.weight !== newProduct.weight
+      ) {
+        yield call(updateProductOtherDescriptionSaga, {
+          id: newProductSend.id,
+          name: newProductSend.name,
+          price: newProductSend.price,
+          weight: newProductSend.weight
+        })
+      }
+    }
+  }
+}
+
 export function * updateProductImageSaga ({ id, img }) {
   yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_REQUEST })
   try {
