@@ -9,5 +9,17 @@ export default class ProductsCRUDApi {
 
   getProducts = async () => this.#_client.get(this.#_url)
 
-  createProduct = async data => this.#_client.post(this.#_url, data)
+  createProduct = async data => {
+    const formData = new FormData()
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    console.log(data)
+    for (const prop in data) {
+      formData.append(`${prop}`, data[prop])
+    }
+    return this.#_client.post(this.#_url, formData, config)
+  }
 }
