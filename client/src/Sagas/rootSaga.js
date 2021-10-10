@@ -2,7 +2,7 @@ import { takeLatest } from "@redux-saga/core/effects";
 import ACTION from "../Actions/actionTypes";
 import { registerSaga, loginSaga, refreshSaga, logoutSaga } from "./authSagas";
 import { createIngridientSaga, getIngridientsSaga, removeIngridientSaga, updateIngridientSaga } from "./ingridientsSagas";
-import { getProductsSaga } from "./productsSagas";
+import { createProductSaga, getProductsSaga, removeProductSaga, updateProductSaga } from "./productsSagas";
 
 function* rootSaga() {
   yield takeLatest(ACTION.AUTH_ACTION_REGISTER, registerSaga);
@@ -14,6 +14,7 @@ function* rootSaga() {
   yield takeLatest(ACTION.INGRIDIENTS_ACTION_POST, createIngridientSaga);
   yield takeLatest(ACTION.INGRIDIENTS_ACTION_UPDATE, updateIngridientSaga);
   yield takeLatest(ACTION.PRODUCTS_ACTION_GET, getProductsSaga);
+  yield takeLatest(ACTION.PRODUCTS_ACTION_POST, createProductSaga);
 }
 
 export default rootSaga;
