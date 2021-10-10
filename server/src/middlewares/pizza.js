@@ -16,7 +16,7 @@ const findPizza = async (req, res, next) => {
 
 const parseIngredients = async (req, res, next) => {
   try {
-    req.ingredients = JSON.parse(req.body.ingredients)
+    req.body.ingredients = JSON.parse(req.body.ingredients)
     next()
   } catch (error) {
     next(error)

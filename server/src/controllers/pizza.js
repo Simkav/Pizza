@@ -100,7 +100,7 @@ const updateImage = async (req, res, next) => {
     const imgPath = `/pizzas/${filename}`
     await pizza.update({ image: imgPath })
     updateCache()
-    res.send({ data: {}, error: {} })
+    res.send({ data: { img: imgPath }, error: {} })
   } catch (error) {
     next(error)
   }
@@ -111,7 +111,7 @@ const updateIngredient = async (req, res, next) => {
     const { pizza, ingredients } = req
     await pizza.setIngredients(ingredients)
     updateCache()
-    res.send({ data: {}, error: {} })
+    res.send({ data: { ingredients }, error: {} })
   } catch (error) {
     next(error)
   }
