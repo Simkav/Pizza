@@ -37,4 +37,15 @@ export default class ProductsCRUDApi {
         return newFile
       })
   }
+
+  updateProductImage = async (id, img) => {
+    const formData = new FormData()
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    formData.append('img', img)
+    return this.#_client.patch(this.#_url + id + '/image', formData, config)
+  }
 }
