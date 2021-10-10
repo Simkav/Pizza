@@ -20,7 +20,7 @@ PizzaRouter.post(
 PizzaRouter.route('/:id')
   .all(PizzaMw.findPizza)
   .delete(PizzaController.deletePizza)
-  .patch(PizzaController.deletePizza)
+  .patch(PizzaController.updatePizza)
 
 PizzaRouter.post(
   '/:id/image',
