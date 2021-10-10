@@ -1,68 +1,156 @@
 .add_product_window {
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top: calc(50% - 100px);
-    bottom: 0;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-    max-width: 280px;
-    max-height: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .modal_title {
-    flex: 0 1 20%;
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin: 10px 0;
-  }
-  
-  .add_product_input {
-    flex: 0 1 20%;
-    text-align: left;
-    font-size: 1rem;
-    background: rgba(0, 0, 0, 0.05);
-    border: 0px solid rgb(175, 175, 175);
-    border-radius: 5px;
-    padding: 5px;
-    margin: 10px 0;
-  }
-  
-  .add_window_buttons_container {
-    align-self: stretch;
-    flex: 1 1 30%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .add_window_button {
-    padding: 5px 0;
-    border-radius: 5px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 0 1 30%;
-    border: none;
-    font-size: 24px;
-  }
-  
-  .apply {
-    background: green;
-  }
-  
-  .cancel {
-    background: rgb(185, 0, 0);
-  }
-  
-  .add_window_button:hover {
-    filter: saturate(2);
-  }
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 100px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  max-width: 320px;
+  max-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal_title {
+  flex: 0 1 20%;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.input_container {
+  position: relative;
+  align-self: stretch;
+  margin: 0 11% 5px 11%;
+}
+
+.row {
+  flex: 1 1 100%;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.field_container {
+  position: relative;
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.field_container_flex {
+  font-size: 1rem;
+  display: flex;
+  flex: 0 1 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.add_product_input {
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid gray;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  transition: border 0.5s ease;
+}
+
+.add_product_input::-webkit-outer-spin-button,
+.add_product_input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.add_window_buttons_container {
+  align-self: stretch;
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.add_window_button {
+  cursor: pointer;
+  padding: 5px 0;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 1 30%;
+  border: none;
+  font-size: 24px;
+}
+
+.input_invalid {
+  border: 2px solid red;
+}
+
+.input_valid {
+  border: 2px solid rgb(0, 168, 0);
+}
+
+.field_container_valid::after {
+  opacity: 100%;
+  position: absolute;
+  right: -25px;
+  color: green;
+  content: "✓";
+}
+
+.row.error_text {
+  justify-content: flex-start;
+  position: absolute;
+  bottom: -15px;
+  z-index: +1;
+}
+
+.input_error_text {
+  justify-self: flex-start;
+  font-size: 0.8rem;
+  color: red;
+}
+
+.label {
+  color: gray;
+  font-size: 0.7rem;
+  position: absolute;
+  top: 2px;
+  left: 12px;
+  user-select: none;
+  background: transparent;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input_empty > .label {
+  font-size: 0.9rem;
+  top: 0.8em;
+  left: 12px;
+}
+
+.field_container:focus-within > .label {
+  font-size: 0.7rem;
+  top: 2px;
+  left: 12px;
+}
+
+.apply {
+  background: green;
+}
+
+.cancel {
+  background: rgb(185, 0, 0);
+}
+
+.add_window_button:hover {
+  filter: saturate(2);
+}
