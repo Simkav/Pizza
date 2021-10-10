@@ -110,5 +110,30 @@ export function * updateProductIngredientsSaga ({ id, ingredients }) {
     })
   }
 }
+
+export function * updateProductOtherDescriptionSaga ({
+  id,
+  name,
+  price,
+  weight
+}) {
+  yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_OTHER_REQUEST })
+  try {
+    const { status } = yield API.ProductsCRUDApi.updateProductOther(id, {
+      name,
+      price,
+      weight
+    })
+    if (status === 200) {
+      yield put({
+        type: ACTION.PRODUCTS_ACTION_UPDATE_OTHER_SUCCESS
+      })
+    }
+  } catch (e) {
+    console.log(e)
+    yield put({
+      type: ACTION.PRODUCTS_ACTION_UPDATE_OTHER_ERROR,
+      error: e.response.data.error
+    })
   }
 }
