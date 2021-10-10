@@ -22,4 +22,7 @@ export default class ProductsCRUDApi {
     }
     return this.#_client.post(this.#_url, formData, config)
   }
+
+  removeProduct = async id => this.#_client.delete(this.#_url + id)
+
 }
