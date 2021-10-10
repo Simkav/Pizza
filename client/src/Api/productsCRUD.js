@@ -1,3 +1,5 @@
+import CONSTANTS from '../constants'
+
 export default class ProductsCRUDApi {
   #_client
   #_url
@@ -54,5 +56,9 @@ export default class ProductsCRUDApi {
     return this.#_client.patch(this.#_url + id + '/ingredients', {
       ingredients: ingredients
     })
+  }
+
+  updateProductOther = async (id, other) => {
+    return this.#_client.patch(this.#_url + id, other)
   }
 }
