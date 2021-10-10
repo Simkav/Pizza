@@ -18,7 +18,6 @@ export default class ProductsCRUDApi {
         'content-type': 'multipart/form-data'
       }
     }
-    console.log(data)
     for (const prop in data) {
       formData.append(`${prop}`, data[prop])
     }
@@ -52,7 +51,6 @@ export default class ProductsCRUDApi {
   }
 
   updateProductIngredients = async (id, ingredients) => {
-    console.log(ingredients, 'test')
     return this.#_client.patch(this.#_url + id + '/ingredients', {
       ingredients: ingredients
     })
