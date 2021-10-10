@@ -16,6 +16,7 @@ function* rootSaga() {
   yield takeLatest(ACTION.PRODUCTS_ACTION_GET, getProductsSaga);
   yield takeLatest(ACTION.PRODUCTS_ACTION_POST, createProductSaga);
   yield takeLatest(ACTION.PRODUCTS_ACTION_REMOVE, removeProductSaga);
+  yield takeLatest(ACTION.PRODUCTS_ACTION_UPDATE, updateProductSaga);
 }
 
 export default rootSaga;
