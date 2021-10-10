@@ -1,3 +1,4 @@
+import { put, call } from 'redux-saga/effects'
 import ACTION from '../Actions/actionTypes'
 import * as API from '../Api'
 
@@ -44,6 +45,29 @@ export function * createProductSaga ({ data: { product } }) {
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_POST_ERROR,
+      error: e.response.data.error
+    })
+  }
+}
+
+export function * removeProductSaga ({ id, products }) {
+  yield put({ type: ACTION.INGRIDIENTS_ACTION_REMOVE_REQUEST })
+  try {
+    const { status } = yield API.ProductsCRUDApi.removeProduct(id)
+    if (status === 200) {
+      const newProducts = yield products.filter(item => item.id !== id)
+      yield put({
+        type: ACTION.PRODUCTS_ACTION_REMOVE_SUCCESS,
+        products: newProducts
+      })
+    }
+    if (status === 400) {
+      yield call(getProductsSaga)
+    }
+  } catch (e) {
+    console.log(e)
+    yield put({
+      type: ACTION.PRODUCTS_ACTION_REMOVE_ERROR,
       error: e.response.data.error
     })
   }
