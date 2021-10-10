@@ -48,4 +48,11 @@ export default class ProductsCRUDApi {
     formData.append('img', img)
     return this.#_client.patch(this.#_url + id + '/image', formData, config)
   }
+
+  updateProductIngredients = async (id, ingredients) => {
+    console.log(ingredients, 'test')
+    return this.#_client.patch(this.#_url + id + '/ingredients', {
+      ingredients: ingredients
+    })
+  }
 }
