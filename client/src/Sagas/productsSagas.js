@@ -89,5 +89,26 @@ export function * updateProductImageSaga ({ id, img }) {
     })
   }
 }
+
+export function * updateProductIngredientsSaga ({ id, ingredients }) {
+  yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_INGREDIENTS_REQUEST })
+  try {
+    const { status } = yield API.ProductsCRUDApi.updateProductIngredients(
+      id,
+      ingredients
+    )
+    if (status === 200) {
+      yield put({
+        type: ACTION.PRODUCTS_ACTION_UPDATE_INGREDIENTS_SUCCESS
+      })
+    }
+  } catch (e) {
+    console.log(e)
+    yield put({
+      type: ACTION.PRODUCTS_ACTION_UPDATE_INGREDIENTS_ERROR,
+      error: e.response.data.error
+    })
+  }
+}
   }
 }
