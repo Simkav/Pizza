@@ -25,4 +25,16 @@ export default class ProductsCRUDApi {
 
   removeProduct = async id => this.#_client.delete(this.#_url + id)
 
+  getProductImage = async img => {
+    return this.#_client
+      .get(CONSTANTS.PUBLIC_PATH + img, {
+        responseType: 'blob'
+      })
+      .then(resp => {
+        const newFile = new File([resp.data], img.match('\\d..*'), {
+          type: resp.data.type
+        })
+        return newFile
+      })
+  }
 }
