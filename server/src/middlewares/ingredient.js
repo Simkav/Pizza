@@ -18,7 +18,6 @@ const findIngredient = async (req, res, next) => {
 const findIngredients = async (req, res, next) => {
   try {
     const { ingredients } = req.body
-    console.log(ingredients)
     const findedIngredients = await Ingredient.findAll({
       where: { id: ingredients }
     })
