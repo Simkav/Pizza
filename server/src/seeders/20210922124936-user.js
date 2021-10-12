@@ -1,10 +1,7 @@
-'use strict';
-
-const { hash } = require('../helpers/crypto');
-
+const { hashSync } = require('bcryptjs');
 const userTemplate = {
   phone: '+380960000000',
-  password: hash('111111'),
+  password: hashSync('111111'),
   email: 'testEmail@gmail.com',
   is_admin: false,
 };

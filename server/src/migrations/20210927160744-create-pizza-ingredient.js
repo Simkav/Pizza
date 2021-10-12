@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('pizzaIngredients', {
+    await queryInterface.createTable('pizza_ingredients', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -29,16 +29,6 @@ module.exports = {
           },
           key: 'id',
         },
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now'),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now'),
       },
     });
   },

@@ -24,10 +24,10 @@ const arr = Array(10)
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     console.log(arr);
-    await queryInterface.bulkInsert('pizzaIngredients', arr, {});
+    await queryInterface.bulkInsert('pizza_ingredients', arr, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('pizzaIngredients', null, {});
+    await queryInterface.bulkDelete('pizza_ingredients', null, {});
   },
 };
