@@ -22,12 +22,9 @@ export default function ProductModals ({
     dispatch
   )
 
-  const [products, isError] = useSelector(({ products }) => [
-    products.products,
-    products.error
-  ])
+  const isError = useSelector(({ products }) => products.error)
 
-  const handleSubmitRemove = id => productsActionRemove(id, products)
+  const handleSubmitRemove = id => productsActionRemove(id)
 
   return (
     <>
