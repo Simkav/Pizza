@@ -92,6 +92,7 @@ export default function productsReducer(state = initState, action) {
       return {
         ...state,
         isFetching: false,
+        products: action.products
       }
     }
     case ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_ERROR: {
@@ -111,6 +112,7 @@ export default function productsReducer(state = initState, action) {
       return {
         ...state,
         isFetching: false,
+        products: action.products
       }
     }
     case ACTION.PRODUCTS_ACTION_UPDATE_INGREDIENTS_ERROR: {
@@ -130,6 +132,7 @@ export default function productsReducer(state = initState, action) {
       return {
         ...state,
         isFetching: false,
+        products: action.products
       }
     }
     case ACTION.PRODUCTS_ACTION_UPDATE_OTHER_ERROR: {
