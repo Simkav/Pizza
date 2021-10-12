@@ -68,7 +68,7 @@ export default function EditProductModal ({ product, visible, setVisible }) {
           }
         })
       )
-      dispatch(productsActionUpdate(newProduct, mainProducts))
+      dispatch(productsActionUpdate(newProduct))
       setVisible(visible => !visible)
     },
     validationSchema: newProductSchema
