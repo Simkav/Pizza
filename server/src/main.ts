@@ -8,12 +8,12 @@ import * as responseTime from 'response-time';
 async function bootstrap() {
   const port = process.env.API_PORT || 3001;
   const app = await NestFactory.create(AppModule);
-
   const config = new DocumentBuilder()
     .setTitle('Pizza Api')
     .setDescription('The pizza API description')
     .setVersion('0.0.1')
     .addTag('Pizza')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

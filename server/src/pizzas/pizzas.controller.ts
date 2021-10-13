@@ -1,4 +1,4 @@
-import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import {
   Controller,
@@ -29,25 +29,29 @@ export class PizzasController {
   }
   @Get('/:id')
   @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async getById(@Param('id') id: number) {
     return await this.pizzaService.findById(id);
   }
-  @UseGuards(isAdminGuard)
   @Delete('/:id')
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async delete(@Param('id') id: number) {
     return await this.pizzaService.delete(id);
   }
-  @UseGuards(isAdminGuard)
   @Patch('/:id')
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async update(
     @Param('id') id: number,
     @Body() updatePizzaDto: UpdatePizzaDto,
   ) {
     return await this.pizzaService.update(id, updatePizzaDto);
   }
-  @UseGuards(isAdminGuard)
   @Post()
+  @UseGuards(isAdminGuard)
   @UseInterceptors(FileInterceptor('image'))
+  @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   async create(
     @Body() createPizzaDto: CreatePizzaDto,
@@ -55,9 +59,11 @@ export class PizzasController {
   ) {
     return await this.pizzaService.create(createPizzaDto, image);
   }
-  @UseGuards(isAdminGuard)
   @Patch('/:id/image')
+  @UseGuards(isAdminGuard)
   @UseInterceptors(FileInterceptor('img'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth()
   async updateImg(
     @Param('id') id: number,
     @UploadedFile() img: Express.Multer.File,
@@ -66,6 +72,7 @@ export class PizzasController {
   }
   @UseGuards(isAdminGuard)
   @Patch('/:id/ingredients')
+  @ApiBearerAuth()
   async updateIngredients(
     @Param('id') id: number,
     @Body() updateIngredientsDto: UpdateIngredientsDto,

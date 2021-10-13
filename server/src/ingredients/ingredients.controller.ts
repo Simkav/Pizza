@@ -8,7 +8,7 @@ import {
   Patch,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { IngredientsService } from './ingredients.service';
@@ -21,24 +21,28 @@ export class IngredientsController {
   async getAll() {
     return await this.ingredientService.getAll();
   }
-  @UseGuards(isAdminGuard)
   @Get('/:id')
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async getById(@Param('id') id: number) {
     return await this.ingredientService.findById(id);
   }
-  @UseGuards(isAdminGuard)
   @Post()
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async create(@Body() ingredientDto: CreateIngredientDto) {
     return await this.ingredientService.create(ingredientDto);
   }
-  @UseGuards(isAdminGuard)
   @Delete('/:id')
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async deleteById(@Param('id') id: number) {
     const ingredient = await this.ingredientService.findById(id);
     return await this.ingredientService.destroyInstance(ingredient);
   }
-  @UseGuards(isAdminGuard)
   @Patch('/:id')
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
   async updateIngredient(
     @Param('id') id: number,
     @Body() ingredientDto: CreateIngredientDto,
