@@ -7,6 +7,8 @@ export default class IngridientsCRUDApi {
     this.#_url = 'ingredient/'
   }
 
+  // TODO function getIngridientById for NEST 
+
   getIngridients = async () => this.#_client.get(this.#_url)
 
   createIngridient = async data => this.#_client.post(this.#_url, data)

@@ -9,6 +9,8 @@ export default class ProductsCRUDApi {
     this.#_url = 'pizza/'
   }
 
+  // TODO function getProductById for NEST 
+
   getProducts = async () => this.#_client.get(this.#_url)
 
   createProduct = async data => {
