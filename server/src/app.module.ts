@@ -20,7 +20,9 @@ import { IngredientsController } from './ingredients/ingredients.controller';
   imports: [
     AuthModule,
     UsersModule,
+    PizzasModule,
     ConfigModule.forRoot(),
+    IngredientsModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -32,14 +34,12 @@ import { IngredientsController } from './ingredients/ingredients.controller';
       autoLoadModels: true,
     }),
     JwtModule.register({}),
-    IngredientsModule,
-    PizzasModule,
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
+  configure (consumer: MiddlewareConsumer) {
     consumer
       .apply(parseAuth)
       .exclude(

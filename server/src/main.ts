@@ -5,9 +5,13 @@ import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as responseTime from 'response-time';
-async function bootstrap() {
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
+async function bootstrap () {
   const port = process.env.API_PORT || 3001;
-  const app = await NestFactory.create(AppModule,{cors:true}); //TODO configure cors
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true,
+  }); //TODO configure cors
   const config = new DocumentBuilder()
     .setTitle('Pizza Api')
     .setDescription('The pizza API description')
@@ -17,6 +21,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  app.useStaticAssets(join(__dirname, '..', 'public'), { prefix: '/public/' });
   app.use(morgan('dev'), helmet(), responseTime());
 
   await app.listen(port);
