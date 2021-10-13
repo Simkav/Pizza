@@ -59,10 +59,9 @@ export const productsActionGet = () => ({
   type: ACTION.PRODUCTS_ACTION_GET
 })
 
-export const productsActionRemove = (id, products) => ({
+export const productsActionRemove = (id) => ({
   type: ACTION.PRODUCTS_ACTION_REMOVE,
   id: id,
-  products: products
 })
 
 export const productsActionCreate = data => ({
@@ -70,10 +69,9 @@ export const productsActionCreate = data => ({
   data: data
 })
 
-export const productsActionUpdate = (newProduct, products) => ({
+export const productsActionUpdate = (newProduct) => ({
   type: ACTION.PRODUCTS_ACTION_UPDATE,
   newProduct: newProduct,
-  products: products
 })
 
 export const productsActionClearError = () => ({

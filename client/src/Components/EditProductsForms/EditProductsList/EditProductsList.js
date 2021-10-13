@@ -6,6 +6,15 @@ import ProductModals from '../ProductModals/ProductModals'
 
 export default function EditProductsList ({ products, ingridients }) {
   const [isAddModalOpen, setAddModalOpen] = useState(false)
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState({
+    id: false,
+    name: '',
+    state: false
+  })
+  const [isEditModalOpen, setEditModalOpen] = useState({
+    state: false
+  })
+
   return (
     <div>
       <ul className={cl.products_container}>
@@ -17,11 +26,24 @@ export default function EditProductsList ({ products, ingridients }) {
         </li>
         {products.map(item => {
           return (
-            <EditProduct key={item.id} item={item} ingridients={ingridients} />
+            <EditProduct
+              key={item.id}
+              item={item}
+              ingridients={ingridients}
+              setDeleteModalOpen={setDeleteModalOpen}
+              setEditModalOpen={setEditModalOpen}
+            />
           )
         })}
       </ul>
-      <ProductModals isAddModalOpen={isAddModalOpen} setAddModalOpen={setAddModalOpen}/>
+      <ProductModals
+        isAddModalOpen={isAddModalOpen}
+        setAddModalOpen={setAddModalOpen}
+        isDeleteModalOpen={isDeleteModalOpen}
+        setDeleteModalOpen={setDeleteModalOpen}
+        isEditModalOpen={isEditModalOpen}
+        setEditModalOpen={setEditModalOpen}
+      />
     </div>
   )
 }

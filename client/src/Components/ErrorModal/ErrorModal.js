@@ -10,7 +10,7 @@ export default function ErrorModal({error, clearError }) {
     return () => {
       clearError();
     };
-  });
+  }, [error]);
   return (
     <Modal visible={isErrorModalOpen} setVisible={setErrorModalOpen}>
       <div className={cl.error_window}>
