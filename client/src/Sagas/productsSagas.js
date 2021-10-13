@@ -1,4 +1,4 @@
-import { put, call, select } from 'redux-saga/effects'
+import { put, call, select, fork } from 'redux-saga/effects'
 import ACTION from '../Actions/actionTypes'
 import * as API from '../Api'
 
@@ -92,13 +92,13 @@ export function * updateProductSaga ({ newProduct }) {
   for (let item of products) {
     if (item.id === newProduct.id) {
       if (!item.image.includes(newProduct.img.name)) {
-        yield call(updateProductImageSaga, {
+        yield fork(updateProductImageSaga, {
           id: newProductSend.id,
           image: newProductSend.img
         })
       }
       if (!compareArrays(item.Ingredients, newProduct.ingredients)) {
-        yield call(updateProductIngredientsSaga, {
+        yield fork(updateProductIngredientsSaga, {
           id: newProductSend.id,
           ingridients: newProductSend.Ingredients
         })
@@ -108,7 +108,7 @@ export function * updateProductSaga ({ newProduct }) {
         item.price !== newProduct.price ||
         item.weight !== newProduct.weight
       ) {
-        yield call(updateProductOtherDescriptionSaga, {
+        yield fork(updateProductOtherDescriptionSaga, {
           id: newProductSend.id,
           newName: newProductSend.name,
           newPrice: newProductSend.price,
