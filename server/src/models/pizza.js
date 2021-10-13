@@ -1,14 +1,14 @@
-'use strict'
-const { Model } = require('sequelize')
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Pizza extends Model {
-    static associate ({ Ingredient, PizzaIngredient }) {
+    static associate({ Ingredient, PizzaIngredient }) {
       Pizza.belongsToMany(Ingredient, {
         through: PizzaIngredient,
         foreignKey: 'pizzaId',
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      })
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Pizza.init(
@@ -16,12 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       name: { type: DataTypes.STRING, unique: true, allowNull: false },
       price: { type: DataTypes.DECIMAL, allowNull: false },
       weight: { type: DataTypes.INTEGER, allowNull: false },
-      image: { type: DataTypes.STRING, allowNull: false }
+      image: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
-      tableName: 'pizzas'
-    }
-  )
-  return Pizza
-}
+      tableName: 'pizzas',
+    },
+  );
+  return Pizza;
+};

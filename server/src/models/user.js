@@ -1,20 +1,9 @@
-'use strict'
-const { Model } = require('sequelize')
-const { hash } = require('../helpers/crypto')
-
-const hashPassword = user => {
-  if (user.changed('password')) {
-    const { password } = user
-    user.password = hash(password)
-  }
-}
+'use strict';
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate (models) {}
-    comparePassword = password => {
-      return hash(password) === this.getDataValue('password')
-    }
+    static associate(models) {}
   }
   User.init(
     {
@@ -26,17 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: true,
-        field: 'is_admin'
-      }
+        field: 'is_admin',
+      },
     },
     {
       sequelize,
-      tableName: 'users'
-    }
-  )
+      tableName: 'users',
+    },
+  );
 
-  User.beforeCreate(hashPassword)
-  User.beforeUpdate(hashPassword)
-
-  return User
-}
+  return User;
+};

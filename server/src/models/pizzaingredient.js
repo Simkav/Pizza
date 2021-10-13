@@ -1,8 +1,8 @@
-'use strict'
-const { Model } = require('sequelize')
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class PizzaIngredient extends Model {
-    static associate (models) {}
+    static associate(models) {}
   }
   PizzaIngredient.init(
     {
@@ -10,21 +10,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         references: {
           model: 'pizzas',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       ingredientId: {
         type: DataTypes.INTEGER,
         references: {
           model: 'ingredients',
-          key: 'id'
-        }
-      }
+          key: 'id',
+        },
+      },
     },
     {
       sequelize,
-      tableName: 'pizzaIngredients'
-    }
-  )
-  return PizzaIngredient
-}
+      tableName: 'pizzaIngredients',
+    },
+  );
+  return PizzaIngredient;
+};

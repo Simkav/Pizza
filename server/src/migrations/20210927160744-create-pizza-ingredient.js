@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('pizzaIngredients', {
+    await queryInterface.createTable('pizza_ingredients', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       pizzaId: {
         type: Sequelize.INTEGER,
@@ -14,10 +14,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         references: {
           model: {
-            tableName: 'pizzas'
+            tableName: 'pizzas',
           },
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       ingredientId: {
         type: Sequelize.INTEGER,
@@ -25,24 +25,14 @@ module.exports = {
         onUpdate: 'CASCADE',
         references: {
           model: {
-            tableName: 'ingredients'
+            tableName: 'ingredients',
           },
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      }
-    })
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('pizzaIngredients')
-  }
-}
+    await queryInterface.dropTable('pizzaIngredients');
+  },
+};
