@@ -6,7 +6,9 @@ export default function EditProductsForm () {
   const products = useSelector(({ products }) => products.products)
   return (
     <div>
-      <EditProductsList ingridients={ingridients} products={products} />
+      {products ? (
+        <EditProductsList ingridients={ingridients} products={products} />
+      ) : null}
     </div>
   )
 }
