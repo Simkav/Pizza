@@ -7,7 +7,7 @@ import * as morgan from 'morgan';
 import * as responseTime from 'response-time';
 async function bootstrap() {
   const port = process.env.API_PORT || 3001;
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule,{cors:true}); //TODO configure cors
   const config = new DocumentBuilder()
     .setTitle('Pizza Api')
     .setDescription('The pizza API description')
