@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class UpdateIngredientsDto {
-  @ApiProperty()
+  @ApiProperty({ type: Number, isArray: true })
   ingredients: number[];
 }
