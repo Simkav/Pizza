@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber } from 'class-validator';
 export class CreatePizzaDto {
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ description: 'Name of created pizza', example: 'Pizza Yolo' })
   name: string;
   @ApiProperty({
     type: 'file',
@@ -10,10 +10,10 @@ export class CreatePizzaDto {
   })
   image: any;
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ description: 'Weight of created pizza', example: 300 })
   weight: number;
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ description: 'Price of created pizza', example: 300 })
   price: number;
   @IsString()
   @ApiProperty({
