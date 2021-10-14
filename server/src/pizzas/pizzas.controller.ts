@@ -1,4 +1,4 @@
-import { ApiConsumes, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiConsumes, ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import {
   Controller,
@@ -17,6 +17,7 @@ import { CreatePizzaDto } from './dto/create-pizza.dto';
 import { UpdatePizzaDto } from './dto/update-pizza.dto';
 import { PizzasService } from './pizzas.service';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 
 @Controller('pizzas')
 @ApiTags('pizza')
@@ -44,7 +45,7 @@ export class PizzasController {
   @ApiBearerAuth()
   async update(
     @Param('id') id: number,
-    @Body() updatePizzaDto: UpdatePizzaDto,
+    @Body(new ValidationPipe()) updatePizzaDto: UpdatePizzaDto,
   ) {
     return await this.pizzaService.update(id, updatePizzaDto);
   }
@@ -54,28 +55,40 @@ export class PizzasController {
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   async create(
-    @Body() createPizzaDto: CreatePizzaDto,
+    @Body(new ValidationPipe()) createPizzaDto: CreatePizzaDto,
     @UploadedFile() image: Express.Multer.File,
   ) {
     return await this.pizzaService.create(createPizzaDto, image);
   }
   @Patch('/:id/image')
   @UseGuards(isAdminGuard)
-  @UseInterceptors(FileInterceptor('img'))
+  @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   @ApiBearerAuth()
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['image'],
+      properties: {
+        image: {
+          description: 'Any image type, with 20mb threshold',
+          type: 'file',
+        },
+      },
+    },
+  })
   async updateImg(
     @Param('id') id: number,
-    @UploadedFile() img: Express.Multer.File,
+    @UploadedFile() image: Express.Multer.File,
   ) {
-    return await this.pizzaService.updateImage(id, img);
+    return await this.pizzaService.updateImage(id, image);
   }
   @UseGuards(isAdminGuard)
   @Patch('/:id/ingredients')
   @ApiBearerAuth()
   async updateIngredients(
     @Param('id') id: number,
-    @Body() updateIngredientsDto: UpdateIngredientsDto,
+    @Body(new ValidationPipe()) updateIngredientsDto: UpdateIngredientsDto,
   ) {
     return await this.pizzaService.updateIngredients(id, updateIngredientsDto);
   }

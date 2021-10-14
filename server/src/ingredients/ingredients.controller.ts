@@ -1,3 +1,4 @@
+import { ValidationPipe } from './../pipes/validation.pipe';
 import {
   Controller,
   Get,
@@ -30,7 +31,7 @@ export class IngredientsController {
   @Post()
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async create(@Body() ingredientDto: CreateIngredientDto) {
+  async create(@Body(new ValidationPipe()) ingredientDto: CreateIngredientDto) {
     return await this.ingredientService.create(ingredientDto);
   }
   @Delete('/:id')
@@ -45,7 +46,7 @@ export class IngredientsController {
   @ApiBearerAuth()
   async updateIngredient(
     @Param('id') id: number,
-    @Body() ingredientDto: CreateIngredientDto,
+    @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
   ) {
     const ingredient = await this.ingredientService.findById(id);
     return await this.ingredientService.update(ingredient, ingredientDto);
