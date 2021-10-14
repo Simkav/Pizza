@@ -6,10 +6,10 @@ export default class ProductsCRUDApi {
 
   constructor (client) {
     this.#_client = client
-    this.#_url = 'pizza/'
+    this.#_url = 'pizzas/'
   }
 
-  // TODO function getProductById for NEST 
+  // TODO function getProductById for NEST
 
   getProducts = async () => this.#_client.get(this.#_url)
 
@@ -41,14 +41,15 @@ export default class ProductsCRUDApi {
       })
   }
 
-  updateProductImage = async (id, img) => {
+  updateProductImage = async (id, image) => {
     const formData = new FormData()
     const config = {
       headers: {
         'content-type': 'multipart/form-data'
       }
     }
-    formData.append('img', img)
+    formData.append('id', id)
+    formData.append('img', image)
     return this.#_client.patch(this.#_url + id + '/image', formData, config)
   }
 
