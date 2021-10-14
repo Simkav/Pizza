@@ -96,10 +96,9 @@ export class PizzasService {
     return findedIngredients;
   }
 
-  async updateImage(id: number, img: Express.Multer.File) {
+  async updateImage(id: number, image: Express.Multer.File) {
     const instance = await this.findByIdWithoutInclude(id);
-    console.log(img);
-    await instance.update({ image: pizzasPath + img.filename });
-    return { src: pizzasPath + img.filename };
+    await instance.update({ image: pizzasPath + image.filename });
+    return { src: pizzasPath + image.filename };
   }
 }
