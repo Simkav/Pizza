@@ -20,7 +20,7 @@ export default function ingridientsReducer(state = initState, action) {
         ...state,
         isFetching: false,
         error: null,
-        ingridients: action.ingredients,
+        ingridients: action.ingridients,
       };
     }
     case ACTION.INGRIDIENTS_ACTION_GET_ERROR: {

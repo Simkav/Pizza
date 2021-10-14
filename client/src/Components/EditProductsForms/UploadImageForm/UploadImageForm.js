@@ -7,23 +7,23 @@ export default function UploadImageForm ({ NewProductFormik }) {
   const formikValue = NewProductFormik.values
   const formikError = NewProductFormik.errors
   const formikTouched = NewProductFormik.touched
-  const [isImage, setImage] = useState(formikValue.img)
+  const [isImage, setImage] = useState(formikValue.image)
   const fileRef = useRef()
 
   useEffect(() => {
-    if (formikValue.img) {
-      setImage(URL.createObjectURL(formikValue.img))
-      NewProductFormik.setFieldTouched('img', true)
+    if (formikValue.image) {
+      setImage(URL.createObjectURL(formikValue.image))
+      NewProductFormik.setFieldTouched('image', true)
     }
-  }, [formikValue.img])
+  }, [formikValue.image])
 
   return (
     <div
       className={cn(
         cl.image_upload_form_container,
-        { [cl.active]: formikTouched.img && !formikError.img },
+        { [cl.active]: formikTouched.image && !formikError.image },
         {
-          [cl.error]: formikTouched.img && formikError.img
+          [cl.error]: formikTouched.image && formikError.image
         }
       )}
     >
@@ -58,22 +58,22 @@ export default function UploadImageForm ({ NewProductFormik }) {
           ref={fileRef}
           type={'file'}
           accept={'image/*'}
-          name={'img'}
+          name={'image'}
           className={cl.product_image_input}
           onBlur={NewProductFormik.handleBlur}
           onChange={e => {
             NewProductFormik.setTouched({
               ...NewProductFormik.touched,
-              img: true
+              image: true
             })
-            NewProductFormik.setFieldValue('img', e.target.files[0])
+            NewProductFormik.setFieldValue('image', e.target.files[0])
           }}
           disabled={isImage ? true : false}
         />
       </label>
       <div
         className={cn(cl.image_buttons_container, {
-          [cl.active]: formikTouched.img && isImage
+          [cl.active]: formikTouched.image && isImage
         })}
       >
         {isImage ? (
@@ -81,8 +81,8 @@ export default function UploadImageForm ({ NewProductFormik }) {
             <button
               onClick={() => {
                 setImage(null)
-                NewProductFormik.setErrors({ ...formikError, img: '' })
-                NewProductFormik.setFieldValue('img', '')
+                NewProductFormik.setErrors({ ...formikError, image: '' })
+                NewProductFormik.setFieldValue('image', '')
                 fileRef.current.value = ''
               }}
               className={cn(cl.add_window_button, cl.cloud_button)}
@@ -94,11 +94,11 @@ export default function UploadImageForm ({ NewProductFormik }) {
       </div>
       <div
         className={cn(cl.row, cl.error_text, {
-          [cl.active]: formikTouched.img && formikError.img
+          [cl.active]: formikTouched.image && formikError.image
         })}
       >
         <span className={cl.input_error_text}>
-          {formikTouched.img ? formikError.img : ''}
+          {formikTouched.image ? formikError.image : ''}
         </span>
       </div>
     </div>
