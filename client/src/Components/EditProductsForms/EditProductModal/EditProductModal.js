@@ -17,11 +17,9 @@ export default function EditProductModal ({ product, visible, setVisible }) {
   const mainProducts = useSelector(({ products }) => products.products)
 
   useLayoutEffect(() => {
-    async function getImage (prop) {
-      return await API.ProductsCRUDApi.getProductImage(prop).then(
-        result => result
-      )
-    }
+    const getImage = async prop =>
+      await API.ProductsCRUDApi.getProductImage(prop).then(result => result)
+
     async function init () {
       if (!visible) {
         NewProductFormik.resetForm()
@@ -32,13 +30,12 @@ export default function EditProductModal ({ product, visible, setVisible }) {
           mainProducts.map(item => item.name).filter(v => v !== product.name)
         )
         for (let prop in product) {
-          if (prop === 'Ingredients') {
-            NewProductFormik.setFieldValue('ingredients', product[prop])
-            NewProductFormik.setFieldTouched('ingredients', true)
-          }
           if (prop === 'image') {
-            NewProductFormik.setFieldValue('img', await getImage(product[prop]))
-          } else if (prop !== 'Ingredients') {
+            NewProductFormik.setFieldValue(
+              'image',
+              await getImage(product[prop])
+            )
+          } else {
             NewProductFormik.setFieldValue(prop, product[prop])
             NewProductFormik.setFieldTouched(prop, true)
           }
@@ -52,7 +49,7 @@ export default function EditProductModal ({ product, visible, setVisible }) {
     enableReinitialize: true,
     initialValues: {
       products: [],
-      img: '',
+      image: '',
       id: '',
       name: '',
       price: '',
