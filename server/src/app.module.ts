@@ -39,7 +39,7 @@ import { IngredientsController } from './ingredients/ingredients.controller';
   providers: [],
 })
 export class AppModule implements NestModule {
-  configure (consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(parseAuth)
       .exclude(

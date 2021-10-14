@@ -8,7 +8,7 @@ import * as responseTime from 'response-time';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { Response } from 'express';
-async function bootstrap () {
+async function bootstrap() {
   const port = process.env.API_PORT || 3001;
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: { origin: '*' },
