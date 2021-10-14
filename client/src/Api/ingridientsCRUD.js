@@ -4,7 +4,7 @@ export default class IngridientsCRUDApi {
 
   constructor (client) {
     this.#_client = client
-    this.#_url = 'ingredient/'
+    this.#_url = 'ingredients/'
   }
 
   // TODO function getIngridientById for NEST 
