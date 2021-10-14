@@ -24,7 +24,7 @@ export default function AddProductModal ({ visible, setVisible }) {
   const NewProductFormik = useFormik({
     initialValues: {
       products: products.map(item => item.name),
-      img: '',
+      image: '',
       name: '',
       ingredients: [],
       weight: '',

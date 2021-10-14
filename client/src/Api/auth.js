@@ -18,9 +18,9 @@ export default class AuthApi {
       this.responseInterceptorError
     )
   }
-  signIn = async data => this.#_client.post(`${this.#_url}sign-in`, data)
+  signIn = async data => this.#_client.post(`${this.#_url}login`, data)
 
-  signUp = async data => this.#_client.post(`${this.#_url}sign-up`, data)
+  signUp = async data => this.#_client.post(`${this.#_url}register`, data)
 
   refresh = async data => this.#_client.post(`${this.#_url}refresh`, data)
 
@@ -36,9 +36,9 @@ export default class AuthApi {
     return config
   }
 
-  _saveTokenPair = ({ refresh, access }) => {
-    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refresh)
-    this.#_accessToken = access
+  _saveTokenPair = ({ refreshToken, accesToken }) => {
+    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refreshToken)
+    this.#_accessToken = accesToken
   }
 
   responseInterceptor = async response => {
@@ -46,12 +46,8 @@ export default class AuthApi {
       config: { url }
     } = response
     if (url.includes(this.#_url)) {
-      const {
-        data: {
-          data: { tokens }
-        }
-      } = response
-      this._saveTokenPair(tokens)
+      const {data} = response
+      this._saveTokenPair(data)
     }
     return response
   }
@@ -63,15 +59,11 @@ export default class AuthApi {
     } = error
     const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
     if (status === 419 && refreshToken) {
-      const {
-        data: {
-          data: { tokens }
-        }
-      } = await this.refresh({ token: refreshToken })
+      const {data} = await this.refresh({ token: refreshToken })
 
-      this._saveTokenPair(tokens)
+      this._saveTokenPair(data)
 
-      config.headers['Authorization'] = `Bearer ${tokens.refreshToken}`
+      config.headers['Authorization'] = `Bearer ${data.refreshToken}`
       return this.#_client(config)
     }
 

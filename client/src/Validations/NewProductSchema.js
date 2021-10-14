@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import CONSTANTS from '../constants'
 
 export const newProductSchema = Yup.object({
-  img: Yup.mixed()
+  image: Yup.mixed()
     .test(
       'FILE_FORMAT',
       'Загруженный файл имеет неподдерживаемый формат',

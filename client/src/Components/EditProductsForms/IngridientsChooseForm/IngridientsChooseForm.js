@@ -11,6 +11,7 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
   const ingridients = useSelector(
     ({ ingridients: { ingridients } }) => ingridients
   )
+
   const [ingridientsToSelect, setIngridientsToSelect] = useState(
     ingridients.map(v => v.id)
   )
@@ -83,21 +84,25 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
       <h3 className={cl.ingridients_choose_title}>Выбор ингридиентов</h3>
       <ul className={cl.ingridients_choose_wrapper}>
         {selectedIngridients
-          ? selectedIngridients.map(item => (
-              <li key={ingridients[item - 1].id} className={cl.input_container}>
-                <span className={cl.input_text}>
-                  {ingridients[item - 1].name}
-                </span>
-                <div
-                  className={cl.tag_button_remove}
-                  onClick={() => handleRemoveIngridient(item)}
-                >
-                  <FaTimes />
-                </div>
-              </li>
-            ))
+          ? selectedIngridients.map(i => {
+              return ingridients.map(item => {
+                if (item.id === i) {
+                  return (
+                    <li key={item.id} className={cl.input_container}>
+                      <span className={cl.input_text}>{item.name}</span>
+                      <div
+                        className={cl.tag_button_remove}
+                        onClick={() => handleRemoveIngridient(i)}
+                      >
+                        <FaTimes />
+                      </div>
+                    </li>
+                  )
+                }
+              })
+            })
           : null}
-        {ingridientsToSelect.length ? (
+        {ingridientsToSelect.length > 0 ? (
           <li className={cl.input_container}>
             <select
               className={cl.input_select}
@@ -111,15 +116,19 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
               <option className={cl.input_text} value={null}>
                 Выберите ингридиент
               </option>
-              {ingridientsToSelect.map(item => (
-                <option
-                  key={ingridients[item - 1].id}
-                  className={cl.input_text}
-                  value={ingridients[item - 1].id}
-                >
-                  {ingridients[item - 1].name}
-                </option>
-              ))}
+              {ingridientsToSelect.map(i => {
+                return ingridients.map(item =>
+                  item.id === i ? (
+                    <option
+                      key={item.id}
+                      className={cl.input_text}
+                      value={item.id}
+                    >
+                      {item.name}
+                    </option>
+                  ) : null
+                )
+              })}
             </select>
           </li>
         ) : null}

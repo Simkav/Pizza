@@ -5,10 +5,17 @@ import * as API from '../Api'
 export function * getProductsSaga () {
   yield put({ type: ACTION.PRODUCTS_ACTION_GET_REQUEST })
   try {
-    const {
-      data: { data }
-    } = yield API.ProductsCRUDApi.getProducts()
-    yield put({ type: ACTION.PRODUCTS_ACTION_GET_SUCCESS, products: data })
+    const { data } = yield API.ProductsCRUDApi.getProducts()
+
+    const productsArray = data.reduce((acc, item) => {
+      acc.push({ ...item, ingredients: item.ingredients.map(v => v.id) })
+      return acc
+    }, [])
+
+    yield put({
+      type: ACTION.PRODUCTS_ACTION_GET_SUCCESS,
+      products: productsArray
+    })
   } catch (e) {
     console.log(e)
     yield put({
@@ -23,19 +30,19 @@ export function * createProductSaga ({ data: { product } }) {
   try {
     const newProduct = {
       ...product,
-      ingredients: JSON.stringify(product.ingredients)
+      ingredients: product.ingredients
     }
     const {
-      data: {
-        data: { img, id }
-      }
+      data: { Pizza, ingredients }
     } = yield API.ProductsCRUDApi.createProduct(newProduct)
 
     const newProductSuccess = {
-      ...product,
-      id: id,
-      image: img,
-      Ingredients: product.ingredients
+      name: Pizza.name,
+      id: Pizza.id,
+      image: Pizza.image,
+      ingredients: ingredients.map(v => v.id),
+      price: Pizza.price,
+      weight: Pizza.weight
     }
     yield put({
       type: ACTION.PRODUCTS_ACTION_POST_SUCCESS,
@@ -51,11 +58,11 @@ export function * createProductSaga ({ data: { product } }) {
 }
 
 export function * removeProductSaga ({ id }) {
-  yield put({ type: ACTION.INGRIDIENTS_ACTION_REMOVE_REQUEST })
+  yield put({ type: ACTION.PRODUCTS_ACTION_REMOVE_REQUEST })
   try {
     const { status } = yield API.ProductsCRUDApi.removeProduct(id)
     if (status === 200) {
-      const products = yield select(({products}) => products.products);
+      const products = yield select(({ products }) => products.products)
       const newProducts = yield products.filter(item => item.id !== id)
       yield put({
         type: ACTION.PRODUCTS_ACTION_REMOVE_SUCCESS,
@@ -75,32 +82,24 @@ export function * removeProductSaga ({ id }) {
 }
 
 export function * updateProductSaga ({ newProduct }) {
-  const newProductSend = {
-    id: newProduct.id,
-    img: newProduct.img,
-    name: newProduct.name,
-    Ingredients: newProduct.ingredients,
-    price: newProduct.price,
-    weight: newProduct.weight
-  }
-
-  const products = yield select(({products}) => products.products);
+  const newProductId = newProduct.id
+  const products = yield select(({ products }) => products.products)
 
   const compareArrays = (a, b) =>
     a.length === b.length && a.every((n, i) => n === b[i])
 
   for (let item of products) {
-    if (item.id === newProduct.id) {
-      if (!item.image.includes(newProduct.img.name)) {
+    if (item.id === newProductId) {
+      if (!item.image.includes(newProduct.image.name)) {
         yield fork(updateProductImageSaga, {
-          id: newProductSend.id,
-          image: newProductSend.img
+          id: newProductId,
+          newImage: newProduct.image
         })
       }
-      if (!compareArrays(item.Ingredients, newProduct.ingredients)) {
+      if (!compareArrays(item.ingredients, newProduct.ingredients)) {
         yield fork(updateProductIngredientsSaga, {
-          id: newProductSend.id,
-          ingridients: newProductSend.Ingredients
+          id: newProductId,
+          ingridients: newProduct.ingredients
         })
       }
       if (
@@ -109,30 +108,28 @@ export function * updateProductSaga ({ newProduct }) {
         item.weight !== newProduct.weight
       ) {
         yield fork(updateProductOtherDescriptionSaga, {
-          id: newProductSend.id,
-          newName: newProductSend.name,
-          newPrice: newProductSend.price,
-          newWeight: newProductSend.weight
+          id: newProductId,
+          newName: newProduct.name,
+          newPrice: newProduct.price,
+          newWeight: newProduct.weight
         })
       }
     }
   }
 }
 
-export function * updateProductImageSaga ({ id, image }) {
+export function * updateProductImageSaga ({ id, newImage }) {
   yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_REQUEST })
   try {
     const {
-      data: {
-        data: { img }
-      }
-    } = yield API.ProductsCRUDApi.updateProductImage(id, image)
+      data: { src }
+    } = yield API.ProductsCRUDApi.updateProductImage(id, newImage)
 
-    const currentProducts = yield select(({products}) => products.products);
+    const currentProducts = yield select(({ products }) => products.products)
 
     const editedProducts = currentProducts.map(item => {
       if (item.id === id) {
-        const editedItem = { ...item, image: img }
+        const editedItem = { ...item, image: src }
         return editedItem
       } else return item
     })
@@ -153,17 +150,16 @@ export function * updateProductImageSaga ({ id, image }) {
 export function * updateProductIngredientsSaga ({ id, ingridients }) {
   yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_INGREDIENTS_REQUEST })
   try {
-    const {
-      data: {
-        data: { ingredients }
-      }
-    } = yield API.ProductsCRUDApi.updateProductIngredients(id, ingridients)
+    const { data } = yield API.ProductsCRUDApi.updateProductIngredients(
+      id,
+      ingridients
+    )
 
-    const currentProducts = yield select(({products}) => products.products);
+    const currentProducts = yield select(({ products }) => products.products)
 
     const editedProducts = currentProducts.map(item => {
       if (item.id === id) {
-        const editedItem = { ...item, Ingredients: ingredients.map(v => v.id) }
+        const editedItem = { ...item, ingredients: data.map(v => v.id) }
         return editedItem
       } else return item
     })
@@ -190,16 +186,14 @@ export function * updateProductOtherDescriptionSaga ({
   yield put({ type: ACTION.PRODUCTS_ACTION_UPDATE_OTHER_REQUEST })
   try {
     const {
-      data: {
-        data: { name, price, weight }
-      }
+      data: { name, price, weight }
     } = yield API.ProductsCRUDApi.updateProductOther(id, {
       name: newName,
       price: newPrice,
       weight: newWeight
     })
 
-    const currentProducts = yield select(({products}) => products.products);
+    const currentProducts = yield select(({ products }) => products.products)
 
     const editedProducts = currentProducts.map(item => {
       if (item.id === id) {
