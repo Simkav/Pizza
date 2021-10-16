@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { diskStorage } from 'multer';
@@ -15,6 +15,7 @@ import { PizzasService } from './pizzas.service';
   imports: [
     SequelizeModule.forFeature([Pizza, Ingredient, PizzaIngredients]),
     IngredientsModule,
+    CacheModule.register({}),
     MulterModule.register({
       storage: diskStorage({
         destination: function (req, file, cb) {

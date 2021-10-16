@@ -1,5 +1,5 @@
 import { UpdatePizzaDto } from './dto/update-pizza.dto';
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { CreatePizzaDto } from './dto/create-pizza.dto';
@@ -7,6 +7,7 @@ import { Pizza } from './pizza.model';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import { Ingredient } from 'src/ingredients/ingredients.model';
 import { PizzaNotFound } from 'src/customErrors/database';
+import { Cache } from 'cache-manager';
 
 const pizzasPath = '/pizzas/';
 const attributes = ['name', 'id', 'price', 'weight', 'image'];
@@ -15,10 +16,16 @@ export class PizzasService {
   constructor(
     @InjectModel(Pizza) private pizzaRepository: typeof Pizza,
     private ingredientsService: IngredientsService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async getAll() {
-    return await this.pizzaRepository.findAll({
+  private async getCachedPizzas() {
+    return await this.cacheManager.get('pizzas');
+  }
+
+  private async setCachedPizzas() {
+    await this.cacheManager.del('pizzas');
+    const pizzas = await this.pizzaRepository.findAll({
       attributes,
       include: {
         model: Ingredient,
@@ -26,6 +33,17 @@ export class PizzasService {
         through: { attributes: [] },
       },
     });
+    await this.cacheManager.set('pizzas', pizzas, { ttl: 3600 });
+    return pizzas;
+  }
+
+  async getAll() {
+    const cache = await this.getCachedPizzas();
+    console.log(!!cache);
+    if (!cache) {
+      return await this.setCachedPizzas();
+    }
+    return cache;
   }
 
   private async findByIdWithoutInclude(id: number) {
@@ -54,7 +72,6 @@ export class PizzasService {
   }
 
   async create(createPizzaDto: CreatePizzaDto, img: Express.Multer.File) {
-    console.log(createPizzaDto);
     //TODO validaiton pipe
     const newPizza = {
       name: createPizzaDto.name,
@@ -70,18 +87,22 @@ export class PizzasService {
     const findedIngredients = await this.ingredientsService.findMany(
       ingredients,
     );
+    this.setCachedPizzas();
     await Pizza.$set('ingredients', findedIngredients);
     return { Pizza, ingredients: findedIngredients };
   }
 
   async delete(id: number) {
     const instance = await this.findByIdWithoutInclude(id);
-    return await instance.destroy();
+    await instance.destroy();
+    this.setCachedPizzas();
   }
 
   async update(id: number, updatePizzaDto: UpdatePizzaDto) {
     const instance = await this.findByIdWithoutInclude(id);
-    return await instance.update(updatePizzaDto);
+    const updated = await instance.update(updatePizzaDto);
+    this.setCachedPizzas();
+    return updated;
   }
 
   async updateIngredients(
@@ -93,12 +114,14 @@ export class PizzasService {
     );
     const instance = await this.findByIdWithoutInclude(id);
     await instance.$set('ingredients', findedIngredients);
+    this.setCachedPizzas();
     return findedIngredients;
   }
 
   async updateImage(id: number, image: Express.Multer.File) {
     const instance = await this.findByIdWithoutInclude(id);
     await instance.update({ image: pizzasPath + image.filename });
+    this.setCachedPizzas();
     return { src: pizzasPath + image.filename };
   }
 }
