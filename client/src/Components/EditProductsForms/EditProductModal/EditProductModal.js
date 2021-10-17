@@ -11,6 +11,7 @@ import { productsActionUpdate } from '../../../Actions/actionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems'
 import * as API from '../../../Api'
+import EditProductInput from '../EditProductInput/EditProductInput'
 
 export default function EditProductModal ({ product, visible, setVisible }) {
   const dispatch = useDispatch()
@@ -77,10 +78,6 @@ export default function EditProductModal ({ product, visible, setVisible }) {
     setVisible(visible => !visible)
   }
 
-  const formikValue = NewProductFormik.values
-  const formikTouched = NewProductFormik.touched
-  const formikError = NewProductFormik.errors
-
   return (
     <Modal visible={visible} handleCancel={handleCancel}>
       <form
@@ -93,54 +90,11 @@ export default function EditProductModal ({ product, visible, setVisible }) {
           <IngridientsChooseForm NewProductFormik={NewProductFormik} />
           <div className={cl.inputs_fields_container}>
             {NewProductFormInputItems.map(item => (
-              <div className={cl.input_container} key={item.name}>
-                <div className={cl.row}>
-                  <div
-                    className={cn(
-                      cl.field_container,
-                      {
-                        [cl.input_empty]: !formikValue[item.name]
-                      },
-                      {
-                        [cl.field_container_valid]:
-                          !formikError[item.name] & formikTouched[item.name]
-                      }
-                    )}
-                  >
-                    <label className={cl.label}>{item.labelText}</label>
-                    <input
-                      type={item.type}
-                      className={cn(
-                        cl.add_product_input,
-                        {
-                          [cl.input_invalid]:
-                            formikTouched[item.name] && formikError[item.name]
-                        },
-                        {
-                          [cl.input_valid]:
-                            !formikError[item.name] && formikTouched[item.name]
-                        }
-                      )}
-                      name={item.name}
-                      onChange={async e => {
-                          await NewProductFormik.setFieldValue(
-                            item.name,
-                            e.target.value
-                          )
-                          await NewProductFormik.validateField(item.name)
-                      }}
-                      onBlur={NewProductFormik.handleBlur}
-                      value={formikValue[item.name]}
-                      autoComplete={'off'}
-                    />
-                  </div>
-                </div>
-                <div className={cn(cl.row, cl.error_text)}>
-                  <span className={cl.input_error_text}>
-                    {formikTouched[item.name] ? formikError[item.name] : ''}
-                  </span>
-                </div>
-              </div>
+              <EditProductInput
+                key={item.name}
+                NewProductFormik={NewProductFormik}
+                item={item}
+              />
             ))}
           </div>
         </div>
