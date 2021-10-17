@@ -17,7 +17,6 @@ export default function AddModal({ visible, setVisible, handleSubmitAdd }) {
   return (
     <Modal
       visible={visible}
-      setVisible={setVisible}
       handleCancel={handleCancel}
     >
       <div className={cl.add_ingridient_window}>
