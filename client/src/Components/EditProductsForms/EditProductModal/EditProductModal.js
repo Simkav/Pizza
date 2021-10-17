@@ -21,8 +21,9 @@ export default function EditProductModal ({ product, visible, setVisible }) {
       await API.ProductsCRUDApi.getProductImage(prop).then(result => result)
 
     async function init () {
-      if (!visible) {
+      if (!visible || !product.state || !product) {
         NewProductFormik.resetForm()
+        NewProductFormik.setFieldValue('state', false)
       }
       if (product.state === true) {
         NewProductFormik.setFieldValue(
@@ -43,7 +44,7 @@ export default function EditProductModal ({ product, visible, setVisible }) {
       }
     }
     init()
-  }, [visible, mainProducts])
+  }, [product, mainProducts, visible])
 
   const NewProductFormik = useFormik({
     enableReinitialize: true,
@@ -57,6 +58,7 @@ export default function EditProductModal ({ product, visible, setVisible }) {
       ingredients: [],
       state: false
     },
+    validateOnChange: true,
     onSubmit: data => {
       const newProduct = Object.fromEntries(
         Object.entries(data).filter(item => {
@@ -80,20 +82,16 @@ export default function EditProductModal ({ product, visible, setVisible }) {
   const formikError = NewProductFormik.errors
 
   return (
-    <>
-      {visible && formikValue.state === true ? (
-        <Modal
-          visible={visible}
-          setVisible={setVisible}
-          handleCancel={handleCancel}
-        >
-          <form
-            className={cl.edit_product_window}
-            onSubmit={NewProductFormik.handleSubmit}
-          >
-            <h3 className={cl.modal_title}>Редактировать продукт</h3>
-            <UploadImageForm NewProductFormik={NewProductFormik} />
-            <IngridientsChooseForm NewProductFormik={NewProductFormik} />
+    <Modal visible={visible} handleCancel={handleCancel}>
+      <form
+        className={cl.edit_product_window}
+        onSubmit={NewProductFormik.handleSubmit}
+      >
+        <h3 className={cl.modal_title}>Редактировать продукт</h3>
+        <div className={cl.edit_product_row}>
+          <UploadImageForm NewProductFormik={NewProductFormik} />
+          <IngridientsChooseForm NewProductFormik={NewProductFormik} />
+          <div className={cl.inputs_fields_container}>
             {NewProductFormInputItems.map(item => (
               <div className={cl.input_container} key={item.name}>
                 <div className={cl.row}>
@@ -124,7 +122,13 @@ export default function EditProductModal ({ product, visible, setVisible }) {
                         }
                       )}
                       name={item.name}
-                      onChange={NewProductFormik.handleChange}
+                      onChange={async e => {
+                          await NewProductFormik.setFieldValue(
+                            item.name,
+                            e.target.value
+                          )
+                          await NewProductFormik.validateField(item.name)
+                      }}
                       onBlur={NewProductFormik.handleBlur}
                       value={formikValue[item.name]}
                       autoComplete={'off'}
@@ -138,23 +142,23 @@ export default function EditProductModal ({ product, visible, setVisible }) {
                 </div>
               </div>
             ))}
-            <div className={cl.add_window_buttons_container}>
-              <button
-                type={'submit'}
-                className={cn(cl.add_window_button, cl.apply)}
-              >
-                <FaCheck></FaCheck>
-              </button>
-              <div
-                className={cn(cl.add_window_button, cl.cancel)}
-                onClick={() => handleCancel()}
-              >
-                <FaTimes></FaTimes>
-              </div>
-            </div>
-          </form>
-        </Modal>
-      ) : null}
-    </>
+          </div>
+        </div>
+        <div className={cl.add_window_buttons_container}>
+          <button
+            type={'submit'}
+            className={cn(cl.add_window_button, cl.apply)}
+          >
+            <FaCheck></FaCheck>
+          </button>
+          <div
+            className={cn(cl.add_window_button, cl.cancel)}
+            onClick={() => handleCancel()}
+          >
+            <FaTimes></FaTimes>
+          </div>
+        </div>
+      </form>
+    </Modal>
   )
 }
