@@ -18,6 +18,7 @@ export const newProductSchema = Yup.object({
     .min(1, 'Минимальное имя')
     .required('Введите имя'),
   price: Yup.number()
+    .typeError('Минимальная цена 1')
     .min(1, 'Минимальная цена 1')
     .max(
       Number.MAX_SAFE_INTEGER,
@@ -25,6 +26,7 @@ export const newProductSchema = Yup.object({
     )
     .required('Введите минимальную цену'),
   weight: Yup.number()
+    .typeError('Минимальный вес 1')
     .min(1, 'Минимальный вес 1')
     .max(Number.MAX_SAFE_INTEGER, `Максимальный вес ${Number.MAX_SAFE_INTEGER}`)
     .required('Введите минимальный вес'),
