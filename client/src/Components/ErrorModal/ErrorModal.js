@@ -12,7 +12,7 @@ export default function ErrorModal({error, clearError }) {
     };
   }, [error]);
   return (
-    <Modal visible={isErrorModalOpen} setVisible={setErrorModalOpen}>
+    <Modal visible={isErrorModalOpen} >
       <div className={cl.error_window}>
         <h3 className={cl.modal_title}>Ошибка</h3>
         <span className={cl.error_span}>{error}</span>
