@@ -21,7 +21,6 @@ export default function EditModal ({
   return (
     <Modal
       visible={visible}
-      setVisible={setVisible}
       handleCancel={handleCancel}
     >
       <div className={cl.edit_ingridient_window}>
