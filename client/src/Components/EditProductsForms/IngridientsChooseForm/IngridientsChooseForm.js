@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import cl from './IngridientsChooseForm.module.css'
@@ -8,6 +8,7 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
   const formikValue = NewProductFormik.values
   const formikError = NewProductFormik.errors
   const formikTouched = NewProductFormik.touched
+  const bottomElement = useRef(null)
   const ingridients = useSelector(
     ({ ingridients: { ingridients } }) => ingridients
   )
@@ -22,7 +23,8 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
   )
 
   useLayoutEffect(() => {
-    if (selectedIngridients) {
+    // Для обновления списка ингридиентов при изменении selectedIngridients
+    if (selectedIngridients.length > 0 && formikValue.state === true) {
       NewProductFormik.setFieldValue('ingredients', selectedIngridients)
       setIngridientsToSelect(
         ingridients.reduce((acc, { id }) => {
@@ -35,12 +37,16 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
           return acc
         }, [])
       )
-    }
-    if (!selectedIngridients && NewProductFormik.ingredients.length > 0) {
-      setSelectedIngridients(NewProductFormik.values.ingredients)
       NewProductFormik.setFieldTouched('ingredients', true)
     }
-  }, [selectedIngridients])
+    // Для инициализации списка ингридиентов при редактировании
+    if (selectedIngridients.length === 0 && formikValue.state === true) {
+      setSelectedIngridients(formikValue.ingredients)
+      NewProductFormik.setFieldTouched('ingredients', true)
+    }
+    // Для скролла к самому нижнему элементу в списке ингридиентов
+    if (selectedIngridients.length > 0) bottomElement.current.scrollIntoView()
+  }, [formikValue, selectedIngridients])
 
   const handleSelectedIngridient = index => {
     setSelectedIngridients(selectedIngridients => [
@@ -55,6 +61,11 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
         return acc
       }, [])
     )
+    NewProductFormik.setFieldValue(
+      'ingredients',
+      [...selectedIngridients, index],
+      true
+    )
   }
 
   const handleRemoveIngridient = index => {
@@ -68,6 +79,11 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
         }
         return acc
       }, [])
+    )
+    NewProductFormik.setFieldValue(
+      'ingredients',
+      selectedIngridients.filter(i => i !== index),
+      true
     )
   }
 
@@ -84,11 +100,19 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
       <h3 className={cl.ingridients_choose_title}>Выбор ингридиентов</h3>
       <ul className={cl.ingridients_choose_wrapper}>
         {selectedIngridients
-          ? selectedIngridients.map(i => {
+          ? selectedIngridients.map((i, index) => {
               return ingridients.map(item => {
                 if (item.id === i) {
                   return (
-                    <li key={item.id} className={cl.input_container}>
+                    <li
+                      key={item.id}
+                      className={cl.input_container}
+                      ref={
+                        selectedIngridients.length - 1 === index
+                          ? bottomElement
+                          : null
+                      }
+                    >
                       <span className={cl.input_text}>{item.name}</span>
                       <div
                         className={cl.tag_button_remove}
@@ -102,37 +126,40 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
               })
             })
           : null}
-        {ingridientsToSelect.length > 0 ? (
-          <li className={cl.input_container}>
-            <select
-              className={cl.input_select}
-              onChange={e => {
-                NewProductFormik.setFieldTouched('ingredients', true)
-                if (e.target.value !== null)
-                  handleSelectedIngridient(Number(e.target.value))
-              }}
-              defaultValue={null}
-            >
-              <option className={cl.input_text} value={null}>
-                Выберите ингридиент
-              </option>
-              {ingridientsToSelect.map(i => {
-                return ingridients.map(item =>
-                  item.id === i ? (
-                    <option
-                      key={item.id}
-                      className={cl.input_text}
-                      value={item.id}
-                    >
-                      {item.name}
-                    </option>
-                  ) : null
-                )
-              })}
-            </select>
-          </li>
-        ) : null}
       </ul>
+      {ingridientsToSelect.length ? (
+        <div className={cn(cl.input_container, cl.input_container_choose)}>
+          <select
+            className={cl.input_select}
+            onChange={e => {
+              NewProductFormik.setFieldTouched('ingredients', true)
+              if (e.target.value !== null)
+                handleSelectedIngridient(Number(e.target.value))
+            }}
+            defaultValue={null}
+          >
+            <option
+              className={cn(cl.input_text, cl.input_text_choose)}
+              value={null}
+            >
+              Выберите ингридиент
+            </option>
+            {ingridientsToSelect.map(i => {
+              return ingridients.map(item =>
+                item.id === i ? (
+                  <option
+                    key={item.id}
+                    className={cl.input_text}
+                    value={item.id}
+                  >
+                    {item.name}
+                  </option>
+                ) : null
+              )
+            })}
+          </select>
+        </div>
+      ) : null}
       <div
         className={cn(cl.row, cl.error_text, {
           [cl.active]: formikTouched.ingredients && formikError.ingredients
