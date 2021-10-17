@@ -32,10 +32,10 @@ export const newProductSchema = Yup.object({
     .required('Введите минимальный вес'),
   ingredients: Yup.array()
     .min(1, 'Как минимум один ингридиент')
-    /* .test(
+    .test(
       'Minimal ingredients',
       'Как минимум один ингридиент',
       value => value.length > 0
-    ) */
+    )
     .required('Выберите ингридиенты')
 })
