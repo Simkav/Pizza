@@ -6,14 +6,14 @@ import UploadImageForm from '../UploadImageForm/UploadImageForm'
 import IngridientsChooseForm from '../IngridientsChooseForm/IngridientsChooseForm'
 import { newProductSchema } from '../../../Validations/NewProductSchema'
 import { useFormik } from 'formik'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { productsActionCreate } from '../../../Actions/actionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems'
 
 export default function AddProductModal ({ visible, setVisible }) {
   const dispatch = useDispatch()
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!visible) {
       NewProductFormik.resetForm()
     }
@@ -22,8 +22,9 @@ export default function AddProductModal ({ visible, setVisible }) {
   const products = useSelector(({ products }) => products.products)
 
   const NewProductFormik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      products: products.map(item => item.name),
+      products: products ? products.map(item => item.name) : null,
       image: '',
       name: '',
       ingredients: [],
@@ -49,66 +50,68 @@ export default function AddProductModal ({ visible, setVisible }) {
   const formikError = NewProductFormik.errors
 
   return (
-    <Modal
-      visible={visible}
-      setVisible={setVisible}
-      handleCancel={handleCancel}
-    >
+    <Modal visible={visible} handleCancel={handleCancel}>
       <form
         className={cl.add_product_window}
         onSubmit={NewProductFormik.handleSubmit}
       >
         <h3 className={cl.modal_title}>Добавить продукт</h3>
-        {visible ? (
-          <>
-            <UploadImageForm NewProductFormik={NewProductFormik} />
-            <IngridientsChooseForm NewProductFormik={NewProductFormik} />
-          </>
-        ) : null}
-        {NewProductFormInputItems.map(item => (
-          <div className={cl.input_container} key={item.name}>
-            <div className={cl.row}>
-              <div
-                className={cn(
-                  cl.field_container,
-                  {
-                    [cl.input_empty]: !formikValue[item.name]
-                  },
-                  {
-                    [cl.field_container_valid]:
-                      !formikError[item.name] & formikTouched[item.name]
-                  }
-                )}
-              >
-                <label className={cl.label}>{item.labelText}</label>
-                <input
-                  type={item.type}
-                  className={cn(
-                    cl.add_product_input,
-                    {
-                      [cl.input_invalid]:
-                        formikTouched[item.name] && formikError[item.name]
-                    },
-                    {
-                      [cl.input_valid]:
-                        !formikError[item.name] && formikTouched[item.name]
-                    }
-                  )}
-                  name={item.name}
-                  onChange={NewProductFormik.handleChange}
-                  onBlur={NewProductFormik.handleBlur}
-                  value={formikValue[item.name]}
-                  autoComplete={'off'}
-                />
+        <div className={cl.add_product_row}>
+          <UploadImageForm NewProductFormik={NewProductFormik} />
+          <IngridientsChooseForm NewProductFormik={NewProductFormik} />
+          <div className={cl.inputs_fields_container}>
+            {NewProductFormInputItems.map(item => (
+              <div className={cl.input_container} key={item.name}>
+                <div className={cl.row}>
+                  <div
+                    className={cn(
+                      cl.field_container,
+                      {
+                        [cl.input_empty]: !formikValue[item.name]
+                      },
+                      {
+                        [cl.field_container_valid]:
+                          !formikError[item.name] & formikTouched[item.name]
+                      }
+                    )}
+                  >
+                    <label className={cl.label}>{item.labelText}</label>
+                    <input
+                      type={item.type}
+                      className={cn(
+                        cl.add_product_input,
+                        {
+                          [cl.input_invalid]:
+                            formikTouched[item.name] && formikError[item.name]
+                        },
+                        {
+                          [cl.input_valid]:
+                            !formikError[item.name] && formikTouched[item.name]
+                        }
+                      )}
+                      name={item.name}
+                      onChange={async e => {
+                        await NewProductFormik.setFieldValue(
+                          item.name,
+                          e.target.value
+                        )
+                        await NewProductFormik.validateField(item.name)
+                      }}
+                      onBlur={NewProductFormik.handleBlur}
+                      value={formikValue[item.name]}
+                      autoComplete={'off'}
+                    />
+                  </div>
+                </div>
+                <div className={cn(cl.row, cl.error_text)}>
+                  <span className={cl.input_error_text}>
+                    {formikTouched[item.name] ? formikError[item.name] : ''}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className={cn(cl.row, cl.error_text)}>
-              <span className={cl.input_error_text}>
-                {formikTouched[item.name] ? formikError[item.name] : ''}
-              </span>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
         <div className={cl.add_window_buttons_container}>
           <button
             type={'submit'}

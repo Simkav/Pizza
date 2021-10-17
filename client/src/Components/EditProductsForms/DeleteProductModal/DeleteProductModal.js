@@ -19,7 +19,6 @@ export default function DeleteProductModal({ visible, setVisible, id, name, hand
   return (
     <Modal
       visible={visible}
-      setVisible={setVisible}
       handleCancel={handleCancel}
     >
       <div className={cl.delete_product_window}>

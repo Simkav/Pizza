@@ -24,17 +24,19 @@ export default function EditProductsList ({ products, ingridients }) {
         >
           <FaPlusCircle />
         </li>
-        {products.map(item => {
-          return (
-            <EditProduct
-              key={item.id}
-              item={item}
-              ingridients={ingridients}
-              setDeleteModalOpen={setDeleteModalOpen}
-              setEditModalOpen={setEditModalOpen}
-            />
-          )
-        })}
+        {products
+          ? products.map(item => {
+              return (
+                <EditProduct
+                  key={item.id}
+                  item={item}
+                  ingridients={ingridients}
+                  setDeleteModalOpen={setDeleteModalOpen}
+                  setEditModalOpen={setEditModalOpen}
+                />
+              )
+            })
+          : null}
       </ul>
       <ProductModals
         isAddModalOpen={isAddModalOpen}

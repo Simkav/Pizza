@@ -8,6 +8,7 @@ export default function UploadImageForm ({ NewProductFormik }) {
   const formikError = NewProductFormik.errors
   const formikTouched = NewProductFormik.touched
   const [isImage, setImage] = useState(formikValue.image)
+  const [isDragEnter, setDragEnter] = useState(false)
   const fileRef = useRef()
 
   useEffect(() => {
@@ -16,6 +17,14 @@ export default function UploadImageForm ({ NewProductFormik }) {
       NewProductFormik.setFieldTouched('image', true)
     }
   }, [formikValue.image])
+
+  const handleChange = file => {
+    NewProductFormik.setTouched({
+      ...NewProductFormik.touched,
+      image: true
+    })
+    NewProductFormik.setFieldValue('image', file, true)
+  }
 
   return (
     <div
@@ -29,6 +38,19 @@ export default function UploadImageForm ({ NewProductFormik }) {
     >
       <h3 className={cl.image_upload_text}>Фотография продукта</h3>
       <label
+        onDragOver={event => {
+          setDragEnter(true)
+          event.preventDefault()
+        }}
+        onDragLeave={() => setDragEnter(false)}
+        onDrop={
+          !isImage && isDragEnter
+            ? e => {
+                handleChange(e.dataTransfer.files[0])
+                e.preventDefault()
+              }
+            : null
+        }
         className={cn(cl.product_image_upload_container, {
           [cl.image_upload_container_disabled]: isImage
         })}
@@ -61,13 +83,7 @@ export default function UploadImageForm ({ NewProductFormik }) {
           name={'image'}
           className={cl.product_image_input}
           onBlur={NewProductFormik.handleBlur}
-          onChange={e => {
-            NewProductFormik.setTouched({
-              ...NewProductFormik.touched,
-              image: true
-            })
-            NewProductFormik.setFieldValue('image', e.target.files[0])
-          }}
+          onChange={e => handleChange(e.target.files[0])}
           disabled={isImage ? true : false}
         />
       </label>
@@ -82,7 +98,7 @@ export default function UploadImageForm ({ NewProductFormik }) {
               onClick={() => {
                 setImage(null)
                 NewProductFormik.setErrors({ ...formikError, image: '' })
-                NewProductFormik.setFieldValue('image', '')
+                NewProductFormik.setFieldValue('image', '', true)
                 fileRef.current.value = ''
               }}
               className={cn(cl.add_window_button, cl.cloud_button)}
