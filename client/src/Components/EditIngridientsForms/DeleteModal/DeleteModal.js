@@ -19,7 +19,6 @@ export default function DeleteModal({ visible, setVisible, id, name, handleSubmi
   return (
     <Modal
       visible={visible}
-      setVisible={setVisible}
       handleCancel={handleCancel}
     >
       <div className={cl.delete_ingridient_window}>
