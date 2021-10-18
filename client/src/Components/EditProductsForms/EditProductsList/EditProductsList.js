@@ -1,26 +1,56 @@
 import EditProduct from '../EditProduct/EditProduct'
 import cl from './EditProductsList.module.css'
 import { FaPlusCircle } from 'react-icons/fa'
-import { useState } from 'react'
 import ProductModals from '../ProductModals/ProductModals'
+import { useReducer } from 'react'
 
 export default function EditProductsList ({ products, ingridients }) {
-  const [isAddModalOpen, setAddModalOpen] = useState(false)
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState({
-    id: false,
-    name: '',
-    state: false
-  })
-  const [isEditModalOpen, setEditModalOpen] = useState({
-    state: false
-  })
+  const initState = {
+    addModal: { state: false, closed: true },
+    editModal: { state: false, closed: true },
+    deleteModal: { state: false, closed: true }
+  }
+
+  const modalReducer = (state = initState, action) => {
+    switch (action.type) {
+      case 'OPEN_ADD_MODAL':
+        return { ...state, addModal: { state: true, closed: false } }
+      case 'OPEN_DELETE_MODAL':
+        return {
+          ...state,
+          deleteModal: { ...action.payload, state: true, closed: false }
+        }
+      case 'OPEN_EDIT_MODAL':
+        return {
+          ...state,
+          editModal: { ...action.payload, state: true, closed: false }
+        }
+      case 'ON_CLOSE_ADD_MODAL':
+        return { ...state, addModal: { ...state.addModal, state: false } }
+      case 'ON_ADD_MODAL_CLOSED':
+        return { ...state, addModal: { ...state.addModal, closed: true } }
+      case 'ON_CLOSE_DELETE_MODAL':
+        return { ...state, deleteModal: { ...state.deleteModal, state: false } }
+      case 'ON_DELETE_MODAL_CLOSED':
+        return { ...state, deleteModal: { ...state.deleteModal, closed: true } }
+      case 'ON_CLOSE_EDIT_MODAL':
+        return { ...state, editModal: { ...state.editModal, state: false } }
+      case 'ON_EDIT_MODAL_CLOSED':
+        return { ...state, editModal: { ...state.editModal, closed: true } }
+
+      default:
+        return state
+    }
+  }
+
+  const [modalsState, modalsDispatch] = useReducer(modalReducer, initState)
 
   return (
     <div>
       <ul className={cl.products_container}>
         <li
           className={cl.edit_product_button}
-          onClick={() => setAddModalOpen(true)}
+          onClick={() => modalsDispatch({ type: 'OPEN_ADD_MODAL' })}
         >
           <FaPlusCircle />
         </li>
@@ -31,20 +61,15 @@ export default function EditProductsList ({ products, ingridients }) {
                   key={item.id}
                   item={item}
                   ingridients={ingridients}
-                  setDeleteModalOpen={setDeleteModalOpen}
-                  setEditModalOpen={setEditModalOpen}
+                  modalsDispatch={modalsDispatch}
                 />
               )
             })
           : null}
       </ul>
       <ProductModals
-        isAddModalOpen={isAddModalOpen}
-        setAddModalOpen={setAddModalOpen}
-        isDeleteModalOpen={isDeleteModalOpen}
-        setDeleteModalOpen={setDeleteModalOpen}
-        isEditModalOpen={isEditModalOpen}
-        setEditModalOpen={setEditModalOpen}
+        modalsState={modalsState}
+        modalsDispatch={modalsDispatch}
       />
     </div>
   )
