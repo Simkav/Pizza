@@ -25,12 +25,13 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
     async function init () {
       if (!editModal.state && editModal.closed) {
         NewProductFormik.resetForm()
-        NewProductFormik.setFieldValue('state', false)
       }
       if (editModal.state && editModal.product) {
         NewProductFormik.setFieldValue(
           'products',
-          mainProducts.map(item => item.name).filter(v => v !== editModal.product.name)
+          mainProducts
+            .map(item => item.name)
+            .filter(v => v !== editModal.product.name)
         )
         for (let prop in editModal.product) {
           if (prop === 'image') {
@@ -57,13 +58,12 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
       name: '',
       price: '',
       weight: '',
-      ingredients: [],
-      state: false
+      ingredients: []
     },
     onSubmit: data => {
       const newProduct = Object.fromEntries(
         Object.entries(data).filter(item =>
-          !(item[0] === 'state' || item[0] === 'products') ? item[0] : null
+          item[0] !== 'products' ? item[0] : null
         )
       )
       dispatch(productsActionUpdate(newProduct))
@@ -80,47 +80,47 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
     modalsDispatch({ type: 'ON_EDIT_MODAL_CLOSED' })
   }
 
-  console.log(NewProductFormik)
-
   return (
     <Modal
       visible={editModal.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
-      <form
-        className={cl.edit_product_window}
-        onSubmit={NewProductFormik.handleSubmit}
-      >
-        <h3 className={cl.modal_title}>Редактировать продукт</h3>
-        <div className={cl.edit_product_row}>
-          <UploadImageForm NewProductFormik={NewProductFormik} />
-          <IngridientsChooseForm NewProductFormik={NewProductFormik} />
-          <div className={cl.inputs_fields_container}>
-            {NewProductFormInputItems.map(item => (
-              <EditProductInput
-                key={item.name}
-                NewProductFormik={NewProductFormik}
-                item={item}
-              />
-            ))}
+      {NewProductFormik.values.image ? (
+        <form
+          className={cl.edit_product_window}
+          onSubmit={NewProductFormik.handleSubmit}
+        >
+          <h3 className={cl.modal_title}>Редактировать продукт</h3>
+          <div className={cl.edit_product_row}>
+            <UploadImageForm NewProductFormik={NewProductFormik} />
+            <IngridientsChooseForm NewProductFormik={NewProductFormik} />
+            <div className={cl.inputs_fields_container}>
+              {NewProductFormInputItems.map(item => (
+                <EditProductInput
+                  key={item.name}
+                  NewProductFormik={NewProductFormik}
+                  item={item}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        <div className={cl.add_window_buttons_container}>
-          <button
-            type={'submit'}
-            className={cn(cl.add_window_button, cl.apply)}
-          >
-            <FaCheck></FaCheck>
-          </button>
-          <div
-            className={cn(cl.add_window_button, cl.cancel)}
-            onClick={() => handleClose()}
-          >
-            <FaTimes></FaTimes>
+          <div className={cl.add_window_buttons_container}>
+            <button
+              type={'submit'}
+              className={cn(cl.add_window_button, cl.apply)}
+            >
+              <FaCheck></FaCheck>
+            </button>
+            <div
+              className={cn(cl.add_window_button, cl.cancel)}
+              onClick={() => handleClose()}
+            >
+              <FaTimes></FaTimes>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      ) : null}
     </Modal>
   )
 }
