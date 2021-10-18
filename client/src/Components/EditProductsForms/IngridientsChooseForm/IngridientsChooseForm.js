@@ -24,7 +24,7 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
 
   useLayoutEffect(() => {
     // Для обновления списка ингридиентов при изменении selectedIngridients
-    if (selectedIngridients.length > 0 && formikValue.state === true) {
+    if (selectedIngridients.length > 0 && formikValue.ingredients) {
       NewProductFormik.setFieldValue('ingredients', selectedIngridients)
       setIngridientsToSelect(
         ingridients.reduce((acc, { id }) => {
