@@ -40,7 +40,7 @@ export default function IngridientsChooseForm ({ NewProductFormik }) {
       NewProductFormik.setFieldTouched('ingredients', true)
     }
     // Для инициализации списка ингридиентов при редактировании
-    if (selectedIngridients.length === 0 && formikValue.state === true) {
+    if (selectedIngridients.length === 0 && formikValue.ingredients.length > 0) {
       setSelectedIngridients(formikValue.ingredients)
       NewProductFormik.setFieldTouched('ingredients', true)
     }
