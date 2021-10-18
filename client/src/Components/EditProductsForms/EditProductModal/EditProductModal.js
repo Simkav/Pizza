@@ -86,41 +86,39 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
-      {NewProductFormik.values.image ? (
-        <form
-          className={cl.edit_product_window}
-          onSubmit={NewProductFormik.handleSubmit}
-        >
-          <h3 className={cl.modal_title}>Редактировать продукт</h3>
-          <div className={cl.edit_product_row}>
-            <UploadImageForm NewProductFormik={NewProductFormik} />
-            <IngridientsChooseForm NewProductFormik={NewProductFormik} />
-            <div className={cl.inputs_fields_container}>
-              {NewProductFormInputItems.map(item => (
-                <EditProductInput
-                  key={item.name}
-                  NewProductFormik={NewProductFormik}
-                  item={item}
-                />
-              ))}
-            </div>
+      <form
+        className={cl.edit_product_window}
+        onSubmit={NewProductFormik.handleSubmit}
+      >
+        <h3 className={cl.modal_title}>Редактировать продукт</h3>
+        <div className={cl.edit_product_row}>
+          <UploadImageForm NewProductFormik={NewProductFormik} />
+          <IngridientsChooseForm NewProductFormik={NewProductFormik} />
+          <div className={cl.inputs_fields_container}>
+            {NewProductFormInputItems.map(item => (
+              <EditProductInput
+                key={item.name}
+                NewProductFormik={NewProductFormik}
+                item={item}
+              />
+            ))}
           </div>
-          <div className={cl.add_window_buttons_container}>
-            <button
-              type={'submit'}
-              className={cn(cl.add_window_button, cl.apply)}
-            >
-              <FaCheck></FaCheck>
-            </button>
-            <div
-              className={cn(cl.add_window_button, cl.cancel)}
-              onClick={() => handleClose()}
-            >
-              <FaTimes></FaTimes>
-            </div>
+        </div>
+        <div className={cl.add_window_buttons_container}>
+          <button
+            type={'submit'}
+            className={cn(cl.add_window_button, cl.apply)}
+          >
+            <FaCheck></FaCheck>
+          </button>
+          <div
+            className={cn(cl.add_window_button, cl.cancel)}
+            onClick={() => handleClose()}
+          >
+            <FaTimes></FaTimes>
           </div>
-        </form>
-      ) : null}
+        </div>
+      </form>
     </Modal>
   )
 }
