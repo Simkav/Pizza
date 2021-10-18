@@ -12,17 +12,16 @@ export default function EditModal ({
   handleSubmitEdit
 }) {
   const [newName, setNewName] = useState(name)
+
   useLayoutEffect(() => {
-    setNewName(name)
+    if (!newName) setNewName(name)
   }, [name])
-  const handleCancel = () => {
-    setVisible(visible => !visible)
-  }
+
+  const handleClose = () => setVisible(visible => !visible)
+  const handleClosed = () => setNewName('')
+
   return (
-    <Modal
-      visible={visible}
-      handleCancel={handleCancel}
-    >
+    <Modal visible={visible} handleClose={handleClose} handleClosed={handleClosed}>
       <div className={cl.edit_ingridient_window}>
         <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
         <input
@@ -42,7 +41,7 @@ export default function EditModal ({
           <div
             className={cn(cl.edit_window_button, cl.cancel)}
             onClick={() => {
-              handleCancel()
+              handleClose()
             }}
           >
             <FaTimes />
