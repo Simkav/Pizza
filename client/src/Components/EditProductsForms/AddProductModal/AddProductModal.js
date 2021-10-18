@@ -12,13 +12,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems'
 import EditProductInput from '../EditProductInput/EditProductInput'
 
-export default function AddProductModal ({ visible, setVisible }) {
+export default function AddProductModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch()
   useLayoutEffect(() => {
-    if (!visible) {
+    if (!modalsState.addModal.state && modalsState.addModal.closed) {
       NewProductFormik.resetForm()
     }
-  }, [visible])
+  }, [modalsState.addModal])
 
   const products = useSelector(({ products }) => products.products)
 
@@ -37,17 +37,25 @@ export default function AddProductModal ({ visible, setVisible }) {
         Object.entries(data).filter(item => item[0] !== 'products')
       )
       dispatch(productsActionCreate({ product: newProduct }))
-      setVisible(visible => !visible)
+      handleClose()
     },
     validationSchema: newProductSchema
   })
 
-  const handleCancel = () => {
-    setVisible(visible => !visible)
+  const handleClose = () => {
+    modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' })
+  }
+
+  const handleClosed = () => {
+    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' })
   }
 
   return (
-    <Modal visible={visible} handleCancel={handleCancel}>
+    <Modal
+      visible={modalsState.addModal.state}
+      handleClose={handleClose}
+      handleClosed={handleClosed}
+    >
       <form
         className={cl.add_product_window}
         onSubmit={NewProductFormik.handleSubmit}
@@ -75,7 +83,7 @@ export default function AddProductModal ({ visible, setVisible }) {
           </button>
           <div
             className={cn(cl.add_window_button, cl.cancel)}
-            onClick={() => handleCancel()}
+            onClick={() => handleClose()}
           >
             <FaTimes></FaTimes>
           </div>
