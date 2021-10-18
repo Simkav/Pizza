@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaCloudUploadAlt } from 'react-icons/fa'
 import cl from './UploadImageForm.module.css'
 import cn from 'classnames'
@@ -11,21 +11,15 @@ export default function UploadImageForm ({ NewProductFormik }) {
   const [isDragEnter, setDragEnter] = useState(false)
   const fileRef = useRef()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (formikValue.image) {
       setImage(URL.createObjectURL(formikValue.image))
       NewProductFormik.setFieldTouched('image', true)
     }
   }, [formikValue.image])
 
-  const handleChange = file => {
-    NewProductFormik.setTouched({
-      ...NewProductFormik.touched,
-      image: true
-    })
-    NewProductFormik.setFieldValue('image', file, true)
-  }
-
+  const handleChange = file => NewProductFormik.setFieldValue('image', file)
+  
   return (
     <div
       className={cn(
