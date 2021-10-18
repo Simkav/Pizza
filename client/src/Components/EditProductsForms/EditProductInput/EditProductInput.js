@@ -6,9 +6,8 @@ export default function EditProductInput ({item, NewProductFormik}) {
   const formikTouched = NewProductFormik.touched
   const formikError = NewProductFormik.errors
 
-
   return (
-    <div className={cl.input_container} key={item.name}>
+    <div className={cl.input_container}>
       <div className={cl.row}>
         <div
           className={cn(
