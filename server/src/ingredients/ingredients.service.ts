@@ -10,14 +10,16 @@ export class IngredientsService {
     @InjectModel(Ingredient) private ingredientRepository: typeof Ingredient,
   ) {}
 
+  private readonly attributes = ['id', 'name'];
+
   async getAll() {
     return await this.ingredientRepository.findAll({
-      attributes: ['id', 'name'],
+      attributes: this.attributes,
     });
   }
   async findById(id: number) {
     const ingredient = await this.ingredientRepository.findByPk(id, {
-      attributes: ['id', 'name'],
+      attributes: this.attributes,
     });
     if (!ingredient) {
       throw new IngredientNotFound();
@@ -36,7 +38,7 @@ export class IngredientsService {
   async findMany(id: number[]) {
     return await this.ingredientRepository.findAll({
       where: { id },
-      attributes: ['id', 'name'],
+      attributes: this.attributes,
     });
   }
   async update(instance: Ingredient, createIngredientDto: CreateIngredientDto) {
