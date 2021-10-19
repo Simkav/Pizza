@@ -20,7 +20,7 @@ export function * getProductsSaga () {
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_GET_ERROR,
-      error: e.response.data.error
+      error: e.response.data.message
     })
   }
 }
@@ -52,7 +52,7 @@ export function * createProductSaga ({ data: { product } }) {
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_POST_ERROR,
-      error: e.response.data.error
+      error: e.response.data.message
     })
   }
 }
@@ -76,7 +76,7 @@ export function * removeProductSaga ({ id }) {
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_REMOVE_ERROR,
-      error: e.response.data.error
+      error: e.response.data.message
     })
   }
 }
@@ -142,7 +142,7 @@ export function * updateProductImageSaga ({ id, newImage }) {
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_UPDATE_IMAGE_ERROR,
-      error: e.response.data.error
+      error: e.response.data.message
     })
   }
 }
@@ -172,7 +172,7 @@ export function * updateProductIngredientsSaga ({ id, ingridients }) {
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_UPDATE_INGREDIENTS_ERROR,
-      error: e.response.data.error
+      error: e.response.data.message
     })
   }
 }
@@ -210,7 +210,7 @@ export function * updateProductOtherDescriptionSaga ({
     console.log(e)
     yield put({
       type: ACTION.PRODUCTS_ACTION_UPDATE_OTHER_ERROR,
-      error: e.response.data.error
+      error: e.response.data.message
     })
   }
 }

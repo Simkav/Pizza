@@ -11,8 +11,10 @@ import { productsActionUpdate } from '../../../Actions/actionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems'
 import * as API from '../../../Api'
+import EditProductInput from '../EditProductInput/EditProductInput'
 
-export default function EditProductModal ({ product, visible, setVisible }) {
+export default function EditProductModal ({ modalsState, modalsDispatch }) {
+  const editModal = modalsState.editModal
   const dispatch = useDispatch()
   const mainProducts = useSelector(({ products }) => products.products)
 
@@ -21,30 +23,32 @@ export default function EditProductModal ({ product, visible, setVisible }) {
       await API.ProductsCRUDApi.getProductImage(prop).then(result => result)
 
     async function init () {
-      if (!visible || !product.state || !product) {
+      if (!editModal.state && editModal.closed) {
         NewProductFormik.resetForm()
         NewProductFormik.setFieldValue('state', false)
       }
-      if (product.state === true) {
+      if (editModal.state && editModal.product) {
         NewProductFormik.setFieldValue(
           'products',
-          mainProducts.map(item => item.name).filter(v => v !== product.name)
+          mainProducts
+            .map(item => item.name)
+            .filter(v => v !== editModal.product.name)
         )
-        for (let prop in product) {
+        for (let prop in editModal.product) {
           if (prop === 'image') {
             NewProductFormik.setFieldValue(
               'image',
-              await getImage(product[prop])
+              await getImage(editModal.product[prop])
             )
           } else {
-            NewProductFormik.setFieldValue(prop, product[prop])
+            NewProductFormik.setFieldValue(prop, editModal.product[prop])
             NewProductFormik.setFieldTouched(prop, true)
           }
         }
       }
     }
     init()
-  }, [product, mainProducts, visible])
+  }, [mainProducts, editModal])
 
   const NewProductFormik = useFormik({
     enableReinitialize: true,
@@ -55,34 +59,35 @@ export default function EditProductModal ({ product, visible, setVisible }) {
       name: '',
       price: '',
       weight: '',
-      ingredients: [],
-      state: false
+      ingredients: []
     },
     validateOnChange: true,
     onSubmit: data => {
       const newProduct = Object.fromEntries(
-        Object.entries(data).filter(item => {
-          if (!(item[0] === 'state' || item[0] === 'products')) {
-            return item[0]
-          }
-        })
+        Object.entries(data).filter(item =>
+          item[0] !== 'products' ? item[0] : null
+        )
       )
       dispatch(productsActionUpdate(newProduct))
-      setVisible(visible => !visible)
+      handleClose()
     },
     validationSchema: newProductSchema
   })
 
-  const handleCancel = () => {
-    setVisible(visible => !visible)
+  const handleClose = () => {
+    modalsDispatch({ type: 'ON_CLOSE_EDIT_MODAL' })
   }
 
-  const formikValue = NewProductFormik.values
-  const formikTouched = NewProductFormik.touched
-  const formikError = NewProductFormik.errors
+  const handleClosed = () => {
+    modalsDispatch({ type: 'ON_EDIT_MODAL_CLOSED' })
+  }
 
   return (
-    <Modal visible={visible} handleCancel={handleCancel}>
+    <Modal
+      visible={editModal.state}
+      handleClose={handleClose}
+      handleClosed={handleClosed}
+    >
       <form
         className={cl.edit_product_window}
         onSubmit={NewProductFormik.handleSubmit}
@@ -93,54 +98,11 @@ export default function EditProductModal ({ product, visible, setVisible }) {
           <IngridientsChooseForm NewProductFormik={NewProductFormik} />
           <div className={cl.inputs_fields_container}>
             {NewProductFormInputItems.map(item => (
-              <div className={cl.input_container} key={item.name}>
-                <div className={cl.row}>
-                  <div
-                    className={cn(
-                      cl.field_container,
-                      {
-                        [cl.input_empty]: !formikValue[item.name]
-                      },
-                      {
-                        [cl.field_container_valid]:
-                          !formikError[item.name] & formikTouched[item.name]
-                      }
-                    )}
-                  >
-                    <label className={cl.label}>{item.labelText}</label>
-                    <input
-                      type={item.type}
-                      className={cn(
-                        cl.add_product_input,
-                        {
-                          [cl.input_invalid]:
-                            formikTouched[item.name] && formikError[item.name]
-                        },
-                        {
-                          [cl.input_valid]:
-                            !formikError[item.name] && formikTouched[item.name]
-                        }
-                      )}
-                      name={item.name}
-                      onChange={async e => {
-                          await NewProductFormik.setFieldValue(
-                            item.name,
-                            e.target.value
-                          )
-                          await NewProductFormik.validateField(item.name)
-                      }}
-                      onBlur={NewProductFormik.handleBlur}
-                      value={formikValue[item.name]}
-                      autoComplete={'off'}
-                    />
-                  </div>
-                </div>
-                <div className={cn(cl.row, cl.error_text)}>
-                  <span className={cl.input_error_text}>
-                    {formikTouched[item.name] ? formikError[item.name] : ''}
-                  </span>
-                </div>
-              </div>
+              <EditProductInput
+                key={item.name}
+                NewProductFormik={NewProductFormik}
+                item={item}
+              />
             ))}
           </div>
         </div>
@@ -153,7 +115,7 @@ export default function EditProductModal ({ product, visible, setVisible }) {
           </button>
           <div
             className={cn(cl.add_window_button, cl.cancel)}
-            onClick={() => handleCancel()}
+            onClick={() => handleClose()}
           >
             <FaTimes></FaTimes>
           </div>

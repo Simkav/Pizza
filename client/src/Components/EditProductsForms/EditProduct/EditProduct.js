@@ -4,7 +4,7 @@ import ProductImage from '../../ProductForms/ProductImage/ProductImage'
 import ProductIngridients from '../../ProductForms/ProductIngridients/ProductIngridients'
 import cl from './EditProduct.module.css'
 
-export default function EditProduct ({ item, ingridients, setDeleteModalOpen, setEditModalOpen }) {
+export default function EditProduct ({ item, ingridients, modalsDispatch }) {
   return (
     <li key={item.id} className={cl.product}>
       {
@@ -16,18 +16,24 @@ export default function EditProduct ({ item, ingridients, setDeleteModalOpen, se
           <div className={cl.product_edit_buttons_container}>
             <div
               className={cl.edit_button_container}
-              onClick={() => {
-                setEditModalOpen({ ...item, state: true })
-              }}
+              onClick={() =>
+                modalsDispatch({
+                  type: 'OPEN_EDIT_MODAL',
+                  payload: { product: item }
+                })
+              }
             >
               <FaEdit className={cl.edit_button} />
               <span className={cl.button_tooltip_text}>Редактировать</span>
             </div>
             <div
               className={cl.edit_button_container}
-              onClick={() => {
-                setDeleteModalOpen({ id: item.id ,name: item.name, state: true })
-              }}
+              onClick={() =>
+                modalsDispatch({
+                  type: 'OPEN_DELETE_MODAL',
+                  payload: { id: item.id, name: item.name }
+                })
+              }
             >
               <FaTrash className={cl.edit_button} />
               <span className={cl.button_tooltip_text}>Удалить</span>
