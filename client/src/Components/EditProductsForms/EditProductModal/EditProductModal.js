@@ -25,6 +25,7 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
     async function init () {
       if (!editModal.state && editModal.closed) {
         NewProductFormik.resetForm()
+        NewProductFormik.setFieldValue('state', false)
       }
       if (editModal.state && editModal.product) {
         NewProductFormik.setFieldValue(
@@ -60,6 +61,7 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
       weight: '',
       ingredients: []
     },
+    validateOnChange: true,
     onSubmit: data => {
       const newProduct = Object.fromEntries(
         Object.entries(data).filter(item =>

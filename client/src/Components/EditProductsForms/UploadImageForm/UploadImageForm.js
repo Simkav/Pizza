@@ -19,7 +19,6 @@ export default function UploadImageForm ({ NewProductFormik }) {
   }, [formikValue.image])
 
   const handleChange = file => NewProductFormik.setFieldValue('image', file)
-  
   return (
     <div
       className={cn(

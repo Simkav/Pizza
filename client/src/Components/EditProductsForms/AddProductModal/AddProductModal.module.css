@@ -80,4 +80,7 @@
     order: 0;
     margin: 20px 20px;
   }
+  .input_container {
+    margin: 0 6% 5px 6%;
+  }
 }
