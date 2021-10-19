@@ -3,8 +3,7 @@ import cl from './IngridientContainer.module.css'
 
 export default function IngridientContainer ({
   item,
-  setEditModalOpen,
-  setDeleteModalOpen
+  modalsDispatch
 }) {
   return (
     <div className={cl.ingridient_container}>
@@ -13,7 +12,7 @@ export default function IngridientContainer ({
         <div
           className={cl.edit_button_container}
           onClick={() => {
-            setEditModalOpen({ ...item, state: true })
+            modalsDispatch({type: 'OPEN_EDIT_MODAL', payload: item})
           }}
         >
           <FaEdit className={cl.edit_button} />
@@ -22,7 +21,7 @@ export default function IngridientContainer ({
         <div
           className={cl.edit_button_container}
           onClick={() => {
-            setDeleteModalOpen({ ...item, state: true })
+            modalsDispatch({type: 'OPEN_DELETE_MODAL', payload: item})
           }}
         >
           <FaTrash className={cl.edit_button} />
