@@ -3,21 +3,27 @@ import cl from './AddModal.module.css'
 import cn from 'classnames'
 import { FaTimes, FaCheck } from 'react-icons/fa'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { ingridientsActionCreate } from '../../../Actions/actionCreator'
 
-export default function AddModal ({ visible, setVisible, handleSubmitAdd }) {
+export default function AddModal ({ modalsState, modalsDispatch }) {
+  const dispatch = useDispatch()
   const [newIngridient, setNewIngridient] = useState('')
-  
+
   const handleSubmit = () => {
-    handleSubmitAdd(newIngridient)
+    dispatch(ingridientsActionCreate({ name: newIngridient }))
     handleClose()
   }
 
-  const handleClose = () => setVisible(visible => !visible)
-  const handleClosed = () => setNewIngridient('')
+  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' })
+  const handleClosed = () => {
+    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' })
+    setNewIngridient('')
+  }
 
   return (
     <Modal
-      visible={visible}
+      visible={modalsState.addModal.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
