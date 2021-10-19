@@ -9,11 +9,18 @@ export class CreatePizzaDto {
     description: 'Any image type, with 20mb threshold',
   })
   image: any;
-  @IsNumber()
-  @ApiProperty({ description: 'Weight of created pizza', example: 300 })
+  // THERE MUST BE IsNumber but swagger govno
+  @ApiProperty({
+    description: 'Weight of created pizza',
+    example: 300,
+  })
   weight: number;
-  @IsNumber()
-  @ApiProperty({ description: 'Price of created pizza', example: 300 })
+  // THERE MUST BE IsNumber but swagger govno
+
+  @ApiProperty({
+    description: 'Price of created pizza',
+    example: 300,
+  })
   price: number;
   @IsString()
   @ApiProperty({
@@ -21,5 +28,5 @@ export class CreatePizzaDto {
     description: 'array of numbers in string',
     isArray: true,
   })
-  ingredients: string;
+  ingredients: string | number[]; // TODO fix this
 }
