@@ -1,4 +1,10 @@
-import { CacheModule, Module } from '@nestjs/common';
+import {
+  CacheModule,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { diskStorage } from 'multer';
@@ -6,6 +12,7 @@ import * as path from 'path';
 import { InvalidFileType } from 'src/customErrors/validations';
 import { Ingredient } from 'src/ingredients/ingredients.model';
 import { IngredientsModule } from 'src/ingredients/ingredients.module';
+import { parsePizzaId } from 'src/middlewares/parse-pizza-id.middleware';
 import { PizzaIngredients } from './pizza-ingredients.model';
 import { Pizza } from './pizza.model';
 import { PizzasController } from './pizzas.controller';
@@ -37,4 +44,11 @@ import { PizzasService } from './pizzas.service';
   controllers: [PizzasController],
   providers: [PizzasService],
 })
-export class PizzasModule {}
+export class PizzasModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(parsePizzaId)
+      .exclude('pizzas', { path: 'pizzas/(.*)', method: RequestMethod.GET })
+      .forRoutes(PizzasController);
+  }
+}
