@@ -48,8 +48,7 @@ export default class ProductsCRUDApi {
         'content-type': 'multipart/form-data'
       }
     }
-    formData.append('id', id)
-    formData.append('img', image)
+    formData.append('image', image)
     return this.#_client.patch(this.#_url + id + '/image', formData, config)
   }
 
