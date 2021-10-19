@@ -3,12 +3,16 @@ import cl from './AddModal.module.css'
 import cn from 'classnames'
 import { FaTimes, FaCheck } from 'react-icons/fa'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ingridientsActionCreate } from '../../../Actions/actionCreator'
+import EditIngridientInput from '../EditIngridientInput/EditIngridientInput'
 
 export default function AddModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch()
   const [newIngridient, setNewIngridient] = useState('')
+  const [isInvalid, setIsInvalid] = useState(false)
+
+  const ingridients = useSelector(({ ingridients }) => ingridients.ingridients)
 
   const handleSubmit = () => {
     dispatch(ingridientsActionCreate({ name: newIngridient }))
@@ -19,6 +23,19 @@ export default function AddModal ({ modalsState, modalsDispatch }) {
   const handleClosed = () => {
     modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' })
     setNewIngridient('')
+    setIsInvalid(false)
+  }
+
+  const validate = value => {
+    if (!value) {
+      setIsInvalid('Как минимум один символ')
+    }
+    if (ingridients.find(v => v.name === value)) {
+      setIsInvalid('Такой ингридиент уже существует')
+    } else if (value && !ingridients.find(v => v.name === value)) {
+      setIsInvalid(false)
+    }
+    setNewIngridient(value)
   }
 
   return (
@@ -29,16 +46,14 @@ export default function AddModal ({ modalsState, modalsDispatch }) {
     >
       <div className={cl.add_ingridient_window}>
         <h3 className={cl.modal_title}>Добавить ингридиент</h3>
-        <input
-          placeholder={'Название ингридиента'}
-          type={'text'}
-          className={cl.add_ingridient_input}
-          value={newIngridient}
-          onChange={e => setNewIngridient(e.currentTarget.value)}
+        <EditIngridientInput
+          name={newIngridient}
+          isInvalid={isInvalid}
+          validate={validate}
         />
         <div className={cl.add_window_buttons_container}>
           <button
-            onClick={() => handleSubmit()}
+            onClick={() => (!isInvalid ? handleSubmit() : null)}
             className={cn(cl.add_window_button, cl.apply)}
           >
             <FaCheck></FaCheck>
