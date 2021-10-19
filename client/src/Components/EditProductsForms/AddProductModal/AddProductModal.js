@@ -10,14 +10,15 @@ import { useLayoutEffect } from 'react'
 import { productsActionCreate } from '../../../Actions/actionCreator'
 import { useDispatch, useSelector } from 'react-redux'
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems'
+import EditProductInput from '../EditProductInput/EditProductInput'
 
-export default function AddProductModal ({ visible, setVisible }) {
+export default function AddProductModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch()
   useLayoutEffect(() => {
-    if (!visible) {
+    if (!modalsState.addModal.state && modalsState.addModal.closed) {
       NewProductFormik.resetForm()
     }
-  }, [visible])
+  }, [modalsState.addModal])
 
   const products = useSelector(({ products }) => products.products)
 
@@ -36,21 +37,25 @@ export default function AddProductModal ({ visible, setVisible }) {
         Object.entries(data).filter(item => item[0] !== 'products')
       )
       dispatch(productsActionCreate({ product: newProduct }))
-      setVisible(visible => !visible)
+      handleClose()
     },
     validationSchema: newProductSchema
   })
 
-  const handleCancel = () => {
-    setVisible(visible => !visible)
+  const handleClose = () => {
+    modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' })
   }
 
-  const formikValue = NewProductFormik.values
-  const formikTouched = NewProductFormik.touched
-  const formikError = NewProductFormik.errors
+  const handleClosed = () => {
+    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' })
+  }
 
   return (
-    <Modal visible={visible} handleCancel={handleCancel}>
+    <Modal
+      visible={modalsState.addModal.state}
+      handleClose={handleClose}
+      handleClosed={handleClosed}
+    >
       <form
         className={cl.add_product_window}
         onSubmit={NewProductFormik.handleSubmit}
@@ -61,54 +66,11 @@ export default function AddProductModal ({ visible, setVisible }) {
           <IngridientsChooseForm NewProductFormik={NewProductFormik} />
           <div className={cl.inputs_fields_container}>
             {NewProductFormInputItems.map(item => (
-              <div className={cl.input_container} key={item.name}>
-                <div className={cl.row}>
-                  <div
-                    className={cn(
-                      cl.field_container,
-                      {
-                        [cl.input_empty]: !formikValue[item.name]
-                      },
-                      {
-                        [cl.field_container_valid]:
-                          !formikError[item.name] & formikTouched[item.name]
-                      }
-                    )}
-                  >
-                    <label className={cl.label}>{item.labelText}</label>
-                    <input
-                      type={item.type}
-                      className={cn(
-                        cl.add_product_input,
-                        {
-                          [cl.input_invalid]:
-                            formikTouched[item.name] && formikError[item.name]
-                        },
-                        {
-                          [cl.input_valid]:
-                            !formikError[item.name] && formikTouched[item.name]
-                        }
-                      )}
-                      name={item.name}
-                      onChange={async e => {
-                        await NewProductFormik.setFieldValue(
-                          item.name,
-                          e.target.value
-                        )
-                        await NewProductFormik.validateField(item.name)
-                      }}
-                      onBlur={NewProductFormik.handleBlur}
-                      value={formikValue[item.name]}
-                      autoComplete={'off'}
-                    />
-                  </div>
-                </div>
-                <div className={cn(cl.row, cl.error_text)}>
-                  <span className={cl.input_error_text}>
-                    {formikTouched[item.name] ? formikError[item.name] : ''}
-                  </span>
-                </div>
-              </div>
+              <EditProductInput
+                key={item.name}
+                NewProductFormik={NewProductFormik}
+                item={item}
+              />
             ))}
           </div>
         </div>
@@ -121,7 +83,7 @@ export default function AddProductModal ({ visible, setVisible }) {
           </button>
           <div
             className={cn(cl.add_window_button, cl.cancel)}
-            onClick={() => handleCancel()}
+            onClick={() => handleClose()}
           >
             <FaTimes></FaTimes>
           </div>

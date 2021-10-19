@@ -34,10 +34,9 @@ export const ingridientsActionGet = () => ({
   type: ACTION.INGRIDIENTS_ACTION_GET
 })
 
-export const ingridientsActionRemove = (id, ingridients) => ({
+export const ingridientsActionRemove = (id) => ({
   type: ACTION.INGRIDIENTS_ACTION_REMOVE,
   id: id,
-  ingridients: ingridients
 })
 
 export const ingridientsActionCreate = data => ({
@@ -45,10 +44,9 @@ export const ingridientsActionCreate = data => ({
   data: data
 })
 
-export const ingridientsActionUpdate = (newIngridient, ingridients) => ({
+export const ingridientsActionUpdate = (newIngridient) => ({
   type: ACTION.INGRIDIENTS_ACTION_UPDATE,
   newIngridient: newIngridient,
-  ingridients: ingridients
 })
 
 export const ingridientsActionClearError = () => ({
