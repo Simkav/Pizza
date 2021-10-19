@@ -10,9 +10,8 @@ export default function Modal ({
   return (
     <ReactModal
       isOpen={visible}
-      onAfterClose={() => (handleClosed ? handleClosed() : null)}
+      onAfterClose={() => handleClosed()}
       onRequestClose={() => handleClose()}
-      on
       className={cl.ReactModal_Content}
       shouldFocusAfterRender={false}
       openTimeoutMS={500}
