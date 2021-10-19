@@ -3,30 +3,33 @@ import cl from './DeleteModal.module.css'
 import cn from 'classnames'
 import { FaTimes, FaCheck } from 'react-icons/fa'
 import { useLayoutEffect, useState } from 'react'
+import { ingridientsActionRemove } from '../../../Actions/actionCreator'
+import { useDispatch } from 'react-redux'
 
-export default function DeleteModal ({
-  visible,
-  setVisible,
-  id,
-  name,
-  handleSubmitRemove
-}) {
-  const [removeIngridient, setRemoveIngridient] = useState(name)
+export default function DeleteModal ({ modalsState, modalsDispatch }) {
+  const dispatch = useDispatch()
+  const [removeIngridient, setRemoveIngridient] = useState(
+    modalsState.deleteModal.name
+  )
 
   useLayoutEffect(() => {
-    if (!removeIngridient) setRemoveIngridient(name)
-  }, [name])
+    if (!removeIngridient) setRemoveIngridient(modalsState.deleteModal.name)
+  }, [modalsState.deleteModal.name])
+
   const handleSubmit = () => {
-    handleSubmitRemove(id)
+    dispatch(ingridientsActionRemove(modalsState.deleteModal.id))
     handleClose()
   }
-  
-  const handleClose = () => setVisible(visible => !visible)
-  const handleClosed = () => setRemoveIngridient('')
+
+  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_DELETE_MODAL' })
+  const handleClosed = () => {
+    modalsDispatch({ type: 'ON_DELETE_MODAL_CLOSED' })
+    setRemoveIngridient('')
+  }
 
   return (
     <Modal
-      visible={visible}
+      visible={modalsState.deleteModal.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
