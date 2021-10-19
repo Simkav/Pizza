@@ -8,7 +8,6 @@ import EditProductModal from '../EditProductModal/EditProductModal'
 
 export default function ProductModals ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch()
-
   const isError = useSelector(({ products }) => products.error)
 
   return (
@@ -16,7 +15,7 @@ export default function ProductModals ({ modalsState, modalsDispatch }) {
       {isError ? (
         <ErrorModal
           error={isError}
-          clearError={dispatch(productsActionClearError)}
+          clearError={() => dispatch(productsActionClearError())}
         />
       ) : null}
       <AddProductModal
