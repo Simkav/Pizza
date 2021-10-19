@@ -1,4 +1,4 @@
-import { RequestWithUserIngredient } from './../../dist/types/requestWithUser.d';
+import { RequestWithUserIngredient } from './../types/requests';
 import { ValidationPipe } from './../pipes/validation.pipe';
 import {
   Controller,
@@ -18,33 +18,35 @@ import { IngredientsService } from './ingredients.service';
 @Controller('ingredients')
 @ApiTags('ingredients')
 export class IngredientsController {
-  constructor(private ingredientService: IngredientsService) {}
+  constructor (private ingredientService: IngredientsService) {}
   @Get()
-  async getAll() {
+  async getAll () {
     return await this.ingredientService.getAll();
   }
   @Get('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async getById(@Req() req: RequestWithUserIngredient) {
+  async getById (@Req() req: RequestWithUserIngredient) {
     return req.ingredientInstance;
   }
   @Post()
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async create(@Body(new ValidationPipe()) ingredientDto: CreateIngredientDto) {
+  async create (
+    @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
+  ) {
     return await this.ingredientService.create(ingredientDto);
   }
   @Delete('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async deleteById(@Req() req: RequestWithUserIngredient) {
+  async deleteById (@Req() req: RequestWithUserIngredient) {
     return await this.ingredientService.destroyInstance(req.ingredientInstance);
   }
   @Patch('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async updateIngredient(
+  async updateIngredient (
     @Req() req: RequestWithUserIngredient,
     @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
   ) {
