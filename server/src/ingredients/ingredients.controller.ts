@@ -1,12 +1,14 @@
+import { RequestWithUserIngredient } from './../../dist/types/requestWithUser.d';
+import { ValidationPipe } from './../pipes/validation.pipe';
 import {
   Controller,
   Get,
-  Param,
   Post,
   Body,
   Delete,
   Patch,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
@@ -24,30 +26,31 @@ export class IngredientsController {
   @Get('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async getById(@Param('id') id: number) {
-    return await this.ingredientService.findById(id);
+  async getById(@Req() req: RequestWithUserIngredient) {
+    return req.ingredientInstance;
   }
   @Post()
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async create(@Body() ingredientDto: CreateIngredientDto) {
+  async create(@Body(new ValidationPipe()) ingredientDto: CreateIngredientDto) {
     return await this.ingredientService.create(ingredientDto);
   }
   @Delete('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async deleteById(@Param('id') id: number) {
-    const ingredient = await this.ingredientService.findById(id);
-    return await this.ingredientService.destroyInstance(ingredient);
+  async deleteById(@Req() req: RequestWithUserIngredient) {
+    return await this.ingredientService.destroyInstance(req.ingredientInstance);
   }
   @Patch('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
   async updateIngredient(
-    @Param('id') id: number,
-    @Body() ingredientDto: CreateIngredientDto,
+    @Req() req: RequestWithUserIngredient,
+    @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
   ) {
-    const ingredient = await this.ingredientService.findById(id);
-    return await this.ingredientService.update(ingredient, ingredientDto);
+    return await this.ingredientService.update(
+      req.ingredientInstance,
+      ingredientDto,
+    );
   }
 }

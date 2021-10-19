@@ -1,19 +1,32 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNumber } from 'class-validator';
 export class CreatePizzaDto {
-  @ApiProperty()
+  @IsString()
+  @ApiProperty({ description: 'Name of created pizza', example: 'Pizza Yolo' })
   name: string;
   @ApiProperty({
-    format: 'binary',
+    type: 'file',
+    description: 'Any image type, with 20mb threshold',
   })
-  image: string; //TODO pofixit string?/?????///?/
-  @ApiProperty()
+  image: any;
+  // THERE MUST BE IsNumber but swagger govno
+  @ApiProperty({
+    description: 'Weight of created pizza',
+    example: 300,
+  })
   weight: number;
-  @ApiProperty()
+  // THERE MUST BE IsNumber but swagger govno
+
+  @ApiProperty({
+    description: 'Price of created pizza',
+    example: 300,
+  })
   price: number;
+  @IsString()
   @ApiProperty({
     example: '[1,2,3,4,5,6]',
     description: 'array of numbers in string',
     isArray: true,
   })
-  ingredients: string;
+  ingredients: string | number[]; // TODO fix this
 }

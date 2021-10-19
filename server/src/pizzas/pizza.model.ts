@@ -4,6 +4,7 @@ import {
   Column,
   DataType,
   BelongsToMany,
+  BeforeSave,
 } from 'sequelize-typescript';
 import { Ingredient } from 'src/ingredients/ingredients.model';
 import { PizzaIngredients } from './pizza-ingredients.model';
@@ -14,6 +15,9 @@ interface PizzaCreatioAttributes {
   weight: number;
   image: string;
 }
+
+const pizzasPath = '/pizzas/';
+
 @Table({ tableName: 'pizzas' })
 export class Pizza extends Model<Pizza, PizzaCreatioAttributes> {
   @Column({
@@ -38,4 +42,11 @@ export class Pizza extends Model<Pizza, PizzaCreatioAttributes> {
 
   @Column({ type: DataType.STRING, allowNull: false, unique: true })
   name: string;
+
+  @BeforeSave({ name: 'append image path' })
+  static async appendImage(instance: Pizza) {
+    if (instance.changed('image')) {
+      instance.image = pizzasPath + instance.image;
+    }
+  }
 }
