@@ -77,8 +77,8 @@ export class PizzasService {
     const findedIngredients = await this.ingredientsService.findMany(
       createPizzaDto.ingredients,
     );
-    this.setCachedPizzas();
     await Pizza.$set('ingredients', findedIngredients);
+    this.setCachedPizzas();
     return { Pizza, ingredients: findedIngredients };
   }
 
