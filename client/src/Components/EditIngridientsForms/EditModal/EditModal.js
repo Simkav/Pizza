@@ -3,25 +3,37 @@ import cl from './EditModal.module.css'
 import cn from 'classnames'
 import { FaTimes, FaCheck } from 'react-icons/fa'
 import { useLayoutEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { ingridientsActionUpdate } from '../../../Actions/actionCreator'
 
-export default function EditModal ({
-  visible,
-  setVisible,
-  id,
-  name = '',
-  handleSubmitEdit
-}) {
-  const [newName, setNewName] = useState(name)
+export default function EditModal ({ modalsState, modalsDispatch }) {
+  const dispatch = useDispatch()
+  const [newName, setNewName] = useState(modalsState.editModal.name)
 
   useLayoutEffect(() => {
-    if (!newName) setNewName(name)
-  }, [name])
+    if (modalsState.editModal.state && !newName) {
+      setNewName(modalsState.editModal.name)
+    }
+  }, [modalsState.editModal])
 
-  const handleClose = () => setVisible(visible => !visible)
-  const handleClosed = () => setNewName('')
+  const handleSubmit = () => {
+    const editableIngridient = { id: modalsState.editModal.id, name: newName }
+    dispatch(ingridientsActionUpdate(editableIngridient))
+    handleClose()
+  }
+
+  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_EDIT_MODAL' })
+  const handleClosed = () => {
+    modalsDispatch({ type: 'ON_EDIT_MODAL_CLOSED' })
+    setNewName('')
+  }
 
   return (
-    <Modal visible={visible} handleClose={handleClose} handleClosed={handleClosed}>
+    <Modal
+      visible={modalsState.editModal.state}
+      handleClose={handleClose}
+      handleClosed={handleClosed}
+    >
       <div className={cl.edit_ingridient_window}>
         <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
         <input
@@ -33,7 +45,7 @@ export default function EditModal ({
         />
         <div className={cl.edit_window_buttons_container}>
           <button
-            onClick={() => handleSubmitEdit({ name: newName, id: id })}
+            onClick={() => handleSubmit()}
             className={cn(cl.edit_window_button, cl.apply)}
           >
             <FaCheck />
