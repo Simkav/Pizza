@@ -12,7 +12,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './users/users.model';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { PizzasModule } from './pizzas/pizzas.module';
-import { parseAuth } from './auth/parse-auth.middleware';
+import { parseAuth } from './middlewares/parse-auth.middleware';
 import { PizzasController } from './pizzas/pizzas.controller';
 import { IngredientsController } from './ingredients/ingredients.controller';
 
