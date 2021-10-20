@@ -12,7 +12,7 @@ export default function EditProduct ({ item, ingridients, modalsDispatch }) {
           <ProductImage item={item} />
           <h3>{item.name}</h3>
           <ProductIngridients item={item} ingridients={ingridients} />
-          <ProductFooter weight={item.weight} price={item.price} />
+          <ProductFooter item={item} />
           <div className={cl.product_edit_buttons_container}>
             <div
               className={cl.edit_button_container}
