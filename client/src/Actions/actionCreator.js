@@ -75,3 +75,18 @@ export const productsActionUpdate = (newProduct) => ({
 export const productsActionClearError = () => ({
   type: ACTION.PRODUCTS_ACTION_CLEAR_ERROR
 })
+
+export const cartActionAdd = data => ({
+  type: ACTION.CART_ACTION_ADD_ITEM,
+  data: data
+})
+
+export const cartActionRemove = data => ({
+  type: ACTION.CART_ACTION_REMOVE_ITEM,
+  data: data
+})
+
+export const cartActionUpdate = data => ({
+  type: ACTION.CART_ACTION_UPDATE_ITEM,
+  data: data
+})
