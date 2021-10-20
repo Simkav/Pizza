@@ -78,7 +78,7 @@
 }
 
 .field_container_valid::after {
-  opacity: 100%;
+  opacity: 1;
   position: absolute;
   right: -25px;
   color: green;
