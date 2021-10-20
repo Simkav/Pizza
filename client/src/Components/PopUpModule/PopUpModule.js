@@ -1,4 +1,3 @@
-import React from "react";
 import cl from "./PopUpModule.module.css";
 import cn from "classnames";
 
