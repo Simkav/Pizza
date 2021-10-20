@@ -27,7 +27,7 @@
 .arrow_down {
   box-sizing: border-box;
   margin: 0px 15px;
-  border: 0px solid var(--hover-main-color);
+  border: 1px solid transparent;
   border-radius: 50%;
   transition: border var(--arrow-down-grow-animation-time) ease,
     transform var(--arrow-down-grow-animation-time) ease;
@@ -36,9 +36,8 @@
 .arrow_active {
   box-sizing: border-box;
   transform: rotateX(180deg);
-  border: 5px solid var(--hover-main-color);
+  border: 5px solid transparent;
   border-radius: 5px;
-  background: var(--hover-main-color);
 }
 
 .contact_phone_container {
