@@ -1,3 +1,4 @@
+import { SequelizeFilter } from './../errorHandlers/sequelize-handler';
 import { RequestWithUserIngredient } from './../types/requests';
 import { ValidationPipe } from './../pipes/validation.pipe';
 import {
@@ -9,12 +10,14 @@ import {
   Patch,
   UseGuards,
   Req,
+  UseFilters,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { IngredientsService } from './ingredients.service';
 
+@UseFilters(new SequelizeFilter())
 @Controller('ingredients')
 @ApiTags('ingredients')
 export class IngredientsController {

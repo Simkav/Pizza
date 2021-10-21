@@ -1,4 +1,4 @@
-import { ApiConsumes, ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { SequelizeFilter } from './../errorHandlers/sequelize-handler';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import {
   Controller,
@@ -12,6 +12,7 @@ import {
   UploadedFile,
   UseGuards,
   Req,
+  UseFilters,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePizzaDto } from './dto/create-pizza.dto';
@@ -21,7 +22,7 @@ import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CreatePizzaPipe } from 'src/pipes/create-pizza.pipe';
 import { RequestWithUserPizza } from 'src/types/requests';
-
+@UseFilters(new SequelizeFilter())
 @Controller('pizzas')
 @ApiTags('pizza')
 export class PizzasController {
