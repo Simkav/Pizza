@@ -12,7 +12,7 @@ import {
   Req,
   UseFilters,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { IngredientsService } from './ingredients.service';
@@ -21,35 +21,36 @@ import { IngredientsService } from './ingredients.service';
 @Controller('ingredients')
 @ApiTags('ingredients')
 export class IngredientsController {
-  constructor (private ingredientService: IngredientsService) {}
+  constructor(private ingredientService: IngredientsService) {}
   @Get()
-  async getAll () {
+  async getAll() {
     return await this.ingredientService.getAll();
-  }
-  @Get('/:id')
-  @UseGuards(isAdminGuard)
-  @ApiBearerAuth()
-  async getById (@Req() req: RequestWithUserIngredient) {
-    return req.ingredientInstance;
   }
   @Post()
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async create (
-    @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
-  ) {
+  async create(@Body(new ValidationPipe()) ingredientDto: CreateIngredientDto) {
     return await this.ingredientService.create(ingredientDto);
+  }
+  @Get('/:id')
+  @UseGuards(isAdminGuard)
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', type: Number })
+  async getById(@Req() req: RequestWithUserIngredient) {
+    return req.ingredientInstance;
   }
   @Delete('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async deleteById (@Req() req: RequestWithUserIngredient) {
+  @ApiParam({ name: 'id', type: Number })
+  async deleteById(@Req() req: RequestWithUserIngredient) {
     return await this.ingredientService.destroyInstance(req.ingredientInstance);
   }
   @Patch('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async updateIngredient (
+  @ApiParam({ name: 'id', type: Number })
+  async updateIngredient(
     @Req() req: RequestWithUserIngredient,
     @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
   ) {
