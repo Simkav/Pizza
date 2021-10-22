@@ -17,9 +17,9 @@ after_start:
 start: ## Init db and run server
 	./wait_for.bash pizza-postgres-db-service:5432 -s -- make after_start  
 
-init_db: db_create migrations_run seeds_run ## Create db run migrations and upload seeds
+init_db: migrations_run seeds_run ## Create db run migrations and upload seeds
 
-reinit_db: db_drop init_db ## Drop db and init
+reinit_db: db_drop db_create init_db ## Drop db and init
 
 run_dev: ## Run server in dev
 	yarn start:dev
