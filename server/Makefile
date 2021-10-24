@@ -23,6 +23,11 @@ reinit_db: db_drop db_create init_db ## Drop db and init
 
 run_dev: ## Run server in dev
 	yarn start:dev
+
+run_prod: ## Run prod server
+	yarn build
+	yarn start:prod
+
 wait_for_db: ## Wait until db will be ready for connection
 	./wait_for.bash pizza-postgres-db-service:5432 -- echo "db ready for connections"
 
