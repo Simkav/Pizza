@@ -1,0 +1,13 @@
+.cart_container {
+  left: 270px;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+  flex: 1 1 100%;
+  justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  list-style-type: none;
+  transition: left 1s ease;
+}
