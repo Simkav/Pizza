@@ -1,4 +1,11 @@
-import { ApiConsumes, ApiTags, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { SequelizeFilter } from './../errorHandlers/sequelize-handler';
+import {
+  ApiConsumes,
+  ApiTags,
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+} from '@nestjs/swagger';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import {
   Controller,
@@ -12,6 +19,7 @@ import {
   UploadedFile,
   UseGuards,
   Req,
+  UseFilters,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePizzaDto } from './dto/create-pizza.dto';
@@ -22,6 +30,7 @@ import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CreatePizzaPipe } from 'src/pipes/create-pizza.pipe';
 import { RequestWithUserPizza } from 'src/types/requests';
 
+@UseFilters(new SequelizeFilter())
 @Controller('pizzas')
 @ApiTags('pizza')
 export class PizzasController {
@@ -40,13 +49,15 @@ export class PizzasController {
   @Delete('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async delete (@Req() req: RequestWithUserPizza) {
+  @ApiParam({ name: 'id', type: Number })
+  async delete(@Req() req: RequestWithUserPizza) {
     return await this.pizzaService.deleteInstance(req.pizzaInstance);
   }
   @Patch('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async update (
+  @ApiParam({ name: 'id', type: Number })
+  async update(
     @Body(new ValidationPipe()) updatePizzaDto: UpdatePizzaDto,
     @Req() req: RequestWithUserPizza,
   ) {
@@ -60,7 +71,7 @@ export class PizzasController {
   @UseInterceptors(FileInterceptor('image'))
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
-  async create (
+  async create(
     @Body(new ValidationPipe(), new CreatePizzaPipe())
     createPizzaDto: CreatePizzaDto,
     @UploadedFile() image: Express.Multer.File,
@@ -72,6 +83,7 @@ export class PizzasController {
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   @ApiBearerAuth()
+  @ApiParam({ name: 'id', type: Number })
   @ApiBody({
     schema: {
       type: 'object',
@@ -84,7 +96,7 @@ export class PizzasController {
       },
     },
   })
-  async updateImg (
+  async updateImg(
     @UploadedFile() image: Express.Multer.File,
     @Req() req: RequestWithUserPizza,
   ) {
@@ -92,8 +104,9 @@ export class PizzasController {
   }
   @UseGuards(isAdminGuard)
   @Patch('/:id/ingredients')
+  @ApiParam({ name: 'id', type: Number })
   @ApiBearerAuth()
-  async updateIngredients (
+  async updateIngredients(
     @Body(new ValidationPipe()) updateIngredientsDto: UpdateIngredientsDto,
     @Req() req: RequestWithUserPizza,
   ) {
