@@ -11,22 +11,17 @@
   --popup-min-width: 100px;
   --popup-min-height: 100px;
   --popup-main-color: rgb(255, 255, 255);
-
-  position: absolute;
-  top: 90px;
-  bottom: 0;
-  height: fit-content;
-  max-height: calc(100% - 90px);
-
-  overflow-x: auto;
-
+  
   display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
+  z-index: +1;
   top: var(--header-height);
   min-width: var(--popup-min-width);
   min-height: var(--popup-min-height);
+  height: fit-content;
+  max-height: calc(100% - 90px);
   background: var(--popup-main-color);
   border-radius: 10px;
   box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
@@ -95,5 +90,11 @@
     min-height: 100%;
     
     width: 100%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .popup_children {
+    padding: 5px;
   }
 }
