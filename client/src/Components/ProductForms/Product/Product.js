@@ -4,7 +4,7 @@ import ProductIngridients from '../ProductIngridients/ProductIngridients';
 import ProductFooter from '../ProductFooter/ProductFooter';
 import { useState } from 'react';
 
-export default function Product ({ setIsOrdered, item, ingridients }) {
+export default function Product({ setIsOrdered, item, ingridients }) {
   const [isHovered, setHovered] = useState(false);
 
   return (

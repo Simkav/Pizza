@@ -1,35 +1,38 @@
-import { FaCartPlus } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import cl from './ProductFooter.module.css'
-import { cartActionAdd, cartActionUpdate } from '../../../Actions/actionCreator'
+import { FaCartPlus } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import cl from './ProductFooter.module.css';
+import {
+  cartActionAdd,
+  cartActionUpdate,
+} from '../../../Actions/actionCreator';
 
-export default function ProductFooter ({ isHovered ,setIsOrdered, item }) {
-  const dispatch = useDispatch()
-  const cart = useSelector(({ cart }) => cart.cartItems)
+export default function ProductFooter({ isHovered, setIsOrdered, item }) {
+  const dispatch = useDispatch();
+  const cart = useSelector(({ cart }) => cart.cartItems);
 
-  const handleCount = id => {
-    const isExist = cart.find(v => v.id === id)
+  const handleCount = (id) => {
+    const isExist = cart.find((v) => v.id === id);
     if (cart && isExist) {
-      const result = cart.map(v => {
+      const result = cart.map((v) => {
         if (v.id === id) {
-          const currentCount = v.count
-          return { ...v, count: currentCount + 1 }
+          const currentCount = v.count;
+          return { ...v, count: currentCount + 1 };
         } else {
-          return v
+          return v;
         }
-      })
-      dispatch(cartActionUpdate(result))
-      window.localStorage.setItem('cart', JSON.stringify(result))
+      });
+      dispatch(cartActionUpdate(result));
+      window.localStorage.setItem('cart', JSON.stringify(result));
     } else {
-      const newCartItem = { id: id, count: 1 }
-      dispatch(cartActionAdd({ ...newCartItem }))
+      const newCartItem = { id: id, count: 1 };
+      dispatch(cartActionAdd({ ...newCartItem }));
       window.localStorage.setItem(
         'cart',
-        JSON.stringify([...cart, newCartItem])
-      )
+        JSON.stringify([...cart, newCartItem]),
+      );
     }
-    setIsOrdered(true)
-  }
+    setIsOrdered(true);
+  };
 
   return (
     <div className={cl.product_footer}>
@@ -47,5 +50,5 @@ export default function ProductFooter ({ isHovered ,setIsOrdered, item }) {
         </div>
       ) : null}
     </div>
-  )
+  );
 }

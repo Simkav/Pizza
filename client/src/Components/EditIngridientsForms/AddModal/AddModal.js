@@ -1,42 +1,42 @@
-import Modal from '../../Modal/Modal'
-import cl from './AddModal.module.css'
-import cn from 'classnames'
-import { FaTimes, FaCheck } from 'react-icons/fa'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { ingridientsActionCreate } from '../../../Actions/actionCreator'
-import EditIngridientInput from '../EditIngridientInput/EditIngridientInput'
+import Modal from '../../Modal/Modal';
+import cl from './AddModal.module.css';
+import cn from 'classnames';
+import { FaTimes, FaCheck } from 'react-icons/fa';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ingridientsActionCreate } from '../../../Actions/actionCreator';
+import EditIngridientInput from '../EditIngridientInput/EditIngridientInput';
 
-export default function AddModal ({ modalsState, modalsDispatch }) {
-  const dispatch = useDispatch()
-  const [newIngridient, setNewIngridient] = useState('')
-  const [isInvalid, setIsInvalid] = useState(false)
+export default function AddModal({ modalsState, modalsDispatch }) {
+  const dispatch = useDispatch();
+  const [newIngridient, setNewIngridient] = useState('');
+  const [isInvalid, setIsInvalid] = useState(false);
 
-  const ingridients = useSelector(({ ingridients }) => ingridients.ingridients)
+  const ingridients = useSelector(({ ingridients }) => ingridients.ingridients);
 
   const handleSubmit = () => {
-    dispatch(ingridientsActionCreate({ name: newIngridient }))
-    handleClose()
-  }
+    dispatch(ingridientsActionCreate({ name: newIngridient }));
+    handleClose();
+  };
 
-  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' })
+  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' });
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' })
-    setNewIngridient('')
-    setIsInvalid(false)
-  }
+    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' });
+    setNewIngridient('');
+    setIsInvalid(false);
+  };
 
-  const validate = value => {
+  const validate = (value) => {
     if (!value) {
-      setIsInvalid('Как минимум один символ')
+      setIsInvalid('Как минимум один символ');
     }
-    if (ingridients.find(v => v.name === value)) {
-      setIsInvalid('Такой ингридиент уже существует')
-    } else if (value && !ingridients.find(v => v.name === value)) {
-      setIsInvalid(false)
+    if (ingridients.find((v) => v.name === value)) {
+      setIsInvalid('Такой ингридиент уже существует');
+    } else if (value && !ingridients.find((v) => v.name === value)) {
+      setIsInvalid(false);
     }
-    setNewIngridient(value)
-  }
+    setNewIngridient(value);
+  };
 
   return (
     <Modal
@@ -67,5 +67,5 @@ export default function AddModal ({ modalsState, modalsDispatch }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

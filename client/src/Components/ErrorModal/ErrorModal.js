@@ -1,18 +1,18 @@
-import Modal from '../Modal/Modal'
-import cl from './ErrorModal.module.css'
-import cn from 'classnames'
-import { FaCheck } from 'react-icons/fa'
-import { useEffect, useState } from 'react'
+import Modal from '../Modal/Modal';
+import cl from './ErrorModal.module.css';
+import cn from 'classnames';
+import { FaCheck } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 
-export default function ErrorModal ({ error, clearError }) {
-  const [isErrorModalOpen, setErrorModalOpen] = useState(true)
+export default function ErrorModal({ error, clearError }) {
+  const [isErrorModalOpen, setErrorModalOpen] = useState(true);
   useEffect(() => {
     return () => {
-      clearError()
-    }
-  }, [error])
-  const handleClose = () => setErrorModalOpen(visible => !visible)
-  const handleClosed = () => clearError()
+      clearError();
+    };
+  }, [error]);
+  const handleClose = () => setErrorModalOpen((visible) => !visible);
+  const handleClosed = () => clearError();
 
   return (
     <Modal
@@ -26,7 +26,7 @@ export default function ErrorModal ({ error, clearError }) {
         <div className={cl.error_window_buttons_container}>
           <div
             onClick={() =>
-              setErrorModalOpen(isErrorModalOpen => !isErrorModalOpen)
+              setErrorModalOpen((isErrorModalOpen) => !isErrorModalOpen)
             }
             className={cn(cl.error_window_button, cl.apply)}
           >
@@ -35,5 +35,5 @@ export default function ErrorModal ({ error, clearError }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

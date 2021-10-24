@@ -1,8 +1,7 @@
-import cl from './EditIngridientInput.module.css'
-import cn from 'classnames'
+import cl from './EditIngridientInput.module.css';
+import cn from 'classnames';
 
-export default function EditIngridientInput ({name, isInvalid, validate}) {
-
+export default function EditIngridientInput({ name, isInvalid, validate }) {
   return (
     <div className={cl.input_container}>
       <div className={cl.row}>
@@ -10,12 +9,11 @@ export default function EditIngridientInput ({name, isInvalid, validate}) {
           className={cn(
             cl.field_container,
             {
-              [cl.input_empty]: !name
+              [cl.input_empty]: !name,
             },
             {
-              [cl.field_container_valid]:
-                !isInvalid && name
-            }
+              [cl.field_container_valid]: !isInvalid && name,
+            },
           )}
         >
           <label className={cl.label}>{'Название ингридиента'}</label>
@@ -24,13 +22,11 @@ export default function EditIngridientInput ({name, isInvalid, validate}) {
             className={cn(
               cl.add_product_input,
               {
-                [cl.input_invalid]:
-                  isInvalid
+                [cl.input_invalid]: isInvalid,
               },
               {
-                [cl.input_valid]:
-                  !isInvalid
-              }
+                [cl.input_valid]: !isInvalid,
+              },
             )}
             onChange={(e) => validate(e.currentTarget.value)}
             value={name}
@@ -44,5 +40,5 @@ export default function EditIngridientInput ({name, isInvalid, validate}) {
         </span>
       </div>
     </div>
-  )
+  );
 }

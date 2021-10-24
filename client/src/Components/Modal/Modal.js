@@ -1,7 +1,7 @@
 import cl from './Modal.module.css';
 import ReactModal from 'react-modal';
 
-export default function Modal ({
+export default function Modal({
   children,
   visible,
   handleClose,

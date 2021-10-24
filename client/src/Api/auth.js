@@ -1,76 +1,76 @@
-import CONSTANTS from '../constants'
+import CONSTANTS from '../constants';
 
 export default class AuthApi {
-  #_client
-  #_url
-  #_accessToken
+  #_client;
+  #_url;
+  #_accessToken;
 
-  constructor (client) {
-    this.#_client = client
-    this.#_url = 'auth/'
-    this.#_accessToken = null
+  constructor(client) {
+    this.#_client = client;
+    this.#_url = 'auth/';
+    this.#_accessToken = null;
 
-    this.#_client.interceptors.request.use(this.requestInterceptor, err =>
-      Promise.reject(err)
-    )
+    this.#_client.interceptors.request.use(this.requestInterceptor, (err) =>
+      Promise.reject(err),
+    );
     this.#_client.interceptors.response.use(
       this.responseInterceptor,
-      this.responseInterceptorError
-    )
+      this.responseInterceptorError,
+    );
   }
-  signIn = async data => this.#_client.post(`${this.#_url}login`, data)
+  signIn = async (data) => this.#_client.post(`${this.#_url}login`, data);
 
-  signUp = async data => this.#_client.post(`${this.#_url}register`, data)
+  signUp = async (data) => this.#_client.post(`${this.#_url}register`, data);
 
-  refresh = async data => this.#_client.post(`${this.#_url}refresh`, data)
+  refresh = async (data) => this.#_client.post(`${this.#_url}refresh`, data);
 
   logout = () => {
-    window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN)
-    this.#_accessToken = null
-  }
+    window.localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
+    this.#_accessToken = null;
+  };
 
-  requestInterceptor = config => {
+  requestInterceptor = (config) => {
     if (this.#_accessToken) {
-      config.headers['Authorization'] = `Bearer ${this.#_accessToken}`
+      config.headers['Authorization'] = `Bearer ${this.#_accessToken}`;
     }
-    return config
-  }
+    return config;
+  };
 
   _saveTokenPair = ({ refreshToken, accesToken }) => {
-    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refreshToken)
-    this.#_accessToken = accesToken
-  }
+    window.localStorage.setItem(CONSTANTS.REFRESH_TOKEN, refreshToken);
+    this.#_accessToken = accesToken;
+  };
 
-  responseInterceptor = async response => {
+  responseInterceptor = async (response) => {
     const {
-      config: { url }
-    } = response
+      config: { url },
+    } = response;
     if (url.includes(this.#_url)) {
-      const {data} = response
-      this._saveTokenPair(data)
+      const { data } = response;
+      this._saveTokenPair(data);
     }
-    return response
-  }
+    return response;
+  };
 
-  responseInterceptorError = async error => {
+  responseInterceptorError = async (error) => {
     const {
       config,
-      response: { status }
-    } = error
-    const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
+      response: { status },
+    } = error;
+    const refreshToken = window.localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
     if (status === 419 && refreshToken) {
-      const {data} = await this.refresh({ token: refreshToken })
+      const { data } = await this.refresh({ token: refreshToken });
 
-      this._saveTokenPair(data)
+      this._saveTokenPair(data);
 
-      config.headers['Authorization'] = `Bearer ${data.refreshToken}`
-      return this.#_client(config)
+      config.headers['Authorization'] = `Bearer ${data.refreshToken}`;
+      return this.#_client(config);
     }
 
     if (status === 401 && refreshToken) {
-      this.logout()
+      this.logout();
     }
 
-    return Promise.reject(error)
-  }
+    return Promise.reject(error);
+  };
 }

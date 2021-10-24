@@ -1,10 +1,10 @@
-import { FaEdit, FaTrash } from 'react-icons/fa'
-import ProductFooter from '../../ProductForms/ProductFooter/ProductFooter'
-import ProductImage from '../../ProductForms/ProductImage/ProductImage'
-import ProductIngridients from '../../ProductForms/ProductIngridients/ProductIngridients'
-import cl from './EditProduct.module.css'
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import ProductFooter from '../../ProductForms/ProductFooter/ProductFooter';
+import ProductImage from '../../ProductForms/ProductImage/ProductImage';
+import ProductIngridients from '../../ProductForms/ProductIngridients/ProductIngridients';
+import cl from './EditProduct.module.css';
 
-export default function EditProduct ({ item, ingridients, modalsDispatch }) {
+export default function EditProduct({ item, ingridients, modalsDispatch }) {
   return (
     <li key={item.id} className={cl.product}>
       {
@@ -19,7 +19,7 @@ export default function EditProduct ({ item, ingridients, modalsDispatch }) {
               onClick={() =>
                 modalsDispatch({
                   type: 'OPEN_EDIT_MODAL',
-                  payload: { product: item }
+                  payload: { product: item },
                 })
               }
             >
@@ -31,7 +31,7 @@ export default function EditProduct ({ item, ingridients, modalsDispatch }) {
               onClick={() =>
                 modalsDispatch({
                   type: 'OPEN_DELETE_MODAL',
-                  payload: { id: item.id, name: item.name }
+                  payload: { id: item.id, name: item.name },
                 })
               }
             >
@@ -42,5 +42,5 @@ export default function EditProduct ({ item, ingridients, modalsDispatch }) {
         </div>
       }
     </li>
-  )
+  );
 }

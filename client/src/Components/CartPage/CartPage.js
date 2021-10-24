@@ -1,7 +1,5 @@
-import cl from './CartPage.module.css'
+import cl from './CartPage.module.css';
 
-export default function CartPage () {
-  return (
-    <div className={cl.cart_container}>TEST</div>
-  )
+export default function CartPage() {
+  return <div className={cl.cart_container}>TEST</div>;
 }

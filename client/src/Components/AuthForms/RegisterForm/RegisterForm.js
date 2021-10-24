@@ -19,7 +19,7 @@ export default function RegisterForm() {
 
   const { authActionRegister, authActionClearError } = bindActionCreators(
     ActionCreators,
-    dispatch
+    dispatch,
   );
 
   const history = useHistory();
@@ -58,7 +58,7 @@ export default function RegisterForm() {
                   {
                     [cl.field_container_valid]:
                       !formikError[item.name] & formikTouched[item.name],
-                  }
+                  },
                 )}
               >
                 <label className={cl.label}>{item.labelText}</label>
@@ -73,7 +73,7 @@ export default function RegisterForm() {
                     {
                       [cl.input_valid]:
                         !formikError[item.name] && formikTouched[item.name],
-                    }
+                    },
                   )}
                   name={item.name}
                   onChange={RegisterFormik.handleChange}

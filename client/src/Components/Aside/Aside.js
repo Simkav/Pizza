@@ -1,15 +1,21 @@
-import React from "react";
-import cl from "./Aside.module.css";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { AsideMenuList } from "../../Helpers/AsideMenuItemList";
-import cn from "classnames"
+import React from 'react';
+import cl from './Aside.module.css';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { AsideMenuList } from '../../Helpers/AsideMenuItemList';
+import cn from 'classnames';
 
 export default function Aside() {
-  const hamburgerMenuState = useSelector(({hamburgerMenu : {isOpened}}) => isOpened);
+  const hamburgerMenuState = useSelector(
+    ({ hamburgerMenu: { isOpened } }) => isOpened,
+  );
 
   return (
-    <aside className={cn(cl.aside_container, {[cl.aside_active]: hamburgerMenuState})}>
+    <aside
+      className={cn(cl.aside_container, {
+        [cl.aside_active]: hamburgerMenuState,
+      })}
+    >
       <ul className={cl.main_navigation_menu}>
         {AsideMenuList.map((item) => {
           return (

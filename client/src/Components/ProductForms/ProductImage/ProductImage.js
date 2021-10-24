@@ -1,8 +1,8 @@
 import React from 'react';
 import CONSTANTS from '../../../constants';
-import cl from './ProductImage.module.css'
+import cl from './ProductImage.module.css';
 
-export default function ProductImage({item}) {
+export default function ProductImage({ item }) {
   return (
     <div className={cl.product_image_container}>
       <img

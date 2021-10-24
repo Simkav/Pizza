@@ -8,7 +8,7 @@ import CONSTANTS from '../../../constants';
 import { cartActionUpdate } from '../../../Actions/actionCreator';
 import { Link } from 'react-router-dom';
 
-export default function HeaderCartPopUp () {
+export default function HeaderCartPopUp() {
   const dispatch = useDispatch();
   const [cartPopUp, setCartPopUp] = useState(false);
   const products = useSelector(({ products }) => products.products);

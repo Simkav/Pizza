@@ -10,7 +10,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const hamburgerMenuState = useSelector(
-    ({ hamburgerMenu: { isOpened } }) => isOpened
+    ({ hamburgerMenu: { isOpened } }) => isOpened,
   );
 
   const hamburgerMenuToggle = () => {

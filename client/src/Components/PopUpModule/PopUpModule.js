@@ -1,5 +1,5 @@
-import cl from "./PopUpModule.module.css";
-import cn from "classnames";
+import cl from './PopUpModule.module.css';
+import cn from 'classnames';
 
 export default function PopUpModule({ children, visible }) {
   return (

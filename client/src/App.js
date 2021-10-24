@@ -20,7 +20,7 @@ import EditProducts from './Pages/AdminPages/EditProducts';
 import EditIngridients from './Pages/AdminPages/EditIngridients';
 import Cart from './Pages/Cart';
 
-function App () {
+function App() {
   const dispatch = useDispatch();
   const hasUser = useSelector(({ auth: { user } }) => user);
   const [isShow, setisShow] = useState(false);
@@ -44,38 +44,38 @@ function App () {
   return isShow ? (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Main} />
+        <Route exact path="/" component={Main} />
         <Route
           exact
-          path='/login'
+          path="/login"
           render={() => <OnlyNotAuthorizedUserHoc Component={Login} />}
         />
         <Route
           exact
-          path='/register'
+          path="/register"
           render={() => <OnlyNotAuthorizedUserHoc Component={Register} />}
         />
         <Route
           exact
-          path='/profile'
+          path="/profile"
           render={() => <PrivateHoc Component={Profile} />}
         />
         <Route
           exact
-          path='/admin'
+          path="/admin"
           render={() => <PrivateAdminHoc Component={Admin} />}
         />
         <Route
           exact
-          path='/edit_products'
+          path="/edit_products"
           render={() => <PrivateAdminHoc Component={EditProducts} />}
         />
         <Route
           exact
-          path='/edit_ingridients'
+          path="/edit_ingridients"
           render={() => <PrivateAdminHoc Component={EditIngridients} />}
         />
-        <Route exact path='/cart' component={Cart} />
+        <Route exact path="/cart" component={Cart} />
         <Redirect to={'/'} />
       </Switch>
     </BrowserRouter>

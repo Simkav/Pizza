@@ -1,8 +1,18 @@
-import { takeLatest } from "@redux-saga/core/effects";
-import ACTION from "../Actions/actionTypes";
-import { registerSaga, loginSaga, refreshSaga, logoutSaga } from "./authSagas";
-import { createIngridientSaga, getIngridientsSaga, removeIngridientSaga, updateIngridientSaga } from "./ingridientsSagas";
-import { createProductSaga, getProductsSaga, removeProductSaga, updateProductSaga } from "./productsSagas";
+import { takeLatest } from '@redux-saga/core/effects';
+import ACTION from '../Actions/actionTypes';
+import { registerSaga, loginSaga, refreshSaga, logoutSaga } from './authSagas';
+import {
+  createIngridientSaga,
+  getIngridientsSaga,
+  removeIngridientSaga,
+  updateIngridientSaga,
+} from './ingridientsSagas';
+import {
+  createProductSaga,
+  getProductsSaga,
+  removeProductSaga,
+  updateProductSaga,
+} from './productsSagas';
 
 function* rootSaga() {
   yield takeLatest(ACTION.AUTH_ACTION_REGISTER, registerSaga);

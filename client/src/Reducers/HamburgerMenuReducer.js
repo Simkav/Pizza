@@ -1,14 +1,14 @@
-import ACTION from './../Actions/actionTypes'
+import ACTION from './../Actions/actionTypes';
 
 const initState = {
-  isOpened: false
+  isOpened: false,
 };
 
 export default function hamburgerMenuReducer(state = initState, action) {
   switch (action.type) {
     case ACTION.ASIDE_TOGGLE:
       return {
-        isOpened: action.data
+        isOpened: action.data,
       };
 
     default:

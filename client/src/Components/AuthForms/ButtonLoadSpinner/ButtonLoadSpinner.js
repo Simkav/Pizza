@@ -1,7 +1,7 @@
-import React from "react";
-import { css } from "@emotion/react";
-import BarLoader from "react-spinners/BarLoader";
-import cl from './ButtonLoadSpinner.module.css'
+import React from 'react';
+import { css } from '@emotion/react';
+import BarLoader from 'react-spinners/BarLoader';
+import cl from './ButtonLoadSpinner.module.css';
 
 export default function ButtonLoadSpinner() {
   const override = css`

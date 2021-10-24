@@ -1,31 +1,31 @@
-import Modal from '../../Modal/Modal'
-import cl from './DeleteModal.module.css'
-import cn from 'classnames'
-import { FaTimes, FaCheck } from 'react-icons/fa'
-import { useLayoutEffect, useState } from 'react'
-import { ingridientsActionRemove } from '../../../Actions/actionCreator'
-import { useDispatch } from 'react-redux'
+import Modal from '../../Modal/Modal';
+import cl from './DeleteModal.module.css';
+import cn from 'classnames';
+import { FaTimes, FaCheck } from 'react-icons/fa';
+import { useLayoutEffect, useState } from 'react';
+import { ingridientsActionRemove } from '../../../Actions/actionCreator';
+import { useDispatch } from 'react-redux';
 
-export default function DeleteModal ({ modalsState, modalsDispatch }) {
-  const dispatch = useDispatch()
+export default function DeleteModal({ modalsState, modalsDispatch }) {
+  const dispatch = useDispatch();
   const [removeIngridient, setRemoveIngridient] = useState(
-    modalsState.deleteModal.name
-  )
+    modalsState.deleteModal.name,
+  );
 
   useLayoutEffect(() => {
-    if (!removeIngridient) setRemoveIngridient(modalsState.deleteModal.name)
-  }, [modalsState.deleteModal.name])
+    if (!removeIngridient) setRemoveIngridient(modalsState.deleteModal.name);
+  }, [modalsState.deleteModal.name]);
 
   const handleSubmit = () => {
-    dispatch(ingridientsActionRemove(modalsState.deleteModal.id))
-    handleClose()
-  }
+    dispatch(ingridientsActionRemove(modalsState.deleteModal.id));
+    handleClose();
+  };
 
-  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_DELETE_MODAL' })
+  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_DELETE_MODAL' });
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_DELETE_MODAL_CLOSED' })
-    setRemoveIngridient('')
-  }
+    modalsDispatch({ type: 'ON_DELETE_MODAL_CLOSED' });
+    setRemoveIngridient('');
+  };
 
   return (
     <Modal
@@ -54,5 +54,5 @@ export default function DeleteModal ({ modalsState, modalsDispatch }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }
