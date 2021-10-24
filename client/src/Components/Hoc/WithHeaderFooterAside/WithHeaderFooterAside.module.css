@@ -33,7 +33,7 @@
 
 @media (max-width: 650px) {
     .content_container {
-        height: calc(100% - var(--container-top-position) - var(--container-bottom-position) - 71px);
-        bottom: calc(var(--container-bottom-position) + 71px)
+        height: calc(100% - var(--container-top-position) - var(--container-bottom-position) - 96px);
+        bottom: calc(var(--container-bottom-position) + 96px)
     }
 }
