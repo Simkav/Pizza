@@ -1,6 +1,6 @@
 .footer_container {
     height: 50px;
-    z-index: 9;
+    z-index: 1;
     position: absolute;
     bottom: 0;
     width: calc(100% - 270px);
@@ -29,7 +29,7 @@
 
 @media (max-width: 650px) {
     .footer_container {
-        bottom: 71px;
+        bottom: 96px;
     }
 }
 
