@@ -47,10 +47,12 @@
 }
 
 .cart_order_button_container {
+  position: relative;
   margin-top: 20px;
 }
 
 .cart_order_button {
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,15 +67,16 @@
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
-  transition: 0.5s;
-  background-size: 200% auto;
+  background-size: 200% 102%;
+  background-position: right 5px top 0px;
   color: white;
   box-shadow: 0 0 10px rgba(255, 0, 0, 1);
   border-radius: 10px;
+  transition: all 0.5s ease;
 }
 
 .cart_order_button:hover {
-  background-position: right center;
+  background-position: left 5px top 0px;
   color: #fff;
   text-decoration: none;
 }

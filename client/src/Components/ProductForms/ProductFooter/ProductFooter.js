@@ -3,25 +3,32 @@ import { useDispatch, useSelector } from 'react-redux'
 import cl from './ProductFooter.module.css'
 import { cartActionAdd, cartActionUpdate } from '../../../Actions/actionCreator'
 
-export default function ProductFooter ({ item, isHovered }) {
+export default function ProductFooter ({ isHovered ,setIsOrdered, item }) {
   const dispatch = useDispatch()
   const cart = useSelector(({ cart }) => cart.cartItems)
 
   const handleCount = id => {
-    const isExist = cart.find(item => item.id)
-    if (isExist) {
-      const result = cart.map(v =>
-        v.id === id && v.hasOwnProperty('count')
-          ? { ...v, count: v.count++ }
-          : v
-      )
-      console.log(result, 'exist')
+    const isExist = cart.find(v => v.id === id)
+    if (cart && isExist) {
+      const result = cart.map(v => {
+        if (v.id === id) {
+          const currentCount = v.count
+          return { ...v, count: currentCount + 1 }
+        } else {
+          return v
+        }
+      })
       dispatch(cartActionUpdate(result))
+      window.localStorage.setItem('cart', JSON.stringify(result))
     } else {
       const newCartItem = { id: id, count: 1 }
-      console.log(newCartItem)
-      dispatch(cartActionAdd({...newCartItem}))
+      dispatch(cartActionAdd({ ...newCartItem }))
+      window.localStorage.setItem(
+        'cart',
+        JSON.stringify([...cart, newCartItem])
+      )
     }
+    setIsOrdered(true)
   }
 
   return (
@@ -30,7 +37,10 @@ export default function ProductFooter ({ item, isHovered }) {
       <span className={cl.product_weight}>Вес: {item.weight}</span>
       {isHovered ? (
         <div className={cl.cart_order_button_container}>
-          <div className={cl.cart_order_button} onClick={() => handleCount(item.id)}>
+          <div
+            className={cl.cart_order_button}
+            onClick={() => handleCount(item.id)}
+          >
             <FaCartPlus className={cl.cart_plus_icon} />
             <span>Заказать</span>
           </div>
