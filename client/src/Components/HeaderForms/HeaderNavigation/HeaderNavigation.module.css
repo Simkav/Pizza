@@ -10,7 +10,7 @@
 
 @media (max-width: 650px) {
   .header_navigation {
-    padding-top: 25px;
+    padding: 25px 0;
     position: fixed;
     bottom: 0;
     left: 0;
