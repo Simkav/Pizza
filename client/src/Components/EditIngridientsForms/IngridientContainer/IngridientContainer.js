@@ -1,7 +1,8 @@
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import cl from './IngridientContainer.module.css';
+import { openEditModal, openDeleteModal } from '../../../Actions/actionCreator';
 
-export default function IngridientContainer({ item, modalsDispatch }) {
+export default function IngridientContainer ({ item, modalsDispatch }) {
   return (
     <div className={cl.ingridient_container}>
       <span className={cl.ingridient_span}>{item.name}</span>
@@ -9,7 +10,7 @@ export default function IngridientContainer({ item, modalsDispatch }) {
         <div
           className={cl.edit_button_container}
           onClick={() => {
-            modalsDispatch({ type: 'OPEN_EDIT_MODAL', payload: item });
+            modalsDispatch(openEditModal(item));
           }}
         >
           <FaEdit className={cl.edit_button} />
@@ -18,7 +19,7 @@ export default function IngridientContainer({ item, modalsDispatch }) {
         <div
           className={cl.edit_button_container}
           onClick={() => {
-            modalsDispatch({ type: 'OPEN_DELETE_MODAL', payload: item });
+            modalsDispatch(openDeleteModal(item));
           }}
         >
           <FaTrash className={cl.edit_button} />
