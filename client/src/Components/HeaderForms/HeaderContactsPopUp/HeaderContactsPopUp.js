@@ -4,25 +4,30 @@ import { useState } from 'react';
 import { FaChevronDown, FaPhone } from 'react-icons/fa';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import { HeaderContactPhonesList } from '../../../Helpers/HeaderContactPhonesList';
+import useHovered from '../../../Hooks/useHovered';
 
-export default function HeaderContactsPopUp() {
+export default function HeaderContactsPopUp () {
   const [contactsPopUp, setContactsPopUp] = useState(false);
+  const [isHovered, menuButtonRef] = useHovered();
 
   return (
     <div
+      tabIndex={0}
+      ref={menuButtonRef}
       className={cl.col}
       onClick={() => setContactsPopUp((contactsPopUp) => !contactsPopUp)}
+      onBlur={() => setContactsPopUp(false)}
     >
       <div className={cl.contact_phone_container}>
         <FaPhone />
         <span className={cl.header_menu_text}>Контакты</span>
         <FaChevronDown
           className={cn(cl.arrow_down, {
-            [cl.arrow_active]: contactsPopUp,
+            [cl.arrow_active]: contactsPopUp || isHovered,
           })}
         ></FaChevronDown>
       </div>
-      <PopUpModule visible={contactsPopUp}>
+      <PopUpModule visible={contactsPopUp} hovered={isHovered}>
         {HeaderContactPhonesList.map((item) => {
           return (
             <div key={item.prefix} className={cl.contact_phone}>
