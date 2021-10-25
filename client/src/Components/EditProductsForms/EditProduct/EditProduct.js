@@ -3,8 +3,9 @@ import ProductFooter from '../../ProductForms/ProductFooter/ProductFooter';
 import ProductImage from '../../ProductForms/ProductImage/ProductImage';
 import ProductIngridients from '../../ProductForms/ProductIngridients/ProductIngridients';
 import cl from './EditProduct.module.css';
+import { openEditModal, openDeleteModal } from '../../../Actions/actionCreator';
 
-export default function EditProduct({ item, ingridients, modalsDispatch }) {
+export default function EditProduct ({ item, ingridients, modalsDispatch }) {
   return (
     <li key={item.id} className={cl.product}>
       {
@@ -16,12 +17,7 @@ export default function EditProduct({ item, ingridients, modalsDispatch }) {
           <div className={cl.product_edit_buttons_container}>
             <div
               className={cl.edit_button_container}
-              onClick={() =>
-                modalsDispatch({
-                  type: 'OPEN_EDIT_MODAL',
-                  payload: { product: item },
-                })
-              }
+              onClick={() => modalsDispatch(openEditModal({ product: item }))}
             >
               <FaEdit className={cl.edit_button} />
               <span className={cl.button_tooltip_text}>Редактировать</span>
@@ -29,10 +25,9 @@ export default function EditProduct({ item, ingridients, modalsDispatch }) {
             <div
               className={cl.edit_button_container}
               onClick={() =>
-                modalsDispatch({
-                  type: 'OPEN_DELETE_MODAL',
-                  payload: { id: item.id, name: item.name },
-                })
+                modalsDispatch(
+                  openDeleteModal({ id: item.id, name: item.name }),
+                )
               }
             >
               <FaTrash className={cl.edit_button} />
