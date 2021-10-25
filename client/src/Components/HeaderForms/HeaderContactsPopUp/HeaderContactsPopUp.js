@@ -1,23 +1,15 @@
 import cl from './HeaderContactsPopUp.module.css';
 import cn from 'classnames';
-import { useState } from 'react';
 import { FaChevronDown, FaPhone } from 'react-icons/fa';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import { HeaderContactPhonesList } from '../../../Helpers/HeaderContactPhonesList';
-import useHovered from '../../../Hooks/useHovered';
+import usePopUp from '../../../Hooks/usePopUp';
 
 export default function HeaderContactsPopUp () {
-  const [contactsPopUp, setContactsPopUp] = useState(false);
-  const [isHovered, menuButtonRef] = useHovered();
+  const [isHovered, contactsPopUp, menuButtonRef] = usePopUp();
 
   return (
-    <div
-      tabIndex={0}
-      ref={menuButtonRef}
-      className={cl.col}
-      onClick={() => setContactsPopUp((contactsPopUp) => !contactsPopUp)}
-      onBlur={() => setContactsPopUp(false)}
-    >
+    <div ref={menuButtonRef} className={cl.col}>
       <div className={cl.contact_phone_container}>
         <FaPhone />
         <span className={cl.header_menu_text}>Контакты</span>
