@@ -94,6 +94,20 @@ const cartActionTypes = {
   CART_ACTION_UPDATE_ITEM: 'CART_ACTION_UPDATE_ITEM',
 };
 
+const modalsActionTypes = {
+  OPEN_ADD_MODAL: 'OPEN_ADD_MODAL',
+  OPEN_DELETE_MODAL: 'OPEN_DELETE_MODAL',
+  OPEN_EDIT_MODAL: 'OPEN_EDIT_MODAL',
+
+  ON_CLOSE_ADD_MODAL: 'ON_CLOSE_ADD_MODAL',
+  ON_CLOSE_DELETE_MODAL: 'ON_CLOSE_DELETE_MODAL',
+  ON_CLOSE_EDIT_MODAL: 'ON_CLOSE_EDIT_MODAL',
+
+  ON_ADD_MODAL_CLOSED: 'ON_ADD_MODAL_CLOSED',
+  ON_DELETE_MODAL_CLOSED: 'ON_DELETE_MODAL_CLOSED',
+  ON_EDIT_MODAL_CLOSED: 'ON_EDIT_MODAL_CLOSED',
+};
+
 export default {
   ...miscActionTypes,
   ...productsActionTypes,
@@ -101,4 +115,5 @@ export default {
   ...ingredientsActionTypes,
   ...authActionTypes,
   ...cartActionTypes,
+  ...modalsActionTypes,
 };
