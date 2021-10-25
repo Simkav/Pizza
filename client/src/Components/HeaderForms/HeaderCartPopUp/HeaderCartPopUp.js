@@ -1,18 +1,17 @@
 import cl from './HeaderCartPopUp.module.css';
 import cn from 'classnames';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { FaChevronDown, FaShoppingCart } from 'react-icons/fa';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActionUpdate } from '../../../Actions/actionCreator';
-import useHovered from '../../../Hooks/useHovered';
 import HeaderCartItemsList from '../HeaderCartItemsList/HeaderCartItemsList';
+import usePopUp from '../../../Hooks/usePopUp';
 
 export default function HeaderCartPopUp () {
   const dispatch = useDispatch();
-  const [cartPopUp, setCartPopUp] = useState(false);
+  const [isHovered, cartPopUp, menuButtonRef] = usePopUp();
   const cart = useSelector(({ cart }) => cart.cartItems);
-  const [isHovered, menuButtonRef] = useHovered();
 
   useLayoutEffect(() => {
     if (!cart || cart.length === 0) {
@@ -30,13 +29,7 @@ export default function HeaderCartPopUp () {
   };
 
   return (
-    <div
-      tabIndex={0}
-      ref={menuButtonRef}
-      className={cl.col}
-      onClick={() => setCartPopUp((cartPopUp) => !cartPopUp)}
-      onBlur={() => setCartPopUp(false)}
-    >
+    <div ref={menuButtonRef} className={cl.col}>
       <div className={cl.cart_container}>
         <FaShoppingCart />
         <>
