@@ -7,7 +7,7 @@ import { JwtEmptyException, NotABearerException } from 'src/customErrors/Jwt';
 import { RequestWithUser } from '../types/requests';
 
 @Injectable()
-export class parseAuth implements NestMiddleware {
+export class ParseAuth implements NestMiddleware {
   constructor(private jwtService: JwtService) {}
   async use(req: RequestWithUser, res: Response, next: NextFunction) {
     try {

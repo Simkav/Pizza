@@ -4,7 +4,7 @@ import { RequestWithUserPizza } from '../types/requests';
 import { PizzasService } from 'src/pizzas/pizzas.service';
 
 @Injectable()
-export class parsePizzaId implements NestMiddleware {
+export class ParsePizzaId implements NestMiddleware {
   constructor(private pizzaService: PizzasService) {}
   async use(req: RequestWithUserPizza, res: Response, next: NextFunction) {
     try {

@@ -12,7 +12,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './users/users.model';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { PizzasModule } from './pizzas/pizzas.module';
-import { parseAuth } from './middlewares/parse-auth.middleware';
+import { ParseAuth } from './middlewares/parse-auth.middleware';
 import { PizzasController } from './pizzas/pizzas.controller';
 import { IngredientsController } from './ingredients/ingredients.controller';
 
@@ -41,7 +41,7 @@ import { IngredientsController } from './ingredients/ingredients.controller';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(parseAuth)
+      .apply(ParseAuth)
       .exclude(
         { path: 'pizzas', method: RequestMethod.GET },
         { path: 'ingredients', method: RequestMethod.GET },

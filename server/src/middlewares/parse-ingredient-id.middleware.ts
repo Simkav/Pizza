@@ -4,7 +4,7 @@ import { RequestWithUserIngredient } from '../types/requests';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 
 @Injectable()
-export class parseIngredientId implements NestMiddleware {
+export class ParseIngredientId implements NestMiddleware {
   constructor(private ingredientService: IngredientsService) {}
   async use(req: RequestWithUserIngredient, res: Response, next: NextFunction) {
     try {

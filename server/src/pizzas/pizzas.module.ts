@@ -9,7 +9,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Ingredient } from 'src/ingredients/ingredients.model';
 import { IngredientsModule } from 'src/ingredients/ingredients.module';
-import { parsePizzaId } from 'src/middlewares/parse-pizza-id.middleware';
+import { ParsePizzaId } from 'src/middlewares/parse-pizza-id.middleware';
 import { fileFilter, limits, storage } from './multer-config';
 import { PizzaIngredients } from './pizza-ingredients.model';
 import { Pizza } from './pizza.model';
@@ -34,7 +34,7 @@ import { PizzasService } from './pizzas.service';
 export class PizzasModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(parsePizzaId)
+      .apply(ParsePizzaId)
       .exclude('pizzas', { path: 'pizzas/(.*)', method: RequestMethod.GET })
       .forRoutes(PizzasController);
   }
