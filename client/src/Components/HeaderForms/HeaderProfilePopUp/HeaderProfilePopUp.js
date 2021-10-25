@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authActionClear } from '../../../Actions/actionCreator';
 import PopUpModule from '../../PopUpModule/PopUpModule';
+import useHovered from '../../../Hooks/useHovered';
 
-export default function HeaderProfilePopUp() {
+export default function HeaderProfilePopUp () {
   const dispatch = useDispatch();
   const [profilePopUp, setProfilePopUp] = useState(false);
+  const [isHovered, menuButtonRef] = useHovered();
 
   const [isUserAuth, isAdmin] = useSelector(({ auth }) => [
     auth.user,
@@ -22,19 +24,22 @@ export default function HeaderProfilePopUp() {
 
   return isUserAuth ? (
     <div
+      tabIndex={0}
+      ref={menuButtonRef}
       className={cl.col}
       onClick={() => setProfilePopUp((profilePopUp) => !profilePopUp)}
+      onBlur={() => setProfilePopUp(false)}
     >
       <div className={cl.button_container}>
         <FaUser />
         <span className={cl.header_menu_text}>Профиль</span>
         <FaChevronDown
           className={cn(cl.arrow_down, {
-            [cl.arrow_active]: profilePopUp,
+            [cl.arrow_active]: profilePopUp || isHovered,
           })}
         ></FaChevronDown>
       </div>
-      <PopUpModule visible={profilePopUp}>
+      <PopUpModule visible={profilePopUp} hovered={isHovered}>
         {isAdmin ? (
           <Link className={cl.profile_link} to={'/admin'}>
             Панель администратора
