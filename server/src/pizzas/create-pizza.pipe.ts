@@ -9,8 +9,8 @@ export class CreatePizzaPipe implements PipeTransform<CreatePizzaDto> {
     }
     return {
       name: value.name,
-      price: +value.price,
-      weight: +value.weight,
+      price: Number(value.price),
+      weight: Number(value.weight),
       ingredients: value.ingredients.split(',').map(Number).filter(Boolean),
     };
   }

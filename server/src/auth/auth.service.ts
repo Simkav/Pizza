@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InvalidPassword } from 'src/customErrors/credentials';
 import { CreateUserDto } from 'src/users/dto/create-user-dto';
 import { User } from 'src/users/users.model';
 import { UserService } from 'src/users/users.service';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { InvalidPassword } from './errors/InvalidPassword';
 
 @Injectable()
 export class AuthService {

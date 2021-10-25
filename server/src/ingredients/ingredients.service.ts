@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { IngredientNotFound } from 'src/customErrors/database';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
+import { IngredientNotFound } from './errors/IngredientNotFound';
 import { Ingredient } from './ingredients.model';
 
 @Injectable()

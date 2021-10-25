@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { NotAnAdmin } from 'src/customErrors/credentials';
+import { NotAnAdmin } from './errors/NotAnAdmin';
 
 @Injectable()
 export class isAdminGuard implements CanActivate {
