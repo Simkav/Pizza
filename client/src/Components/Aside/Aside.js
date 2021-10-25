@@ -21,7 +21,7 @@ export default function Aside () {
   return (
     <div
       ref={asideRef}
-      tabIndex={0}
+      tabIndex={-1}
       className={cn(cl.aside_container, {
         [cl.aside_active]: hamburgerMenuState,
       })}
