@@ -38,6 +38,10 @@
   --aside-absolute-left-position: 0px;
 }
 
+.aside_container:focus-visible {
+  outline: none;
+}
+
 .main_navigation_menu {
   list-style-type: none;
   padding: 0;
