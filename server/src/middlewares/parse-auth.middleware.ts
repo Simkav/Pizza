@@ -1,10 +1,13 @@
-import { JwtExpiredException, JwtInvalidException } from '../customErrors/Jwt';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
-import { JwtEmptyException, NotABearerException } from 'src/customErrors/Jwt';
 import { RequestWithUser } from '../types/requests';
+import { NotABearerException } from 'src/auth/errors/NotABearer';
+import { JwtEmptyException } from 'src/auth/errors/JwtEmpty';
+import { JwtExpiredException } from 'src/auth/errors/JwtExpired';
+import { JwtInvalidException } from 'src/auth/errors/JwtInvalid';
+import { EmptyHeaderAuthorization } from 'src/auth/errors/EmptyHeader';
 
 @Injectable()
 export class ParseAuth implements NestMiddleware {
@@ -12,7 +15,7 @@ export class ParseAuth implements NestMiddleware {
   async use(req: RequestWithUser, res: Response, next: NextFunction) {
     try {
       if (!req.headers.authorization) {
-        throw new NotABearerException();
+        throw new EmptyHeaderAuthorization();
       }
       const [Bearer, token] = req.headers.authorization.split(' ');
       if (Bearer != 'Bearer') {

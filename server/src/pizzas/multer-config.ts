@@ -1,6 +1,6 @@
 import { diskStorage } from 'multer';
 import * as path from 'path';
-import { InvalidFileType } from 'src/customErrors/validations';
+import { InvalidFileType } from './errors/InvalidFileType';
 export const storage = diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.resolve(__dirname, '..', '..', 'public', 'pizzas'));

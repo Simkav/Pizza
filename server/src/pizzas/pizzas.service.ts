@@ -6,8 +6,8 @@ import { CreatePizzaDto } from './dto/create-pizza.dto';
 import { Pizza } from './pizza.model';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
 import { Ingredient } from 'src/ingredients/ingredients.model';
-import { PizzaNotFound } from 'src/customErrors/database';
 import { Cache } from 'cache-manager';
+import { PizzaNotFound } from './errors/PizzaNotFound';
 
 @Injectable()
 export class PizzasService {
