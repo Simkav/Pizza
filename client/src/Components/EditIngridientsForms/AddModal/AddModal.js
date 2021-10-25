@@ -6,8 +6,12 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ingridientsActionCreate } from '../../../Actions/actionCreator';
 import EditIngridientInput from '../EditIngridientInput/EditIngridientInput';
+import {
+  onCloseAddModal,
+  onAddModalClosed,
+} from '../../../Actions/actionCreator';
 
-export default function AddModal({ modalsState, modalsDispatch }) {
+export default function AddModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch();
   const [newIngridient, setNewIngridient] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
@@ -19,9 +23,9 @@ export default function AddModal({ modalsState, modalsDispatch }) {
     handleClose();
   };
 
-  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' });
+  const handleClose = () => modalsDispatch(onCloseAddModal());
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' });
+    modalsDispatch(onAddModalClosed());
     setNewIngridient('');
     setIsInvalid(false);
   };
