@@ -12,8 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems';
 import * as API from '../../../Api';
 import EditProductInput from '../EditProductInput/EditProductInput';
+import {
+  onCloseEditModal,
+  onEditModalClosed,
+} from '../../../Actions/actionCreator';
 
-export default function EditProductModal({ modalsState, modalsDispatch }) {
+export default function EditProductModal ({ modalsState, modalsDispatch }) {
   const editModal = modalsState.editModal;
   const dispatch = useDispatch();
   const mainProducts = useSelector(({ products }) => products.products);
@@ -22,7 +26,7 @@ export default function EditProductModal({ modalsState, modalsDispatch }) {
     const getImage = async (prop) =>
       await API.ProductsCRUDApi.getProductImage(prop).then((result) => result);
 
-    async function init() {
+    async function init () {
       if (!editModal.state && editModal.closed) {
         NewProductFormik.resetForm();
         NewProductFormik.setFieldValue('state', false);
@@ -75,11 +79,11 @@ export default function EditProductModal({ modalsState, modalsDispatch }) {
   });
 
   const handleClose = () => {
-    modalsDispatch({ type: 'ON_CLOSE_EDIT_MODAL' });
+    modalsDispatch(onCloseEditModal());
   };
 
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_EDIT_MODAL_CLOSED' });
+    modalsDispatch(onEditModalClosed());
   };
 
   return (
