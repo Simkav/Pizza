@@ -8,17 +8,14 @@ export class UserService {
   constructor(@InjectModel(User) private userRepository: typeof User) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const createdUser = await this.userRepository.create(createUserDto);
-    return createdUser;
+    return await this.userRepository.create(createUserDto);
   }
 
   async findById(id: number) {
-    const user = await this.userRepository.findByPk(id);
-    return user;
+    return await this.userRepository.findByPk(id);
   }
 
   async findByPhone(phone: string) {
-    const user = await this.userRepository.findOne({ where: { phone } });
-    return user;
+    return await this.userRepository.findOne({ where: { phone } });
   }
 }
