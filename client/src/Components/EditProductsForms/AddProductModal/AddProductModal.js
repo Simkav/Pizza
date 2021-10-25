@@ -11,8 +11,12 @@ import { productsActionCreate } from '../../../Actions/actionCreator';
 import { useDispatch, useSelector } from 'react-redux';
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems';
 import EditProductInput from '../EditProductInput/EditProductInput';
+import {
+  onCloseAddModal,
+  onAddModalClosed,
+} from '../../../Actions/actionCreator';
 
-export default function AddProductModal({ modalsState, modalsDispatch }) {
+export default function AddProductModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch();
   useLayoutEffect(() => {
     if (!modalsState.addModal.state && modalsState.addModal.closed) {
@@ -43,11 +47,11 @@ export default function AddProductModal({ modalsState, modalsDispatch }) {
   });
 
   const handleClose = () => {
-    modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' });
+    modalsDispatch(onCloseAddModal());
   };
 
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' });
+    modalsDispatch(onAddModalClosed());
   };
 
   return (
