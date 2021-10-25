@@ -5,8 +5,12 @@ import { FaTimes, FaCheck } from 'react-icons/fa';
 import { useLayoutEffect, useState } from 'react';
 import { ingridientsActionRemove } from '../../../Actions/actionCreator';
 import { useDispatch } from 'react-redux';
+import {
+  onCloseDeleteModal,
+  onDeleteModalClosed,
+} from '../../../Actions/actionCreator';
 
-export default function DeleteModal({ modalsState, modalsDispatch }) {
+export default function DeleteModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch();
   const [removeIngridient, setRemoveIngridient] = useState(
     modalsState.deleteModal.name,
@@ -21,9 +25,9 @@ export default function DeleteModal({ modalsState, modalsDispatch }) {
     handleClose();
   };
 
-  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_DELETE_MODAL' });
+  const handleClose = () => modalsDispatch(onCloseDeleteModal());
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_DELETE_MODAL_CLOSED' });
+    modalsDispatch(onDeleteModalClosed());
     setRemoveIngridient('');
   };
 
