@@ -1,4 +1,5 @@
 .col {
+  cursor: pointer;
   max-height: 50vh;
   color: black;
   text-decoration: none;

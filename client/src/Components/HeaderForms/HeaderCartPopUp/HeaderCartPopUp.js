@@ -1,18 +1,20 @@
 import cl from './HeaderCartPopUp.module.css';
 import cn from 'classnames';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { FaChevronDown, FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import { useDispatch, useSelector } from 'react-redux';
 import CONSTANTS from '../../../constants';
 import { cartActionUpdate } from '../../../Actions/actionCreator';
 import { Link } from 'react-router-dom';
+import useHovered from '../../../Hooks/useHovered';
 
 export default function HeaderCartPopUp () {
   const dispatch = useDispatch();
   const [cartPopUp, setCartPopUp] = useState(false);
   const products = useSelector(({ products }) => products.products);
   const cart = useSelector(({ cart }) => cart.cartItems);
+  const [isHovered, menuButtonRef] = useHovered();
 
   useLayoutEffect(() => {
     if (!cart || cart.length === 0) {
@@ -62,8 +64,11 @@ export default function HeaderCartPopUp () {
 
   return (
     <div
+      tabIndex={0}
+      ref={menuButtonRef}
       className={cl.col}
       onClick={() => setCartPopUp((cartPopUp) => !cartPopUp)}
+      onBlur={() => setCartPopUp(false)}
     >
       <div className={cl.cart_container}>
         <FaShoppingCart />
@@ -75,11 +80,11 @@ export default function HeaderCartPopUp () {
         <span className={cl.header_menu_text}>Корзина</span>
         <FaChevronDown
           className={cn(cl.arrow_down, {
-            [cl.arrow_active]: cartPopUp,
+            [cl.arrow_active]: cartPopUp || isHovered,
           })}
         ></FaChevronDown>
       </div>
-      <PopUpModule visible={cartPopUp}>
+      <PopUpModule visible={cartPopUp} hovered={isHovered}>
         {cart && cart.length > 0 ? (
           <>
             <div className={cl.cart_list_container}>
