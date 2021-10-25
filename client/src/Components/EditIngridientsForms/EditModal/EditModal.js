@@ -6,8 +6,12 @@ import { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ingridientsActionUpdate } from '../../../Actions/actionCreator';
 import EditIngridientInput from '../EditIngridientInput/EditIngridientInput';
+import {
+  onCloseEditModal,
+  onEditModalClosed,
+} from '../../../Actions/actionCreator';
 
-export default function EditModal({ modalsState, modalsDispatch }) {
+export default function EditModal ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch();
   const [newName, setNewName] = useState(modalsState.editModal.name);
   const [isInvalid, setIsInvalid] = useState(false);
@@ -26,9 +30,9 @@ export default function EditModal({ modalsState, modalsDispatch }) {
     handleClose();
   };
 
-  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_EDIT_MODAL' });
+  const handleClose = () => modalsDispatch(onCloseEditModal());
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_EDIT_MODAL_CLOSED' });
+    modalsDispatch(onEditModalClosed());
     setNewName('');
     setIsInvalid(false);
   };
