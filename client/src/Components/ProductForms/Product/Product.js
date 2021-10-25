@@ -1,19 +1,26 @@
-import cl from './Product.module.css'
-import ProductImage from '../ProductImage/ProductImage'
-import ProductIngridients from '../ProductIngridients/ProductIngridients'
-import ProductFooter from '../ProductFooter/ProductFooter'
+import cl from './Product.module.css';
+import ProductImage from '../ProductImage/ProductImage';
+import ProductIngridients from '../ProductIngridients/ProductIngridients';
+import ProductFooter from '../ProductFooter/ProductFooter';
+import useHovered from '../../../Hooks/useHovered';
 
-export default function Product ({ item, ingridients }) {
+export default function Product ({ setIsOrdered, item, ingridients }) {
+  const [isHovered, hoverRef] = useHovered();
+  
   return (
-    <li key={item.id} className={cl.product}>
+    <li className={cl.product}>
       {
-        <div className={cl.product_link_container}>
+        <div ref={hoverRef} className={cl.product_link_container}>
           <ProductImage item={item} />
           <h3>{item.name}</h3>
           <ProductIngridients item={item} ingridients={ingridients} />
-          <ProductFooter weight={item.weight} price={item.price} />
+          <ProductFooter
+            isHovered={isHovered}
+            setIsOrdered={setIsOrdered}
+            item={item}
+          />
         </div>
       }
     </li>
-  )
+  );
 }

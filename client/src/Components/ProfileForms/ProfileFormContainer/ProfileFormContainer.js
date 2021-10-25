@@ -1,4 +1,4 @@
-import cl from './ProfileFormContainer.module.css'
+import cl from './ProfileFormContainer.module.css';
 
 export default function ProfileFormContainer(props) {
   return (

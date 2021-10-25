@@ -1,32 +1,36 @@
-import Modal from '../../Modal/Modal'
-import cl from './DeleteProductModal.module.css'
-import cn from 'classnames'
-import { FaTimes, FaCheck } from 'react-icons/fa'
-import { useLayoutEffect, useState } from 'react'
-import { productsActionRemove } from '../../../Actions/actionCreator'
-import { useDispatch } from 'react-redux'
+import Modal from '../../Modal/Modal';
+import cl from './DeleteProductModal.module.css';
+import cn from 'classnames';
+import { FaTimes, FaCheck } from 'react-icons/fa';
+import { useLayoutEffect, useState } from 'react';
+import { productsActionRemove } from '../../../Actions/actionCreator';
+import { useDispatch } from 'react-redux';
+import {
+  onCloseDeleteModal,
+  onDeleteModalClosed,
+} from '../../../Actions/actionCreator';
 
 export default function DeleteProductModal ({ modalsState, modalsDispatch }) {
-  const dispatch = useDispatch()
-  const deleteModal = modalsState.deleteModal
-  const [removeProduct, setRemoveProduct] = useState(deleteModal.name)
+  const dispatch = useDispatch();
+  const deleteModal = modalsState.deleteModal;
+  const [removeProduct, setRemoveProduct] = useState(deleteModal.name);
   useLayoutEffect(() => {
-    setRemoveProduct(deleteModal.name)
-  }, [deleteModal.name])
+    setRemoveProduct(deleteModal.name);
+  }, [deleteModal.name]);
   const handleSubmit = () => {
-    handleSubmitRemove(deleteModal.id)
-    handleClose()
-  }
+    handleSubmitRemove(deleteModal.id);
+    handleClose();
+  };
 
   const handleClose = () => {
-    modalsDispatch({ type: 'ON_CLOSE_DELETE_MODAL' })
-  }
+    modalsDispatch(onCloseDeleteModal());
+  };
 
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_DELETE_MODAL_CLOSED' })
-  }
+    modalsDispatch(onDeleteModalClosed());
+  };
 
-  const handleSubmitRemove = id => dispatch(productsActionRemove(id))
+  const handleSubmitRemove = (id) => dispatch(productsActionRemove(id));
 
   return (
     <Modal
@@ -55,5 +59,5 @@ export default function DeleteProductModal ({ modalsState, modalsDispatch }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

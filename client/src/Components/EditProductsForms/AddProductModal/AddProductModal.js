@@ -1,54 +1,58 @@
-import cl from './AddProductModal.module.css'
-import cn from 'classnames'
-import { FaTimes, FaCheck } from 'react-icons/fa'
-import Modal from '../../Modal/Modal'
-import UploadImageForm from '../UploadImageForm/UploadImageForm'
-import IngridientsChooseForm from '../IngridientsChooseForm/IngridientsChooseForm'
-import { newProductSchema } from '../../../Validations/NewProductSchema'
-import { useFormik } from 'formik'
-import { useLayoutEffect } from 'react'
-import { productsActionCreate } from '../../../Actions/actionCreator'
-import { useDispatch, useSelector } from 'react-redux'
-import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems'
-import EditProductInput from '../EditProductInput/EditProductInput'
+import cl from './AddProductModal.module.css';
+import cn from 'classnames';
+import { FaTimes, FaCheck } from 'react-icons/fa';
+import Modal from '../../Modal/Modal';
+import UploadImageForm from '../UploadImageForm/UploadImageForm';
+import IngridientsChooseForm from '../IngridientsChooseForm/IngridientsChooseForm';
+import { newProductSchema } from '../../../Validations/NewProductSchema';
+import { useFormik } from 'formik';
+import { useLayoutEffect } from 'react';
+import { productsActionCreate } from '../../../Actions/actionCreator';
+import { useDispatch, useSelector } from 'react-redux';
+import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems';
+import EditProductInput from '../EditProductInput/EditProductInput';
+import {
+  onCloseAddModal,
+  onAddModalClosed,
+} from '../../../Actions/actionCreator';
 
 export default function AddProductModal ({ modalsState, modalsDispatch }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useLayoutEffect(() => {
     if (!modalsState.addModal.state && modalsState.addModal.closed) {
-      NewProductFormik.resetForm()
+      NewProductFormik.resetForm();
     }
-  }, [modalsState.addModal])
+  }, [modalsState.addModal]);
 
-  const products = useSelector(({ products }) => products.products)
+  const products = useSelector(({ products }) => products.products);
 
   const NewProductFormik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      products: products ? products.map(item => item.name) : null,
+      products: products ? products.map((item) => item.name) : null,
       image: '',
       name: '',
       ingredients: [],
       weight: '',
-      price: ''
+      price: '',
     },
-    onSubmit: data => {
+    onSubmit: (data) => {
       const newProduct = Object.fromEntries(
-        Object.entries(data).filter(item => item[0] !== 'products')
-      )
-      dispatch(productsActionCreate({ product: newProduct }))
-      handleClose()
+        Object.entries(data).filter((item) => item[0] !== 'products'),
+      );
+      dispatch(productsActionCreate({ product: newProduct }));
+      handleClose();
     },
-    validationSchema: newProductSchema
-  })
+    validationSchema: newProductSchema,
+  });
 
   const handleClose = () => {
-    modalsDispatch({ type: 'ON_CLOSE_ADD_MODAL' })
-  }
+    modalsDispatch(onCloseAddModal());
+  };
 
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_ADD_MODAL_CLOSED' })
-  }
+    modalsDispatch(onAddModalClosed());
+  };
 
   return (
     <Modal
@@ -65,7 +69,7 @@ export default function AddProductModal ({ modalsState, modalsDispatch }) {
           <UploadImageForm NewProductFormik={NewProductFormik} />
           <IngridientsChooseForm NewProductFormik={NewProductFormik} />
           <div className={cl.inputs_fields_container}>
-            {NewProductFormInputItems.map(item => (
+            {NewProductFormInputItems.map((item) => (
               <EditProductInput
                 key={item.name}
                 NewProductFormik={NewProductFormik}
@@ -90,5 +94,5 @@ export default function AddProductModal ({ modalsState, modalsDispatch }) {
         </div>
       </form>
     </Modal>
-  )
+  );
 }

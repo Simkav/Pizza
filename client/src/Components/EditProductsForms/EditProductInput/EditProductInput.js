@@ -1,10 +1,10 @@
-import cl from './EditProductInput.module.css'
-import cn from 'classnames'
+import cl from './EditProductInput.module.css';
+import cn from 'classnames';
 
-export default function EditProductInput ({item, NewProductFormik}) {
-  const formikValue = NewProductFormik.values
-  const formikTouched = NewProductFormik.touched
-  const formikError = NewProductFormik.errors
+export default function EditProductInput({ item, NewProductFormik }) {
+  const formikValue = NewProductFormik.values;
+  const formikTouched = NewProductFormik.touched;
+  const formikError = NewProductFormik.errors;
 
   return (
     <div className={cl.input_container}>
@@ -13,12 +13,12 @@ export default function EditProductInput ({item, NewProductFormik}) {
           className={cn(
             cl.field_container,
             {
-              [cl.input_empty]: !formikValue[item.name]
+              [cl.input_empty]: !formikValue[item.name],
             },
             {
               [cl.field_container_valid]:
-                !formikError[item.name] & formikTouched[item.name]
-            }
+                !formikError[item.name] & formikTouched[item.name],
+            },
           )}
         >
           <label className={cl.label}>{item.labelText}</label>
@@ -28,17 +28,17 @@ export default function EditProductInput ({item, NewProductFormik}) {
               cl.add_product_input,
               {
                 [cl.input_invalid]:
-                  formikTouched[item.name] && formikError[item.name]
+                  formikTouched[item.name] && formikError[item.name],
               },
               {
                 [cl.input_valid]:
-                  !formikError[item.name] && formikTouched[item.name]
-              }
+                  !formikError[item.name] && formikTouched[item.name],
+              },
             )}
             name={item.name}
-            onChange={async e => {
-              await NewProductFormik.setFieldValue(item.name, e.target.value)
-              await NewProductFormik.validateField(item.name)
+            onChange={async (e) => {
+              await NewProductFormik.setFieldValue(item.name, e.target.value);
+              await NewProductFormik.validateField(item.name);
             }}
             onBlur={NewProductFormik.handleBlur}
             value={formikValue[item.name]}
@@ -52,5 +52,5 @@ export default function EditProductInput ({item, NewProductFormik}) {
         </span>
       </div>
     </div>
-  )
+  );
 }

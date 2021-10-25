@@ -1,32 +1,53 @@
-import Modal from '../../Modal/Modal'
-import cl from './EditModal.module.css'
-import cn from 'classnames'
-import { FaTimes, FaCheck } from 'react-icons/fa'
-import { useLayoutEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { ingridientsActionUpdate } from '../../../Actions/actionCreator'
+import Modal from '../../Modal/Modal';
+import cl from './EditModal.module.css';
+import cn from 'classnames';
+import { FaTimes, FaCheck } from 'react-icons/fa';
+import { useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ingridientsActionUpdate } from '../../../Actions/actionCreator';
+import EditIngridientInput from '../EditIngridientInput/EditIngridientInput';
+import {
+  onCloseEditModal,
+  onEditModalClosed,
+} from '../../../Actions/actionCreator';
 
 export default function EditModal ({ modalsState, modalsDispatch }) {
-  const dispatch = useDispatch()
-  const [newName, setNewName] = useState(modalsState.editModal.name)
+  const dispatch = useDispatch();
+  const [newName, setNewName] = useState(modalsState.editModal.name);
+  const [isInvalid, setIsInvalid] = useState(false);
+
+  const ingridients = useSelector(({ ingridients }) => ingridients.ingridients);
 
   useLayoutEffect(() => {
     if (modalsState.editModal.state && !newName) {
-      setNewName(modalsState.editModal.name)
+      setNewName(modalsState.editModal.name);
     }
-  }, [modalsState.editModal])
+  }, [modalsState.editModal]);
 
   const handleSubmit = () => {
-    const editableIngridient = { id: modalsState.editModal.id, name: newName }
-    dispatch(ingridientsActionUpdate(editableIngridient))
-    handleClose()
-  }
+    const editableIngridient = { id: modalsState.editModal.id, name: newName };
+    dispatch(ingridientsActionUpdate(editableIngridient));
+    handleClose();
+  };
 
-  const handleClose = () => modalsDispatch({ type: 'ON_CLOSE_EDIT_MODAL' })
+  const handleClose = () => modalsDispatch(onCloseEditModal());
   const handleClosed = () => {
-    modalsDispatch({ type: 'ON_EDIT_MODAL_CLOSED' })
-    setNewName('')
-  }
+    modalsDispatch(onEditModalClosed());
+    setNewName('');
+    setIsInvalid(false);
+  };
+
+  const validate = (value) => {
+    if (!value) {
+      setIsInvalid('Как минимум один символ');
+    }
+    if (ingridients.find((v) => v.name === value)) {
+      setIsInvalid('Такой ингридиент уже существует');
+    } else if (value && !ingridients.find((v) => v.name === value)) {
+      setIsInvalid(false);
+    }
+    setNewName(value);
+  };
 
   return (
     <Modal
@@ -36,16 +57,14 @@ export default function EditModal ({ modalsState, modalsDispatch }) {
     >
       <div className={cl.edit_ingridient_window}>
         <h3 className={cl.modal_title}>Редактировать ингридиент</h3>
-        <input
-          placeholder={'Название ингридиента'}
-          type={'text'}
-          className={cl.edit_ingridient_input}
-          value={newName}
-          onChange={e => setNewName(e.currentTarget.value)}
+        <EditIngridientInput
+          name={newName}
+          isInvalid={isInvalid}
+          validate={validate}
         />
         <div className={cl.edit_window_buttons_container}>
           <button
-            onClick={() => handleSubmit()}
+            onClick={() => (!isInvalid ? handleSubmit() : null)}
             className={cn(cl.edit_window_button, cl.apply)}
           >
             <FaCheck />
@@ -53,7 +72,7 @@ export default function EditModal ({ modalsState, modalsDispatch }) {
           <div
             className={cn(cl.edit_window_button, cl.cancel)}
             onClick={() => {
-              handleClose()
+              handleClose();
             }}
           >
             <FaTimes />
@@ -61,5 +80,5 @@ export default function EditModal ({ modalsState, modalsDispatch }) {
         </div>
       </div>
     </Modal>
-  )
+  );
 }

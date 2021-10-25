@@ -8,13 +8,11 @@ import ProductsList from '../ProductsList/ProductsList';
 export default function Products() {
   const dispatch = useDispatch();
 
-  const {
-    ingridientsActionClearError,
-    productsActionClearError,
-  } = bindActionCreators(ActionCreators, dispatch);
+  const { ingridientsActionClearError, productsActionClearError } =
+    bindActionCreators(ActionCreators, dispatch);
 
   const [products, isProductsFetch, isProductsError] = useSelector(
-    ({ products }) => [products.products, products.isFetching, products.error]
+    ({ products }) => [products.products, products.isFetching, products.error],
   );
 
   const [ingridients, isIngridientsFetch, isIngridientsError] = useSelector(
@@ -22,7 +20,7 @@ export default function Products() {
       ingridients.ingridients,
       ingridients.isFetching,
       ingridients.error,
-    ]
+    ],
   );
 
   return isProductsFetch || isIngridientsFetch ? (

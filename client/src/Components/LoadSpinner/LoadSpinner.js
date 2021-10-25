@@ -1,7 +1,7 @@
-import React from "react";
-import { css } from "@emotion/react";
-import GridLoader from "react-spinners/GridLoader";
-import cl from './LoadSpinner.module.css'
+import React from 'react';
+import { css } from '@emotion/react';
+import GridLoader from 'react-spinners/GridLoader';
+import cl from './LoadSpinner.module.css';
 
 export default function LoadSpinner() {
   const override = css`

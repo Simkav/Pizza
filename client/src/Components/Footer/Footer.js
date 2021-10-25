@@ -1,6 +1,6 @@
-import React from "react";
-import cl from "./Footer.module.css";
-import cn from "classnames";
+import React from 'react';
+import cl from './Footer.module.css';
+import cn from 'classnames';
 
 export default function Footer() {
   return (

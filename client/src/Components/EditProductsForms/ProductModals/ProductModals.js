@@ -1,14 +1,14 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import ErrorModal from '../../ErrorModal/ErrorModal'
-import AddProductModal from '../AddProductModal/AddProductModal'
-import { productsActionClearError } from '../../../Actions/actionCreator'
-import DeleteProductModal from '../DeleteProductModal/DeleteProductModal'
-import EditProductModal from '../EditProductModal/EditProductModal'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrorModal from '../../ErrorModal/ErrorModal';
+import AddProductModal from '../AddProductModal/AddProductModal';
+import { productsActionClearError } from '../../../Actions/actionCreator';
+import DeleteProductModal from '../DeleteProductModal/DeleteProductModal';
+import EditProductModal from '../EditProductModal/EditProductModal';
 
-export default function ProductModals ({ modalsState, modalsDispatch }) {
-  const dispatch = useDispatch()
-  const isError = useSelector(({ products }) => products.error)
+export default function ProductModals({ modalsState, modalsDispatch }) {
+  const dispatch = useDispatch();
+  const isError = useSelector(({ products }) => products.error);
 
   return (
     <>
@@ -31,5 +31,5 @@ export default function ProductModals ({ modalsState, modalsDispatch }) {
         modalsDispatch={modalsDispatch}
       />
     </>
-  )
+  );
 }

@@ -1,0 +1,125 @@
+.col {
+  cursor: pointer;
+  max-height: 50vh;
+  color: black;
+  text-decoration: none;
+  flex: 0 1 20%;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--hover-main-color);
+  padding: 0 10px;
+  margin: 10px 10px;
+  border-radius: 10px;
+  transition: all 1s ease;
+}
+
+.cart_container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.col:hover {
+  background: var(--hover-main-color);
+  color: white;
+}
+
+.header_menu_text {
+  margin: 0px 15px;
+  min-width: max-content;
+  font-size: 1.5rem;
+}
+
+.arrow_down {
+  box-sizing: border-box;
+  margin: 0px 15px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition: border var(--arrow-down-grow-animation-time) ease,
+    transform var(--arrow-down-grow-animation-time) ease;
+}
+
+.arrow_active {
+  box-sizing: border-box;
+  transform: rotateX(180deg);
+  border: 5px solid transparent;
+  border-radius: 5px;
+}
+
+.cart_empty_container {
+  margin: 10px;
+  text-align: center;
+  font-size: 1.3rem;
+  flex: 1 0 100%;
+  color: black;
+}
+
+.cart_items_count {
+  font-size: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  border-radius: 50%;
+  padding: 5px;
+  min-width: 20px;
+  min-height: 20px;
+  background: #f7b333;
+}
+
+@media (max-width: 1280px) {
+  .col {
+    flex: 0 1 15%;
+  }
+  .header_menu_text {
+    margin: 0 5px;
+    font-size: 1.5vw;
+  }
+  .arrow_down {
+    margin: 0px 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header_menu_text {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .header_menu_text {
+    display: none;
+  }
+  .arrow_down {
+    display: none;
+  }
+  .col {
+    border: 1px solid var(--hover-main-color);
+    transition: all 1s ease;
+    margin: 0 5px;
+    padding: 10px;
+  }
+  .col:hover {
+    background: var(--hover-main-color);
+  }
+  .arrow_down {
+    border: 0px solid var(--hover-main-color);
+  }
+  .cart_items_count {
+    font-size: 0.8rem;
+    padding: 1px;
+  }
+  .product_count_container {
+    flex: 0 1 20%;
+  }
+  .cart_empty_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

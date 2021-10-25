@@ -1,4 +1,4 @@
-import ACTION from "../Actions/actionTypes";
+import ACTION from '../Actions/actionTypes';
 
 const initState = {
   ingridients: null,
@@ -103,7 +103,7 @@ export default function ingridientsReducer(state = initState, action) {
       return {
         ...state,
         error: null,
-      }
+      };
     }
 
     default:

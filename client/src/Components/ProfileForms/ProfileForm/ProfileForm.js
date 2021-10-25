@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
-import cl from "./ProfileForm.module.css";
-import cn from "classnames";
-import { useState } from "react";
-import { useFormik } from "formik";
-import { ProfilePersonalInfoItems } from "../../../Helpers/ProfilePersonalInfoItems";
+import { useSelector, useDispatch } from 'react-redux';
+import cl from './ProfileForm.module.css';
+import cn from 'classnames';
+import { useState } from 'react';
+import { useFormik } from 'formik';
+import { ProfilePersonalInfoItems } from '../../../Helpers/ProfilePersonalInfoItems';
 
 export default function ProfileForm() {
   const [isEdit, setIsEdit] = useState(false);
@@ -12,7 +12,7 @@ export default function ProfileForm() {
   const dispatch = useDispatch();
   const editUserPersonalInfo = (values) => {
     dispatch({
-      type: "EDIT_USER",
+      type: 'EDIT_USER',
       payload: {
         phone: values.phone,
         password: values.password,
@@ -34,11 +34,11 @@ export default function ProfileForm() {
 
   const ProfileFormik = useFormik({
     initialValues: {
-      phone: currentUser.phone === null ? "" : currentUser.phone,
-      password: currentUser.password === null ? "" : currentUser.password,
-      email: currentUser.email === null ? "" : currentUser.email,
-      firstName: currentUser.firstName === null ? "" : currentUser.firstName,
-      secondName: currentUser.secondName === null ? "" : currentUser.secondName,
+      phone: currentUser.phone === null ? '' : currentUser.phone,
+      password: currentUser.password === null ? '' : currentUser.password,
+      email: currentUser.email === null ? '' : currentUser.email,
+      firstName: currentUser.firstName === null ? '' : currentUser.firstName,
+      secondName: currentUser.secondName === null ? '' : currentUser.secondName,
     },
     onSubmit: (values) => {
       editUserPersonalInfo(values);
@@ -74,7 +74,7 @@ export default function ProfileForm() {
         {isEdit ? (
           <>
             <div className={cl.field_container}>
-              <button type={"submit"} className={cn(cl.button, cl.half)}>
+              <button type={'submit'} className={cn(cl.button, cl.half)}>
                 Подтвердить
               </button>
             </div>

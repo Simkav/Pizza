@@ -15,7 +15,7 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const { authActionClearError, authActionLogin } = bindActionCreators(
     ActionCreators,
-    dispatch
+    dispatch,
   );
 
   const [isFetch, isError] = useSelector(({ auth }) => [
@@ -58,7 +58,7 @@ export default function LoginForm() {
                   {
                     [cl.field_container_valid]:
                       !formikError[item.name] & formikTouched[item.name],
-                  }
+                  },
                 )}
               >
                 <label className={cl.label}>{item.labelText}</label>
@@ -73,7 +73,7 @@ export default function LoginForm() {
                     {
                       [cl.input_valid]:
                         !formikError[item.name] && formikTouched[item.name],
-                    }
+                    },
                   )}
                   name={item.name}
                   onChange={LoginFormik.handleChange}
