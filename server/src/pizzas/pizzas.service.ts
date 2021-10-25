@@ -28,8 +28,11 @@ export class PizzasService {
     return await this.cacheManager.get('pizzas');
   }
 
-  private async setCachedPizzas() {
+  private async deleteCachePizzas() {
     await this.cacheManager.del('pizzas');
+  }
+
+  private async setCachedPizzas() {
     const pizzas = await this.pizzaRepository.findAll({
       attributes: this.attributes,
       include: this.included,
@@ -78,18 +81,18 @@ export class PizzasService {
       createPizzaDto.ingredients,
     );
     await Pizza.$set('ingredients', findedIngredients);
-    this.setCachedPizzas();
+    this.deleteCachePizzas();
     return { Pizza, ingredients: findedIngredients };
   }
 
   async deleteInstance(instance: Pizza) {
     await instance.destroy();
-    this.setCachedPizzas();
+    this.deleteCachePizzas();
   }
 
   async updateInstance(instance: Pizza, updatePizzaDto: UpdatePizzaDto) {
     const updated = await instance.update(updatePizzaDto);
-    this.setCachedPizzas();
+    this.deleteCachePizzas();
     return updated;
   }
 
@@ -101,13 +104,13 @@ export class PizzasService {
       updateIngredientsDto.ingredients,
     );
     await instance.$set('ingredients', findedIngredients);
-    this.setCachedPizzas();
+    this.deleteCachePizzas();
     return findedIngredients;
   }
 
   async updateImage(instance: Pizza, image: Express.Multer.File) {
     const updatedPizza = await instance.update({ image: image.filename });
-    this.setCachedPizzas();
+    this.deleteCachePizzas();
     return { src: updatedPizza.image };
   }
 }
