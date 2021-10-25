@@ -8,7 +8,7 @@ import CONSTANTS from '../../../constants';
 import { cartActionUpdate } from '../../../Actions/actionCreator';
 import { Link } from 'react-router-dom';
 
-export default function HeaderCartPopUp() {
+export default function HeaderCartPopUp () {
   const dispatch = useDispatch();
   const [cartPopUp, setCartPopUp] = useState(false);
   const products = useSelector(({ products }) => products.products);
@@ -79,38 +79,42 @@ export default function HeaderCartPopUp() {
           })}
         ></FaChevronDown>
       </div>
-      <PopUpModule className={cl.cart} visible={cartPopUp}>
+      <PopUpModule visible={cartPopUp}>
         {cart && cart.length > 0 ? (
           <>
-            <ul className={cl.cart_items_container}>
-              {cart.map((item) =>
-                products.map((v) =>
-                  item.id === v.id ? (
-                    <li key={v.name} className={cl.cart_product_container}>
-                      <img
-                        src={CONSTANTS.PUBLIC_PATH + v.image}
-                        alt={v.name}
-                        className={cl.product_image}
-                      />
-                      <div className={cl.product_name_container}>
-                        <span className={cl.product_name}>{v.name}</span>
-                      </div>
-                      <div className={cl.product_count_container}>
-                        <FaMinus
-                          className={cl.product_count_button}
-                          onClick={() => handleCount('decrement', item.id)}
-                        />
-                        <span className={cl.product_count}>{item.count}</span>
-                        <FaPlus
-                          className={cl.product_count_button}
-                          onClick={() => handleCount('increment', item.id)}
-                        />
-                      </div>
-                    </li>
-                  ) : null,
-                ),
-              )}
-            </ul>
+            <div className={cl.cart_list_container}>
+              <ul className={cl.cart_items_container}>
+                {cart.map((item) =>
+                  products.map((v) =>
+                    item.id === v.id ? (
+                      <li key={v.name} className={cl.cart_product_container}>
+                        <div className={cl.product_image_link}>
+                          <img
+                            src={CONSTANTS.PUBLIC_PATH + v.image}
+                            alt={v.name}
+                            className={cl.product_image}
+                          />
+                        </div>
+                        <div className={cl.product_name_container}>
+                          <span className={cl.product_name}>{v.name}</span>
+                        </div>
+                        <div className={cl.product_count_container}>
+                          <FaMinus
+                            className={cl.product_count_button}
+                            onClick={() => handleCount('decrement', item.id)}
+                          />
+                          <span className={cl.product_count}>{item.count}</span>
+                          <FaPlus
+                            className={cl.product_count_button}
+                            onClick={() => handleCount('increment', item.id)}
+                          />
+                        </div>
+                      </li>
+                    ) : null,
+                  ),
+                )}
+              </ul>
+            </div>
             <div className={cl.cart_total_cart_price_container}>
               Всего: {getTotalCartPrice()}
             </div>
