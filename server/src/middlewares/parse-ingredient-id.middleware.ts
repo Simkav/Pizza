@@ -1,17 +1,15 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Response, NextFunction } from 'express';
-import { RequestWithUserIngredient } from '../types/requests';
+import { Response, NextFunction, Request } from 'express';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 
 @Injectable()
 export class ParseIngredientId implements NestMiddleware {
   constructor(private ingredientService: IngredientsService) {}
-  async use(req: RequestWithUserIngredient, res: Response, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction) {
     try {
-      const ingredientInstance = await this.ingredientService.findById(
+      req.ingredientInstance = await this.ingredientService.findById(
         Number(req.params.id),
       );
-      req.ingredientInstance = ingredientInstance;
       next();
     } catch (error) {
       next(error);

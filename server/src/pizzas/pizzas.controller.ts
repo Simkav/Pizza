@@ -28,7 +28,7 @@ import { PizzasService } from './pizzas.service';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CreatePizzaPipe } from 'src/pizzas/create-pizza.pipe';
-import { RequestWithUserPizza } from 'src/types/requests';
+import { Request } from 'express';
 
 @UseFilters(new SequelizeFilter())
 @Controller('pizzas')
@@ -50,7 +50,7 @@ export class PizzasController {
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: Number })
-  async delete(@Req() req: RequestWithUserPizza) {
+  async delete(@Req() req: Request) {
     return await this.pizzaService.deleteInstance(req.pizzaInstance);
   }
   @Patch('/:id')
@@ -59,7 +59,7 @@ export class PizzasController {
   @ApiParam({ name: 'id', type: Number })
   async update(
     @Body(new ValidationPipe()) updatePizzaDto: UpdatePizzaDto,
-    @Req() req: RequestWithUserPizza,
+    @Req() req: Request,
   ) {
     return await this.pizzaService.updateInstance(
       req.pizzaInstance,
@@ -98,7 +98,7 @@ export class PizzasController {
   })
   async updateImg(
     @UploadedFile() image: Express.Multer.File,
-    @Req() req: RequestWithUserPizza,
+    @Req() req: Request,
   ) {
     return await this.pizzaService.updateImage(req.pizzaInstance, image);
   }
@@ -108,7 +108,7 @@ export class PizzasController {
   @ApiBearerAuth()
   async updateIngredients(
     @Body(new ValidationPipe()) updateIngredientsDto: UpdateIngredientsDto,
-    @Req() req: RequestWithUserPizza,
+    @Req() req: Request,
   ) {
     return await this.pizzaService.updateIngredients(
       req.pizzaInstance,

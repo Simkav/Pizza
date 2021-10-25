@@ -1,5 +1,4 @@
 import { SequelizeFilter } from './../errorHandlers/sequelize-handler';
-import { RequestWithUserIngredient } from './../types/requests';
 import { ValidationPipe } from './../pipes/validation.pipe';
 import {
   Controller,
@@ -16,6 +15,7 @@ import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { CreateIngredientDto } from './dto/create-ingredient.dto';
 import { IngredientsService } from './ingredients.service';
+import { Request } from 'express';
 
 @UseFilters(new SequelizeFilter())
 @Controller('ingredients')
@@ -36,14 +36,14 @@ export class IngredientsController {
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: Number })
-  async getById(@Req() req: RequestWithUserIngredient) {
+  async getById(@Req() req: Request) {
     return req.ingredientInstance;
   }
   @Delete('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: Number })
-  async deleteById(@Req() req: RequestWithUserIngredient) {
+  async deleteById(@Req() req: Request) {
     return await this.ingredientService.destroyInstance(req.ingredientInstance);
   }
   @Patch('/:id')
@@ -51,7 +51,7 @@ export class IngredientsController {
   @ApiBearerAuth()
   @ApiParam({ name: 'id', type: Number })
   async updateIngredient(
-    @Req() req: RequestWithUserIngredient,
+    @Req() req: Request,
     @Body(new ValidationPipe()) ingredientDto: CreateIngredientDto,
   ) {
     return await this.ingredientService.update(
