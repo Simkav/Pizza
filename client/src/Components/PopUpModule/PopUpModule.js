@@ -12,6 +12,7 @@ export default function PopUpModule ({
     >
       <div
         className={cl.popup_children}
+        onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>
