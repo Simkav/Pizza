@@ -90,3 +90,41 @@ export const cartActionUpdate = (data) => ({
   type: ACTION.CART_ACTION_UPDATE_ITEM,
   data: data,
 });
+
+export const openAddModal = () => ({
+  type: ACTION.OPEN_ADD_MODAL,
+});
+
+export const openDeleteModal = (item) => ({
+  type: ACTION.OPEN_DELETE_MODAL,
+  payload: item,
+});
+
+export const openEditModal = (item) => ({
+  type: ACTION.OPEN_EDIT_MODAL,
+  payload: item,
+});
+
+export const onCloseAddModal = () => ({
+  type: ACTION.ON_CLOSE_ADD_MODAL,
+});
+
+export const onCloseDeleteModal = () => ({
+  type: ACTION.ON_CLOSE_DELETE_MODAL,
+});
+
+export const onCloseEditModal = () => ({
+  type: ACTION.ON_CLOSE_EDIT_MODAL,
+});
+
+export const onAddModalClosed = () => ({
+  type: ACTION.ON_ADD_MODAL_CLOSED,
+});
+
+export const onDeleteModalClosed = () => ({
+  type: ACTION.ON_DELETE_MODAL_CLOSED,
+});
+
+export const onEditModalClosed = () => ({
+  type: ACTION.ON_EDIT_MODAL_CLOSED,
+});
