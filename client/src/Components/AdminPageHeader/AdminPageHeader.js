@@ -1,13 +1,11 @@
 import React from 'react';
 import cl from './AdminPageHeader.module.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import PopUpModule from '../PopUpModule/PopUpModule';
-import useHovered from '../../Hooks/useHovered';
+import usePopUp from '../../Hooks/usePopUp';
 
 export default function AdminPageHeader () {
-  const [menuPopUp, setMenuPopUp] = useState(false);
-  const [isHovered, menuButtonRef] = useHovered();
+  const [isHovered, menuPopUp, menuButtonRef] = usePopUp()
 
   return (
     <div className={cl.auth_header}>
@@ -21,10 +19,7 @@ export default function AdminPageHeader () {
       <div className={cl.menu_button_container}>
         <div
           className={cl.menu_button}
-          tabIndex={0}
           ref={menuButtonRef}
-          onClick={() => setMenuPopUp((menuPopUp) => !menuPopUp)}
-          onBlur={() => setMenuPopUp(false)}
         >
           Меню
           <PopUpModule visible={menuPopUp} hovered={isHovered}>
