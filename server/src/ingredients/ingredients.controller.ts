@@ -1,4 +1,3 @@
-
 import { SequelizeFilter } from './../errorHandlers/sequelize-handler';
 import { RequestWithUserIngredient } from './../types/requests';
 import { ValidationPipe } from './../pipes/validation.pipe';
@@ -22,9 +21,9 @@ import { IngredientsService } from './ingredients.service';
 @Controller('ingredients')
 @ApiTags('ingredients')
 export class IngredientsController {
-  constructor (private ingredientService: IngredientsService) {}
+  constructor(private ingredientService: IngredientsService) {}
   @Get()
-  async getAll () {
+  async getAll() {
     return await this.ingredientService.getAll();
   }
   @Post()
