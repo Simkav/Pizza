@@ -27,23 +27,23 @@ import { UpdatePizzaDto } from './dto/update-pizza.dto';
 import { PizzasService } from './pizzas.service';
 import { isAdminGuard } from 'src/auth/isAdmin.guard';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
-import { CreatePizzaPipe } from 'src/pipes/create-pizza.pipe';
+import { CreatePizzaPipe } from 'src/pizzas/create-pizza.pipe';
 import { RequestWithUserPizza } from 'src/types/requests';
 
 @UseFilters(new SequelizeFilter())
 @Controller('pizzas')
 @ApiTags('pizza')
 export class PizzasController {
-  constructor (private pizzaService: PizzasService) {}
+  constructor(private pizzaService: PizzasService) {}
 
   @Get()
-  async getAll () {
+  async getAll() {
     return await this.pizzaService.getAll();
   }
   @Get('/:id')
   @UseGuards(isAdminGuard)
   @ApiBearerAuth()
-  async getById (@Param('id') id: number) {
+  async getById(@Param('id') id: number) {
     return await this.pizzaService.findById(id);
   }
   @Delete('/:id')
