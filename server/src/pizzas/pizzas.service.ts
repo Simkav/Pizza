@@ -5,24 +5,16 @@ import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { CreatePizzaDto } from './dto/create-pizza.dto';
 import { Pizza } from './pizza.model';
 import { UpdateIngredientsDto } from './dto/update-ingredients.dto';
-import { Ingredient } from 'src/ingredients/ingredients.model';
 import { Cache } from 'cache-manager';
-import { PizzaNotFound } from './errors/PizzaNotFound';
+import { PizzasRepository } from './pizza.repository';
 
 @Injectable()
 export class PizzasService {
   constructor(
-    @InjectModel(Pizza) private pizzaRepository: typeof Pizza,
+    @InjectModel(Pizza) private pizzaRepository: PizzasRepository,
     private ingredientsService: IngredientsService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
-
-  private readonly attributes = ['name', 'id', 'price', 'weight', 'image'];
-  private readonly included = {
-    model: Ingredient,
-    attributes: ['id'],
-    through: { attributes: [] },
-  };
 
   private async getCachedPizzas() {
     return await this.cacheManager.get('pizzas');
@@ -33,10 +25,7 @@ export class PizzasService {
   }
 
   private async setCachedPizzas() {
-    const pizzas = await this.pizzaRepository.findAll({
-      attributes: this.attributes,
-      include: this.included,
-    });
+    const pizzas = await this.pizzaRepository.getAll();
     await this.cacheManager.set('pizzas', pizzas, { ttl: 3600 });
     return pizzas;
   }
@@ -50,24 +39,11 @@ export class PizzasService {
   }
 
   async findByIdWithoutInclude(id: number) {
-    const pizza = await this.pizzaRepository.findByPk(id, {
-      attributes: this.attributes,
-    });
-    if (!pizza) {
-      throw new PizzaNotFound();
-    }
-    return pizza;
+    return await this.pizzaRepository.findByIdWithoutInclude(id);
   }
 
   async findById(id: number) {
-    const pizza = await this.pizzaRepository.findByPk(id, {
-      attributes: this.attributes,
-      include: this.included,
-    });
-    if (!pizza) {
-      throw new PizzaNotFound();
-    }
-    return pizza;
+    return await this.pizzaRepository.findById(id);
   }
 
   async create(createPizzaDto: CreatePizzaDto, img: Express.Multer.File) {
@@ -76,13 +52,13 @@ export class PizzasService {
       //TODO fix this
     }
     createPizzaDto.image = img.filename;
-    const Pizza = await this.pizzaRepository.create(createPizzaDto);
+    const instance = await this.pizzaRepository.create(createPizzaDto);
     const findedIngredients = await this.ingredientsService.findMany(
       createPizzaDto.ingredients,
     );
-    await Pizza.$set('ingredients', findedIngredients);
+    await this.pizzaRepository.updateIngredients(instance, findedIngredients);
     this.deleteCachePizzas();
-    return { Pizza, ingredients: findedIngredients };
+    return { Pizza: instance, ingredients: findedIngredients };
   }
 
   async deleteInstance(instance: Pizza) {
@@ -103,14 +79,17 @@ export class PizzasService {
     const findedIngredients = await this.ingredientsService.findMany(
       updateIngredientsDto.ingredients,
     );
-    await instance.$set('ingredients', findedIngredients);
+    await this.pizzaRepository.updateIngredients(instance, findedIngredients);
     this.deleteCachePizzas();
     return findedIngredients;
   }
 
   async updateImage(instance: Pizza, image: Express.Multer.File) {
-    const updatedPizza = await instance.update({ image: image.filename });
+    const updatedImagePath = await this.pizzaRepository.updateImage(
+      instance,
+      image.filename,
+    );
     this.deleteCachePizzas();
-    return { src: updatedPizza.image };
+    return { src: updatedImagePath };
   }
 }
