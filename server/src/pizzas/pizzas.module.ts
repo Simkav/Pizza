@@ -13,6 +13,7 @@ import { ParsePizzaId } from 'src/middlewares/parse-pizza-id.middleware';
 import { fileFilter, limits, storage } from './multer-config';
 import { PizzaIngredients } from './pizza-ingredients.model';
 import { Pizza } from './pizza.model';
+import { PizzasRepository } from './pizza.repository';
 import { PizzasController } from './pizzas.controller';
 import { PizzasService } from './pizzas.service';
 
@@ -29,10 +30,10 @@ import { PizzasService } from './pizzas.service';
   ],
 
   controllers: [PizzasController],
-  providers: [PizzasService],
+  providers: [PizzasService, PizzasRepository],
 })
 export class PizzasModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
+  configure (consumer: MiddlewareConsumer) {
     consumer
       .apply(ParsePizzaId)
       .exclude('pizzas', { path: 'pizzas/(.*)', method: RequestMethod.GET })
