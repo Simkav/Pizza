@@ -1,6 +1,6 @@
 const iconsPath = '/icons/MenuIcons/';
 
-export const AsideMenuList = [
+export const AsideMenuItemList = [
   { name: 'SALE', image: iconsPath + 'tile003.png' },
   { name: 'Пицца', image: iconsPath + 'tile000.png' },
   { name: 'Суши и роллы', image: iconsPath + 'tile002.png' },
