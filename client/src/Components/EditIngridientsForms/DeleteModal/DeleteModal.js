@@ -2,7 +2,7 @@ import Modal from '../../Modal/Modal';
 import cl from './DeleteModal.module.css';
 import cn from 'classnames';
 import { FaTimes, FaCheck } from 'react-icons/fa';
-import { useLayoutEffect, useState } from 'react';
+import { memo, useLayoutEffect, useState } from 'react';
 import { ingridientsActionRemove } from '../../../Actions/actionCreator';
 import { useDispatch } from 'react-redux';
 import {
@@ -10,18 +10,18 @@ import {
   onDeleteModalClosed,
 } from '../../../Actions/actionCreator';
 
-export default function DeleteModal ({ modalsState, modalsDispatch }) {
+export default memo(function DeleteModal ({ deleteModalState, modalsDispatch }) {
   const dispatch = useDispatch();
   const [removeIngridient, setRemoveIngridient] = useState(
-    modalsState.deleteModal.name,
+    deleteModalState.name,
   );
 
   useLayoutEffect(() => {
-    if (!removeIngridient) setRemoveIngridient(modalsState.deleteModal.name);
-  }, [modalsState.deleteModal.name]);
+    if (!removeIngridient) setRemoveIngridient(deleteModalState.name);
+  }, [deleteModalState.name]);
 
   const handleSubmit = () => {
-    dispatch(ingridientsActionRemove(modalsState.deleteModal.id));
+    dispatch(ingridientsActionRemove(deleteModalState.id));
     handleClose();
   };
 
@@ -33,7 +33,7 @@ export default function DeleteModal ({ modalsState, modalsDispatch }) {
 
   return (
     <Modal
-      visible={modalsState.deleteModal.state}
+      visible={deleteModalState.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
@@ -59,4 +59,4 @@ export default function DeleteModal ({ modalsState, modalsDispatch }) {
       </div>
     </Modal>
   );
-}
+})
