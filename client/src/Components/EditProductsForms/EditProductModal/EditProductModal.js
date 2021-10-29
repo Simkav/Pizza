@@ -6,7 +6,7 @@ import UploadImageForm from '../UploadImageForm/UploadImageForm';
 import IngridientsChooseForm from '../IngridientsChooseForm/IngridientsChooseForm';
 import { newProductSchema } from '../../../Validations/NewProductSchema';
 import { useFormik } from 'formik';
-import { useLayoutEffect } from 'react';
+import { memo, useLayoutEffect } from 'react';
 import { productsActionUpdate } from '../../../Actions/actionCreator';
 import { useDispatch, useSelector } from 'react-redux';
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems';
@@ -17,8 +17,10 @@ import {
   onEditModalClosed,
 } from '../../../Actions/actionCreator';
 
-export default function EditProductModal ({ modalsState, modalsDispatch }) {
-  const editModal = modalsState.editModal;
+export default memo(function EditProductModal ({
+  editModalState,
+  modalsDispatch,
+}) {
   const dispatch = useDispatch();
   const mainProducts = useSelector(({ products }) => products.products);
 
@@ -27,32 +29,32 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
       await API.ProductsCRUDApi.getProductImage(prop).then((result) => result);
 
     async function init () {
-      if (!editModal.state && editModal.closed) {
+      if (!editModalState.state && editModalState.closed) {
         NewProductFormik.resetForm();
         NewProductFormik.setFieldValue('state', false);
       }
-      if (editModal.state && editModal.product) {
+      if (editModalState.state && editModalState.product) {
         NewProductFormik.setFieldValue(
           'products',
           mainProducts
             .map((item) => item.name)
-            .filter((v) => v !== editModal.product.name),
+            .filter((v) => v !== editModalState.product.name),
         );
-        for (let prop in editModal.product) {
+        for (let prop in editModalState.product) {
           if (prop === 'image') {
             NewProductFormik.setFieldValue(
               'image',
-              await getImage(editModal.product[prop]),
+              await getImage(editModalState.product[prop]),
             );
           } else {
-            NewProductFormik.setFieldValue(prop, editModal.product[prop]);
+            NewProductFormik.setFieldValue(prop, editModalState.product[prop]);
             NewProductFormik.setFieldTouched(prop, true);
           }
         }
       }
     }
     init();
-  }, [mainProducts, editModal]);
+  }, [mainProducts, editModalState]);
 
   const NewProductFormik = useFormik({
     enableReinitialize: true,
@@ -88,7 +90,7 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
 
   return (
     <Modal
-      visible={editModal.state}
+      visible={editModalState.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
@@ -127,4 +129,4 @@ export default function EditProductModal ({ modalsState, modalsDispatch }) {
       </form>
     </Modal>
   );
-}
+});
