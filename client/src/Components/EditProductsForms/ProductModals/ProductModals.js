@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorModal from '../../ErrorModal/ErrorModal';
 import AddProductModal from '../AddProductModal/AddProductModal';
@@ -6,7 +5,7 @@ import { productsActionClearError } from '../../../Actions/actionCreator';
 import DeleteProductModal from '../DeleteProductModal/DeleteProductModal';
 import EditProductModal from '../EditProductModal/EditProductModal';
 
-export default function ProductModals({ modalsState, modalsDispatch }) {
+export default function ProductModals ({ modalsState, modalsDispatch }) {
   const dispatch = useDispatch();
   const isError = useSelector(({ products }) => products.error);
 
@@ -19,15 +18,15 @@ export default function ProductModals({ modalsState, modalsDispatch }) {
         />
       ) : null}
       <AddProductModal
-        modalsState={modalsState}
+        addModalState={modalsState.addModal}
         modalsDispatch={modalsDispatch}
       />
       <DeleteProductModal
-        modalsState={modalsState}
+        deleteModalState={modalsState.deleteModal}
         modalsDispatch={modalsDispatch}
       />
       <EditProductModal
-        modalsState={modalsState}
+        editModalState={modalsState.editModal}
         modalsDispatch={modalsDispatch}
       />
     </>
