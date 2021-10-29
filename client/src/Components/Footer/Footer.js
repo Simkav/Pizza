@@ -1,8 +1,8 @@
-import React from 'react';
+import { memo } from 'react';
 import cl from './Footer.module.css';
 import cn from 'classnames';
 
-export default function Footer() {
+export default memo(function Footer () {
   return (
     <div className={cn(cl.footer_container)}>
       <div className={cl.footer_copyright_container}>
@@ -10,4 +10,4 @@ export default function Footer() {
       </div>
     </div>
   );
-}
+});
