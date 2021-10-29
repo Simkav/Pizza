@@ -12,7 +12,7 @@
   padding: 0 10px;
   margin: 10px 10px;
   border-radius: 10px;
-  transition: all 1s ease;
+  transition: all 1s linear;
 }
 
 .col:hover {
