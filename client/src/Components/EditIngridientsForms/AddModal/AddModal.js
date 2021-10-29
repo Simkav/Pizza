@@ -2,7 +2,7 @@ import Modal from '../../Modal/Modal';
 import cl from './AddModal.module.css';
 import cn from 'classnames';
 import { FaTimes, FaCheck } from 'react-icons/fa';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ingridientsActionCreate } from '../../../Actions/actionCreator';
 import EditIngridientInput from '../EditIngridientInput/EditIngridientInput';
@@ -11,7 +11,7 @@ import {
   onAddModalClosed,
 } from '../../../Actions/actionCreator';
 
-export default function AddModal ({ modalsState, modalsDispatch }) {
+export default memo(function AddModal ({ addModalState, modalsDispatch }) {
   const dispatch = useDispatch();
   const [newIngridient, setNewIngridient] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
@@ -44,7 +44,7 @@ export default function AddModal ({ modalsState, modalsDispatch }) {
 
   return (
     <Modal
-      visible={modalsState.addModal.state}
+      visible={addModalState.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
@@ -72,4 +72,4 @@ export default function AddModal ({ modalsState, modalsDispatch }) {
       </div>
     </Modal>
   );
-}
+});
