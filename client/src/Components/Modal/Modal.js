@@ -1,7 +1,8 @@
 import cl from './Modal.module.css';
 import ReactModal from 'react-modal';
+import { memo } from 'react';
 
-export default function Modal({
+export default memo(function Modal({
   children,
   visible,
   handleClose,
@@ -25,4 +26,4 @@ export default function Modal({
       {children}
     </ReactModal>
   );
-}
+})
