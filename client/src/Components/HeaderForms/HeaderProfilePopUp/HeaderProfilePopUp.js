@@ -1,24 +1,22 @@
 import cl from './HeaderProfilePopUp.module.css';
 import cn from 'classnames';
 import { FaChevronDown, FaUser } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authActionClear } from '../../../Actions/actionCreator';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import usePopUp from '../../../Hooks/usePopUp';
+import useShallowEqualSelector from '../../../Hooks/useShallowEqualSelector';
+import { memo } from 'react';
 
-export default function HeaderProfilePopUp () {
+export default memo(function HeaderProfilePopUp () {
   const dispatch = useDispatch();
   const [isHovered, profilePopUp, menuButtonRef] = usePopUp();
 
-  const [isUserAuth, isAdmin] = useSelector(({ auth }) => [
+  const [isUserAuth, isAdmin] = useShallowEqualSelector(({ auth }) => [
     auth.user,
     auth.user ? auth.user.isAdmin : false,
   ]);
-
-  const setLogOut = () => {
-    dispatch(authActionClear());
-  };
 
   return (
     <div ref={menuButtonRef} className={cl.col}>
@@ -42,13 +40,16 @@ export default function HeaderProfilePopUp () {
             <Link className={cl.profile_link} to={'/profile'}>
               Персональная информация
             </Link>
-            <div className={cl.profile_link} onClick={setLogOut}>
+            <div
+              className={cl.profile_link}
+              onClick={() => dispatch(authActionClear())}
+            >
               Выйти
             </div>
           </PopUpModule>
         </>
       ) : (
-        <Link className={cl.col} to={'/login'}>
+        <Link to={'/login'}>
           <div className={cl.button_container}>
             <FaUser />
             <span className={cl.header_menu_text}>Войти</span>
@@ -57,4 +58,4 @@ export default function HeaderProfilePopUp () {
       )}
     </div>
   );
-}
+});
