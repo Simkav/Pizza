@@ -4,6 +4,7 @@ import IngridientContainer from '../IngridientContainer/IngridientContainer';
 import IngridientModals from '../IngridientModals/IngridientModals';
 import useModalsReducer from '../../../Hooks/useModalsReducer';
 import { openAddModal } from '../../../Actions/actionCreator';
+import { useMemo } from 'react';
 
 export default function EditIngridientsForm () {
   const ingridients = useSelector(({ ingridients }) => ingridients.ingridients);
@@ -13,15 +14,19 @@ export default function EditIngridientsForm () {
     <div className={cl.edit_ingridients_form_container}>
       <h1 className={cl.edit_ingridients_form_title}>Ингридиенты</h1>
       <div className={cl.edit_ingridients_form_wrapper}>
-        {ingridients
-          ? ingridients.map((item) => (
-              <IngridientContainer
-                key={item.id}
-                item={item}
-                modalsDispatch={modalsDispatch}
-              />
-            ))
-          : null}
+        {useMemo(
+          () =>
+            ingridients
+              ? ingridients.map((item) => (
+                  <IngridientContainer
+                    key={item.id}
+                    item={item}
+                    modalsDispatch={modalsDispatch}
+                  />
+                ))
+              : null,
+          [ingridients],
+        )}
         {
           <IngridientModals
             modalsState={modalsState}
