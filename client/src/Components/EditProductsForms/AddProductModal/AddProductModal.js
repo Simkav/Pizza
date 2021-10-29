@@ -6,7 +6,7 @@ import UploadImageForm from '../UploadImageForm/UploadImageForm';
 import IngridientsChooseForm from '../IngridientsChooseForm/IngridientsChooseForm';
 import { newProductSchema } from '../../../Validations/NewProductSchema';
 import { useFormik } from 'formik';
-import { useLayoutEffect } from 'react';
+import { memo, useLayoutEffect } from 'react';
 import { productsActionCreate } from '../../../Actions/actionCreator';
 import { useDispatch, useSelector } from 'react-redux';
 import { NewProductFormInputItems } from '../../../Helpers/NewProductFormInputItems';
@@ -16,13 +16,16 @@ import {
   onAddModalClosed,
 } from '../../../Actions/actionCreator';
 
-export default function AddProductModal ({ modalsState, modalsDispatch }) {
+export default memo(function AddProductModal ({
+  addModalState,
+  modalsDispatch,
+}) {
   const dispatch = useDispatch();
   useLayoutEffect(() => {
-    if (!modalsState.addModal.state && modalsState.addModal.closed) {
+    if (!addModalState.state && addModalState.closed) {
       NewProductFormik.resetForm();
     }
-  }, [modalsState.addModal]);
+  }, [addModalState]);
 
   const products = useSelector(({ products }) => products.products);
 
@@ -56,7 +59,7 @@ export default function AddProductModal ({ modalsState, modalsDispatch }) {
 
   return (
     <Modal
-      visible={modalsState.addModal.state}
+      visible={addModalState.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
@@ -95,4 +98,4 @@ export default function AddProductModal ({ modalsState, modalsDispatch }) {
       </form>
     </Modal>
   );
-}
+});
