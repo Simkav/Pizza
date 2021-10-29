@@ -1,6 +1,6 @@
 import cl from './HeaderCartPopUp.module.css';
 import cn from 'classnames';
-import { useLayoutEffect } from 'react';
+import { memo, useLayoutEffect } from 'react';
 import { FaChevronDown, FaShoppingCart } from 'react-icons/fa';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { cartActionUpdate } from '../../../Actions/actionCreator';
 import HeaderCartItemsList from '../HeaderCartItemsList/HeaderCartItemsList';
 import usePopUp from '../../../Hooks/usePopUp';
 
-export default function HeaderCartPopUp () {
+export default memo(function HeaderCartPopUp () {
   const dispatch = useDispatch();
   const [isHovered, cartPopUp, menuButtonRef] = usePopUp();
   const cart = useSelector(({ cart }) => cart.cartItems);
@@ -55,4 +55,4 @@ export default function HeaderCartPopUp () {
       </PopUpModule>
     </div>
   );
-}
+})
