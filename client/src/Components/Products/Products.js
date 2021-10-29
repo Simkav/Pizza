@@ -1,27 +1,33 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as ActionCreators from '../../Actions/actionCreator';
 import { bindActionCreators } from 'redux';
 import LoadSpinner from '../LoadSpinner/LoadSpinner';
 import ErrorModal from '../ErrorModal/ErrorModal';
 import ProductsList from '../ProductsList/ProductsList';
+import { memo } from 'react';
+import useShallowEqualSelector from '../../Hooks/useShallowEqualSelector';
 
-export default function Products() {
+export default memo(function Products () {
   const dispatch = useDispatch();
 
-  const { ingridientsActionClearError, productsActionClearError } =
-    bindActionCreators(ActionCreators, dispatch);
+  const {
+    ingridientsActionClearError,
+    productsActionClearError,
+  } = bindActionCreators(ActionCreators, dispatch);
 
-  const [products, isProductsFetch, isProductsError] = useSelector(
+  const [products, isProductsFetch, isProductsError] = useShallowEqualSelector(
     ({ products }) => [products.products, products.isFetching, products.error],
   );
 
-  const [ingridients, isIngridientsFetch, isIngridientsError] = useSelector(
-    ({ ingridients }) => [
-      ingridients.ingridients,
-      ingridients.isFetching,
-      ingridients.error,
-    ],
-  );
+  const [
+    ingridients,
+    isIngridientsFetch,
+    isIngridientsError,
+  ] = useShallowEqualSelector(({ ingridients }) => [
+    ingridients.ingridients,
+    ingridients.isFetching,
+    ingridients.error,
+  ]);
 
   return isProductsFetch || isIngridientsFetch ? (
     <LoadSpinner />
@@ -35,4 +41,4 @@ export default function Products() {
   ) : products ? (
     <ProductsList products={products} ingridients={ingridients} />
   ) : null;
-}
+});
