@@ -1,0 +1,56 @@
+.aside_container {
+  --aside-hamburger-menu-open-animation-time: 1s;
+  --aside-main-color: rgb(255, 255, 255);
+  --aside-item-contrast: contrast(100%);
+  --aside-item-border-color: rgb(155, 155, 155);
+  --aside-item-link-color: black;
+  --hover-effect-transition-time: 0.5s;
+  --hover-item-color: rgb(184, 0, 0);
+  --navigation-menu-right-arrow-state: none;
+  --header-height: 90px;
+
+  position: absolute;
+  bottom: 0;
+  margin-top: var(--header-height);
+  z-index: 10;
+  width: 270px;
+  left: -290px;
+  min-height: calc(100% - var(--header-height));
+  max-height: calc(100% - var(--header-height));
+  background: var(--aside-main-color);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow-y: auto;
+  transition: all var(--aside-hamburger-menu-open-animation-time) ease;
+}
+
+.aside_active {
+  transform: translateX(290px);
+}
+
+.aside_container:focus-visible {
+  outline: none;
+}
+
+.aside_copyright_container {
+  font-size: 1rem;
+  padding: 15px;
+  bottom: 15px;
+  color: rgb(122, 122, 122);
+}
+
+/* Всегда показывать меню при минимальной ширине 1440px */
+@media (min-width: 1440px) {
+  .aside_container {
+    left: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .aside_container {
+    bottom: 71px;
+  }
+}
