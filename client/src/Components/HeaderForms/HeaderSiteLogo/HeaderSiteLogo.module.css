@@ -1,0 +1,28 @@
+.site_logo_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s linear;
+}
+
+.site_logo {
+  user-select: none;
+  max-height: 100%;
+  transition: all 1s linear;
+}
+
+@media (max-width: 768px) {
+  .site_logo_container {
+    margin: 0px 25px;
+  }
+  .site_logo {
+    height: 50px;
+    transition: all 1s ease;
+  }
+}
+
+@media (min-width: 1440px) {
+  .site_logo_container {
+    margin: 0;
+  }
+}
