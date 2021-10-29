@@ -1,4 +1,5 @@
 .product_image_container {
+  flex: 0 1 30%;
   padding-top: 30px;
 }
 
