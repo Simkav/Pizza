@@ -4,8 +4,9 @@ import ProductImage from '../../ProductForms/ProductImage/ProductImage';
 import ProductIngridients from '../../ProductForms/ProductIngridients/ProductIngridients';
 import cl from './EditProduct.module.css';
 import { openEditModal, openDeleteModal } from '../../../Actions/actionCreator';
+import { memo } from 'react';
 
-export default function EditProduct ({ item, ingridients, modalsDispatch }) {
+export default memo(function EditProduct ({ item, ingridients, modalsDispatch }) {
   return (
     <li key={item.id} className={cl.product}>
       {
@@ -38,4 +39,4 @@ export default function EditProduct ({ item, ingridients, modalsDispatch }) {
       }
     </li>
   );
-}
+})
