@@ -1,0 +1,19 @@
+.menu_link {
+  text-shadow: none;
+  align-self: stretch;
+  font-size: 1rem;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  transition: all 0.5s ease;
+  padding: 10px;
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.menu_link:hover {
+  color: white;
+  z-index: +1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background: rgb(175, 175, 175);
+}
