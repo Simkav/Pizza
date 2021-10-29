@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorModal from '../../ErrorModal/ErrorModal';
 import AddModal from '../AddModal/AddModal';
@@ -19,9 +18,9 @@ export default function IngridientModals({ modalsState, modalsDispatch }) {
         />
       ) : null}
 
-      <EditModal modalsState={modalsState} modalsDispatch={modalsDispatch} />
-      <DeleteModal modalsState={modalsState} modalsDispatch={modalsDispatch} />
-      <AddModal modalsState={modalsState} modalsDispatch={modalsDispatch} />
+      <EditModal editModalState={modalsState.editModal} modalsDispatch={modalsDispatch} />
+      <DeleteModal deleteModalState={modalsState.deleteModal} modalsDispatch={modalsDispatch} />
+      <AddModal addModalState={modalsState.addModal} modalsDispatch={modalsDispatch} />
     </>
   );
 }
