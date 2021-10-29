@@ -2,7 +2,7 @@ import Modal from '../../Modal/Modal';
 import cl from './EditModal.module.css';
 import cn from 'classnames';
 import { FaTimes, FaCheck } from 'react-icons/fa';
-import { useLayoutEffect, useState } from 'react';
+import { memo, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ingridientsActionUpdate } from '../../../Actions/actionCreator';
 import EditIngridientInput from '../EditIngridientInput/EditIngridientInput';
@@ -11,21 +11,21 @@ import {
   onEditModalClosed,
 } from '../../../Actions/actionCreator';
 
-export default function EditModal ({ modalsState, modalsDispatch }) {
+export default memo(function EditModal ({ editModalState, modalsDispatch }) {
   const dispatch = useDispatch();
-  const [newName, setNewName] = useState(modalsState.editModal.name);
+  const [newName, setNewName] = useState(editModalState.name);
   const [isInvalid, setIsInvalid] = useState(false);
 
   const ingridients = useSelector(({ ingridients }) => ingridients.ingridients);
 
   useLayoutEffect(() => {
-    if (modalsState.editModal.state && !newName) {
-      setNewName(modalsState.editModal.name);
+    if (editModalState.state && !newName) {
+      setNewName(editModalState.name);
     }
-  }, [modalsState.editModal]);
+  }, [editModalState]);
 
   const handleSubmit = () => {
-    const editableIngridient = { id: modalsState.editModal.id, name: newName };
+    const editableIngridient = { id: editModalState.id, name: newName };
     dispatch(ingridientsActionUpdate(editableIngridient));
     handleClose();
   };
@@ -51,7 +51,7 @@ export default function EditModal ({ modalsState, modalsDispatch }) {
 
   return (
     <Modal
-      visible={modalsState.editModal.state}
+      visible={editModalState.state}
       handleClose={handleClose}
       handleClosed={handleClosed}
     >
@@ -81,4 +81,4 @@ export default function EditModal ({ modalsState, modalsDispatch }) {
       </div>
     </Modal>
   );
-}
+});
