@@ -4,8 +4,9 @@ import { FaChevronDown, FaPhone } from 'react-icons/fa';
 import PopUpModule from '../../PopUpModule/PopUpModule';
 import { HeaderContactPhonesList } from '../../../Helpers/HeaderContactPhonesList';
 import usePopUp from '../../../Hooks/usePopUp';
+import { memo } from 'react';
 
-export default function HeaderContactsPopUp () {
+export default memo(function HeaderContactsPopUp () {
   const [isHovered, contactsPopUp, menuButtonRef] = usePopUp();
 
   return (
@@ -37,4 +38,4 @@ export default function HeaderContactsPopUp () {
       </PopUpModule>
     </div>
   );
-}
+})
