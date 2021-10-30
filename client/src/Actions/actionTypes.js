@@ -85,7 +85,6 @@ const productsActionUpdateTypes = {
 
 const miscActionTypes = {
   CLEAR_STORE: 'CLEAR_STORE',
-  ASIDE_TOGGLE: 'ASIDE_TOGGLE',
 };
 
 const cartActionTypes = {
