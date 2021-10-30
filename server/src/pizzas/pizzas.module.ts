@@ -33,7 +33,7 @@ import { PizzasService } from './pizzas.service';
   providers: [PizzasService, PizzasRepository],
 })
 export class PizzasModule implements NestModule {
-  configure (consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(ParsePizzaId)
       .exclude('pizzas', { path: 'pizzas/(.*)', method: RequestMethod.GET })
