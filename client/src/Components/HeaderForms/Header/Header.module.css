@@ -16,61 +16,17 @@
   flex-direction: row;
   justify-content: space-between;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-
-.hamburger_menu_container {
-  width: 100px;
-  height: auto;
-  min-width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 2rem;
-  transition: all var(--hamburger-menu-grow-animation-time) linear;
-}
-
-.hamburger_menu_active {
-  background: var(--hover-main-color);
-  transform: rotateY(180deg);
-}
-
-.hover_element:hover {
-  background: var(--hover-main-color);
-  color: white;
-  width: auto;
-  height: auto;
-}
-
-@media (max-width: 650px) {
-  .header {
-    transition: all 1s ease;
-  }
+  transition: all 1s linear;
 }
 
 @media (max-width: 767px) {
   .header {
     font-size: 1.5rem;
-    transition: all 1s ease;
-  }
-  .hamburger_menu_container {
-    order: 1;
   }
 }
 
 @media (min-width: 980px) {
   .header {
     font-size: 1.5rem;
-    transition: all 1s ease;
-  }
-}
-
-/* Не показывать кнопку меню при ширине минимум 1440px */
-@media (min-width: 1440px) {
-  .hamburger_menu_container,
-  .hover_element {
-    min-width: 0;
-    width: 0;
-    opacity: 0;
   }
 }
