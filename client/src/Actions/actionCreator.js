@@ -1,10 +1,5 @@
 import ACTION from './actionTypes';
 
-export const asideToggle = (data) => ({
-  type: ACTION.ASIDE_TOGGLE,
-  data: data,
-});
-
 export const requestAuthRefresh = (refreshToken) => ({
   type: ACTION.AUTH_REFRESH,
   data: { refreshToken },
