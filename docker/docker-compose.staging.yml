@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  &app-web-service app-web-service:
+    command: npm run staging
+    ports: 
+      - "3000:3000"
+
+  &api-web-service api-web-service:
+    command: make run_prod
+    ports: 
+      - "3001:3001"

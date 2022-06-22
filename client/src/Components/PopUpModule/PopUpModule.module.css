@@ -1,0 +1,91 @@
+.popup {
+  --popup-min-width: 100px;
+  --popup-min-height: 100px;
+  --popup-main-color: rgb(255, 255, 255);
+  overflow-x: auto;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: +9999;
+  top: calc(var(--header-height) - 10px);
+  min-width: var(--popup-min-width);
+  min-height: fit-content;
+  height: fit-content;
+  max-height: calc(100% - 90px);
+  background: var(--popup-main-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
+}
+
+.popup:before {
+  position: absolute;
+  z-index: 100;
+  top: -21.7px;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 12.5px 21.7px 12.5px;
+  border-color: transparent transparent var(--popup-main-color) transparent;
+  transition: all 0.5s ease;
+}
+
+.popup_children {
+  max-height: calc(100% - 90px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  margin: auto 0;
+}
+
+.popup::-webkit-scrollbar {
+  width: 0.2rem;
+}
+
+.popup::-webkit-scrollbar-track {
+  border-radius: 5%;
+  margin: 10px 0;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.popup::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.active {
+  display: flex;
+}
+
+@media (max-width: 650px) {
+  .popup:before {
+    opacity: 0;
+  }
+  .popup {
+    left: 15px;
+    right: 15px;
+    top: auto;
+    bottom: 50px;
+    max-width: 100%;
+    justify-content: baseline;
+    height: calc(100% - 140px);
+  }
+  .popup_children {
+    max-height: fit-content;
+    box-sizing: border-box;
+    flex-direction: column;
+    /*     margin: 0; */
+    min-height: 100%;
+
+    width: 100%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .popup_children {
+    padding: 5px;
+  }
+}

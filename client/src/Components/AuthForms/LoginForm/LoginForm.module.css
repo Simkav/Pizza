@@ -1,0 +1,146 @@
+.row {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.field_container {
+  position: relative;
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.field_container_flex {
+  font-size: 1rem;
+  display: flex;
+  flex: 0 1 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex_start {
+  justify-content: flex-start;
+}
+
+.flex_end {
+  justify-content: flex-end;
+}
+
+.input {
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  border: 2px solid black;
+  border-radius: 4px;
+  transition: border 0.5s ease;
+}
+
+.input_invalid {
+  border: 2px solid red;
+}
+
+.input_valid {
+  border: 2px solid rgb(0, 168, 0);
+}
+
+.field_container_valid::after {
+  opacity: 1;
+  position: absolute;
+  right: -25px;
+  color: green;
+  content: "✓";
+}
+
+.row.error_text {
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.input_error_text {
+  justify-self: flex-start;
+  font-size: 0.8rem;
+  color: red;
+}
+
+.label {
+  color: gray;
+  font-size: 0.7rem;
+  position: absolute;
+  top: 5px;
+  left: 17px;
+  user-select: none;
+  background: transparent;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input_empty > .label {
+  font-size: 0.9rem;
+  top: 1em;
+  left: 15px;
+}
+
+.field_container:focus-within > .label {
+  font-size: 0.7rem;
+  top: 5px;
+  left: 17px;
+}
+
+.forgot_password {
+  user-select: none;
+  color: black;
+  text-decoration: none;
+}
+
+.button {
+  min-height: 56px;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+  font-size: 1.3rem;
+  flex: 1 1 100%;
+  text-align: center;
+  user-select: none;
+  color: black;
+  padding: 15px 60px;
+  border-radius: 10px;
+  border: 1px solid rgb(175, 175, 175);
+  text-decoration: none;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.button:hover {
+  color: white;
+  background: rgb(175, 175, 175);
+}
+
+.button_active {
+  cursor: auto;
+  pointer-events: all;
+  opacity: 1;
+  color: white;
+  background: green;
+}
+
+.button.button_active:hover {
+  background: rgb(0, 185, 0);
+  border: 1px solid rgb(0, 185, 0);
+}
+
+.active {
+  display: flex;
+}
+
+@media (max-width: 650px) {
+  .field_container_flex {
+    font-size: 0.7rem;
+  }
+  .button {
+    font-size: 1rem;
+  }
+  .field_container_valid::after {
+    margin-right: 5px;
+  }
+}

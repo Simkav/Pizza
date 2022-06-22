@@ -1,0 +1,12 @@
+.product_image_container {
+  padding-top: 30px;
+}
+
+.product_image {
+  user-select: none;
+}
+
+.product_image {
+  max-width: 250px;
+  max-height: 180px;
+}

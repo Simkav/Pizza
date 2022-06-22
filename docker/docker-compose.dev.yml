@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  &app-web-service app-web-service:
+    command: npm run start
+    ports: 
+      - "3000:3000"
+
+  &api-web-service api-web-service:
+    command: make start
+    ports: 
+      - "3001:3001"
+
+  &postgres-db-service postgres-db-service:
+    ports: 
+      - "5432:5432"

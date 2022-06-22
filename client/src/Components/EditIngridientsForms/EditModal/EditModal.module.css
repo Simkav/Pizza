@@ -1,0 +1,67 @@
+.edit_ingridient_window {
+  margin: auto;
+  padding: 10px 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  max-width: 280px;
+  max-height: fit-content;
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.modal_title {
+  flex: 0 1 20%;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.edit_ingridient_input {
+  flex: 0 1 20%;
+  text-align: left;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.05);
+  border: 0px solid rgb(175, 175, 175);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+.edit_window_buttons_container {
+  align-self: stretch;
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.edit_window_button {
+  padding: 5px 0;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 1 30%;
+  border: none;
+  font-size: 24px;
+}
+
+.apply {
+  background: green;
+}
+
+.cancel {
+  background: rgb(185, 0, 0);
+}
+
+.edit_window_button:hover {
+  filter: saturate(2);
+}
